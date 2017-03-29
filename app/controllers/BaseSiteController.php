@@ -8,10 +8,11 @@
 
 class BaseSiteController extends BaseController{
     protected $layout = 'site.BaseLayouts.index';
-   
+    protected $userAdmin = array();
     public function __construct(){
     	FunctionLib::site_css('font-awesome/4.2.0/css/font-awesome.min.css', CGlobal::$POS_HEAD);
     	FunctionLib::site_js('frontend/js/site.js', CGlobal::$POS_END);
+        $this->userAdmin = User::user_login();
     }
     public function header(){
     	$this->layout->header = View::make("site.BaseLayouts.header");

@@ -46,6 +46,7 @@ class AjaxCommonController extends BaseSiteController
                 switch( $type ){
                     case 1://img news
                         $new_row['news_create'] = time();
+                        $new_row['news_user_create'] = !empty($this->userAdmin)? $this->userAdmin['user_name']: '';
                         $new_row['news_status'] = CGlobal::IMAGE_ERROR;
                         $item_id = News::addData($new_row);
                         break;
@@ -103,6 +104,8 @@ class AjaxCommonController extends BaseSiteController
                     		$arrImagOther = unserialize($inforNews->news_image_other);
                     		$arrImagOther[] = $file_name;//gan anh vua upload
                     		$proUpdate['news_image_other'] = serialize($arrImagOther);
+                            $proUpdate['news_update'] = time();
+                            $proUpdate['news_user_update'] = !empty($this->userAdmin)? $this->userAdmin['user_name']: '';
                     		News::updateData($item_id,$proUpdate);
                     	}
                     }

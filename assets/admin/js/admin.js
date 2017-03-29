@@ -36,7 +36,7 @@ var Admin = {
                     success: function(res) {
                         $('#img_loading_'+id).hide();
                         if(res.isIntOk == 1){
-                            alert('Bạn đã thực hiện thành công');
+                            //alert('Bạn đã thực hiện thành công');
                             window.location.reload();
                         }else{
                             alert('Không thể thực hiện được thao tác.');

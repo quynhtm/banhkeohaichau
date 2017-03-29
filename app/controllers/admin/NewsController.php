@@ -20,7 +20,7 @@ class NewsController extends BaseAdminController
     {
         parent::__construct();
 
-        $this->arrCategoryNew = CGlobal::$arrCategoryNew;
+        $this->arrCategoryNew = Category::getAllParentCateWithType(CGlobal::category_new);
         $this->arrTypeNew = CGlobal::$arrTypeNew;
 
         //Include style.
@@ -102,7 +102,7 @@ class NewsController extends BaseAdminController
             }
         }
         $optionStatus = FunctionLib::getOption($this->arrStatus, isset($data['news_status'])? $data['news_status'] : CGlobal::status_show);
-        $optionCategory = FunctionLib::getOption($this->arrCategoryNew, isset($data['news_category'])? $data['news_category'] : CGlobal::NEW_CATEGORY_TIN_TUC);
+        $optionCategory = FunctionLib::getOption($this->arrCategoryNew, isset($data['news_category'])? $data['news_category'] : 0);
         $optionType = FunctionLib::getOption($this->arrTypeNew, isset($data['news_type'])? $data['news_type'] : CGlobal::NEW_TYPE_TIN_TUC);
 
         $this->layout->content = View::make('admin.News.add')
@@ -127,7 +127,7 @@ class NewsController extends BaseAdminController
         $dataSave['news_desc_sort'] = addslashes(Request::get('news_desc_sort'));
         $dataSave['news_content'] = FunctionLib::strReplace(Request::get('news_content'), '\r\n', '');
         $dataSave['news_type'] = addslashes(Request::get('news_type',CGlobal::NEW_TYPE_TIN_TUC));
-        $dataSave['news_category'] = (int)(Request::get('news_category',CGlobal::NEW_CATEGORY_TIN_TUC));
+        $dataSave['news_category'] = (int)(Request::get('news_category',0));
         $dataSave['news_status'] = (int)Request::get('news_status', 0);
         $id_hiden = (int)Request::get('id_hiden', 0);
 
@@ -153,15 +153,22 @@ class NewsController extends BaseAdminController
             $id = ($id == 0)?$id_hiden: $id;
             if($id > 0) {
                 //cap nhat
-                $dataSave['news_create'] =  time();
+                $dataSave['news_update'] = time();
+                $dataSave['news_user_update'] =  !empty($this->user)? $this->user['user_name']: '';
                 if(News::updateData($id, $dataSave)) {
                     return Redirect::route('admin.newsView');
                 }
             } else {
                 //them moi
-                if(News::addData($dataSave)) {
+                $dataSave['news_create'] = time();
+                $dataSave['news_user_create'] = !empty($this->user)? $this->user['user_name']: '';
+                $submit = News::addData($dataSave);
+                if($submit) {
                     return Redirect::route('admin.newsView');
+                }else{
+                    $this->error[] = $submit;
                 }
+
             }
         }
 
@@ -188,24 +195,15 @@ class NewsController extends BaseAdminController
 
     private function valid($data=array()) {
         if(!empty($data)) {
-            if(isset($data['category_name']) && $data['category_name'] == '') {
-                $this->error[] = 'Tên danh mục không được trống';
+            if(isset($data['news_category']) && $data['news_category'] == '') {
+                $this->error[] = 'Chưa chọn danh mục tin';
             }
-            if(isset($data['category_status']) && $data['category_status'] == -1) {
-                $this->error[] = 'Bạn chưa chọn trạng thái cho danh mục';
+            if(isset($data['news_title']) && $data['news_title'] == '') {
+                $this->error[] = 'Tiêu đề tin không được bỏ trống';
             }
             return true;
         }
         return false;
-    }
-
-    function sendEmail(){
-        // test gửi email
-        Mail::send('emails.test_email', array('firstname'=>'Trương Mạnh Quỳnh'), function($message){
-            $message->to('manhquynh1984@gmail.com', 'Trương Mạnh Quỳnh')
-                ->subject('Welcome to the Laravel 4 Auth App!');
-        });
-        die();
     }
 
 }

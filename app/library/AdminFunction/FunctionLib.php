@@ -471,7 +471,7 @@ class FunctionLib {
      */
     static function buildLinkDetailNews($new_id = 0,$news_title = 'tin tức'){
         if($new_id > 0){
-            return URL::route('Site.pageDetailNew', array('news_title'=>strtolower(FunctionLib::safe_title($news_title)), 'new_id'=>$new_id));
+            //return URL::route('Site.pageDetailNew', array('news_title'=>strtolower(FunctionLib::safe_title($news_title)), 'new_id'=>$new_id));
         }
         return '#';
     }

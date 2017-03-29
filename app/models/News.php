@@ -11,7 +11,8 @@ class News extends Eloquent
 
     //cac truong trong DB
     protected $fillable = array('news_id','news_title', 'news_desc_sort',
-        'news_content', 'news_image', 'news_image_other','news_create',
+        'news_content', 'news_image', 'news_image_other',
+        'news_create','news_user_create','news_update','news_user_update',
         'meta_title', 'meta_keywords', 'meta_description',
         'news_type', 'news_category', 'news_status');
 
@@ -71,22 +72,23 @@ class News extends Eloquent
     {
         try {
             DB::connection()->getPdo()->beginTransaction();
-            $data = new News();
+            $dataSave = new News();
             if (is_array($dataInput) && count($dataInput) > 0) {
                 foreach ($dataInput as $k => $v) {
-                    $data->$k = $v;
+                    $dataSave->$k = $v;
                 }
             }
-            if ($data->save()) {
+            if ($dataSave->save()) {
                 DB::connection()->getPdo()->commit();
-                if(isset($data->news_id) && $data->news_id > 0){
-                    self::removeCache($data->news_id);
+                if(isset($dataSave->news_id) && $dataSave->news_id > 0){
+                    self::removeCache($dataSave->news_id);
                 }
-                return $data->news_id;
+                return $dataSave->news_id;
             }
             DB::connection()->getPdo()->commit();
             return false;
         } catch (PDOException $e) {
+            return $e->getMessage();
             DB::connection()->getPdo()->rollBack();
             throw new PDOException();
         }
@@ -111,7 +113,7 @@ class News extends Eloquent
                 }
             }
             DB::connection()->getPdo()->commit();
-            return true;
+            return $dataSave->news_id;
         } catch (PDOException $e) {
             DB::connection()->getPdo()->rollBack();
             throw new PDOException();
@@ -131,6 +133,20 @@ class News extends Eloquent
             $dataSave = News::find($id);
             $dataSave->delete();
             if(isset($dataSave->news_id) && $dataSave->news_id > 0){
+                $arrImagOther = unserialize($dataSave->news_image_other);
+                if(!empty($arrImagOther)){
+                    foreach($arrImagOther as $k=>$v){
+                        unset($arrImagOther[$k]);
+                        //xoa anh upload
+                        FunctionLib::deleteFileUpload($v,$id,CGlobal::FOLDER_NEWS);
+                        //xóa anh thumb
+                        $arrSizeThumb = CGlobal::$arrSizeImage;
+                        foreach($arrSizeThumb as $k=>$size){
+                            $sizeThumb = $size['w'].'x'.$size['h'];
+                            FunctionLib::deleteFileThumb($v,$id,CGlobal::FOLDER_NEWS,$sizeThumb);
+                        }
+                    }
+                }
                 self::removeCache($dataSave->news_id);
             }
             DB::connection()->getPdo()->commit();
