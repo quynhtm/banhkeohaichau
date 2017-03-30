@@ -29,16 +29,18 @@
                             <input type="text" placeholder="Tên danh mục" id="category_name" name="category_name"  class="form-control input-sm" value="@if(isset($data['category_name'])){{$data['category_name']}}@endif">
                         </div>
                     </div>
-
+                    @if($category_type == CGlobal::category_product)
                     <div class="clearfix"></div>
                     <div class="col-sm-10">
                         <div class="form-group">
-                            <label for="name" class="control-label">Loại danh mục</label>
-                            <select name="category_type" id="category_type" class="form-control input-sm" readonly>
-                                {{$optionTypeCategory}}
+                            <label for="name" class="control-label">Thuộc chuyên mục</label>
+                            <select name="category_depart_id" id="category_depart_id" class="form-control input-sm">
+                                <option value="0">--- Chọn chuyên mục ---</option>
+                                {{$optionCategoryParent}}
                             </select>
                         </div>
                     </div>
+                    @endif
 
                     <div class="clearfix"></div>
                     <div class="col-sm-10">
@@ -47,6 +49,16 @@
                             <select name="category_parent_id" id="category_parent_id" class="form-control input-sm">
                                 <option value="0">--- Chọn danh mục cha ---</option>
                                 {{$optionCategoryParent}}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <div class="col-sm-10">
+                        <div class="form-group">
+                            <label for="name" class="control-label">Loại danh mục</label>
+                            <select name="category_type" id="category_type" class="form-control input-sm" readonly>
+                                {{$optionTypeCategory}}
                             </select>
                         </div>
                     </div>
