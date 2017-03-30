@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-03-29 10:23:09
+Date: 2017-03-30 16:45:18
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -150,7 +150,7 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('2', 'admin', 'eef828faf0754495136af05c051766cb', 'Admin', '0', '', '', '', '0', '0', '', '1', '1,2', '1490755009', '::1', null, null, null, null, null, null);
+INSERT INTO `user` VALUES ('2', 'admin', 'eef828faf0754495136af05c051766cb', 'Admin', '0', '', '', '', '0', '0', '', '1', '1,2', '1490840391', '::1', null, null, null, null, null, null);
 INSERT INTO `user` VALUES ('19', 'tech_code', '273704d8aff01015b6bdd001f5e73463', 'Tech code 3555', '0', '', '', '', '0', '0', '', '1', '2', '1487301492', '::1', null, null, '2', 'admin', null, '1481772561');
 INSERT INTO `user` VALUES ('20', 'svquynhtm', 'fa268d7af7410dbf1b860075e9074889', 'Trương Mạnh Quỳnh', '1', 'manhquynh1984@gmail.com', '0938413368', 'Cộng tác viên', '1483203600', '1484240400', '1,6,7,8,9', '1', '3', '1482826054', '::1', '2', 'admin', '2', 'admin', '1482823830', '1482824272');
 INSERT INTO `user` VALUES ('21', 'quantricaodang', '8223661a604a916364b6581ce1ca44db', 'Quản trị site', '0', '', '', 'Admin site', '0', '0', '1,2,3,4,5,6,7,8,9', '1', '3', null, null, null, null, null, null, null, null);
@@ -221,7 +221,7 @@ CREATE TABLE `web_category` (
   PRIMARY KEY (`category_id`),
   KEY `status` (`category_status`) USING BTREE,
   KEY `id_parrent` (`category_parent_id`,`category_status`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=COMPACT;
 
 -- ----------------------------
 -- Records of web_category
@@ -230,6 +230,7 @@ INSERT INTO `web_category` VALUES ('1', 'Sản phẩm hot', '0', '0', '5', '1', 
 INSERT INTO `web_category` VALUES ('2', 'Hàng nhập khẩu', '0', '0', '5', '1', null, null, '1', '0');
 INSERT INTO `web_category` VALUES ('3', 'Tin tức nổi bật', '0', '0', '6', '1', null, null, '1', '0');
 INSERT INTO `web_category` VALUES ('4', 'Hàng đức', '2', '0', '5', '1', null, null, '1', '0');
+INSERT INTO `web_category` VALUES ('5', 'Tin giới thiệu', '0', '0', '6', '1', null, null, '1', '0');
 
 -- ----------------------------
 -- Table structure for web_contact
@@ -269,6 +270,7 @@ CREATE TABLE `web_department` (
   `department_type` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'giá trị type_keword',
   `department_layouts` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'giá trị type_keword',
   `department_status` tinyint(1) DEFAULT '0',
+  `department_status_home` tinyint(1) DEFAULT '1' COMMENT '0: ân trên home, 1: có hiểnthij',
   `department_order` tinyint(5) DEFAULT '0',
   PRIMARY KEY (`department_id`),
   KEY `status` (`department_status`) USING BTREE,
@@ -278,15 +280,15 @@ CREATE TABLE `web_department` (
 -- ----------------------------
 -- Records of web_department
 -- ----------------------------
-INSERT INTO `web_department` VALUES ('1', 'Khoa âm nhạc', 'khoaamnhac', 'type_khoa', 'layouts_khoa', '1', '1');
-INSERT INTO `web_department` VALUES ('2', 'Trung tâm tiếng anh', 'trungtamtienganh', 'type_trung tâm', 'layouts_khoa', '1', '2');
-INSERT INTO `web_department` VALUES ('3', 'Khoa cơ bản', 'khoacoban', 'type_khoa', 'layouts_home', '1', '3');
-INSERT INTO `web_department` VALUES ('4', 'Khoa Giáo dục đặc biệt', 'khoagiaoducdacbiet', 'type_khoa', 'layouts_home', '1', '4');
-INSERT INTO `web_department` VALUES ('5', 'Khoa Giáo dục mầm non', 'khoagiaoducmamnon', 'type_khoa', 'layouts_home', '1', '5');
-INSERT INTO `web_department` VALUES ('6', 'Khoa Mỹ thuật', 'khoamythuat', 'type_khoa', 'layouts_home', '0', '6');
-INSERT INTO `web_department` VALUES ('7', 'Khoa Công Nghệ Thông Tin', 'khoacongnghethongtin', 'type_khoa', 'layouts_home', '1', '7');
-INSERT INTO `web_department` VALUES ('8', 'Khoa Quản lý - Văn thư', 'khoaquanlyvanthu', 'type_khoa', 'layouts_home', '1', '8');
-INSERT INTO `web_department` VALUES ('9', 'Khoa Xã hội - Nhân văn', 'khoaxahoinhanvan', 'type_khoa', 'layouts_home', '1', '9');
+INSERT INTO `web_department` VALUES ('1', 'Khoa âm nhạc', 'khoaamnhac', 'type_khoa', 'layouts_khoa', '1', '1', '1');
+INSERT INTO `web_department` VALUES ('2', 'Trung tâm tiếng anh', 'trungtamtienganh', 'type_trung tâm', 'layouts_khoa', '1', '1', '2');
+INSERT INTO `web_department` VALUES ('3', 'Khoa cơ bản', 'khoacoban', 'type_khoa', 'layouts_home', '1', '1', '3');
+INSERT INTO `web_department` VALUES ('4', 'Khoa Giáo dục đặc biệt', 'khoagiaoducdacbiet', 'type_khoa', 'layouts_home', '1', '1', '4');
+INSERT INTO `web_department` VALUES ('5', 'Khoa Giáo dục mầm non', 'khoagiaoducmamnon', 'type_khoa', 'layouts_home', '1', '1', '5');
+INSERT INTO `web_department` VALUES ('6', 'Khoa Mỹ thuật', 'khoamythuat', 'type_khoa', 'layouts_home', '0', '1', '6');
+INSERT INTO `web_department` VALUES ('7', 'Khoa Công Nghệ Thông Tin', 'khoacongnghethongtin', 'type_khoa', 'layouts_home', '1', '0', '7');
+INSERT INTO `web_department` VALUES ('8', 'Khoa Quản lý - Văn thư', 'khoaquanlyvanthu', 'type_khoa', 'layouts_home', '1', '1', '8');
+INSERT INTO `web_department` VALUES ('9', 'Khoa Xã hội - Nhân văn', 'khoaxahoinhanvan', 'type_khoa', 'layouts_home', '1', '1', '9');
 
 -- ----------------------------
 -- Table structure for web_districts
@@ -1152,13 +1154,22 @@ CREATE TABLE `web_news` (
   `news_type` tinyint(5) DEFAULT '1' COMMENT 'Kiểu tin',
   `news_category` int(11) DEFAULT NULL,
   `news_status` tinyint(5) DEFAULT NULL,
+  `meta_title` varchar(255) DEFAULT NULL,
+  `meta_keywords` varchar(255) DEFAULT NULL,
+  `meta_description` varchar(255) DEFAULT NULL,
   `news_create` int(11) DEFAULT NULL,
+  `news_user_create` varchar(255) DEFAULT NULL,
+  `news_update` int(11) DEFAULT NULL,
+  `news_user_update` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`news_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of web_news
 -- ----------------------------
+INSERT INTO `web_news` VALUES ('3', 'test thử tin tức', '', '<p>sadasd</p>\r\n', '1490775913-573cb4258e810763aa000001.jpg', 'a:1:{i:0;s:39:\"1490775913-573cb4258e810763aa000001.jpg\";}', '1', '3', '1', '', '', '', '1490775913', null, '1490775918', 'admin');
+INSERT INTO `web_news` VALUES ('4', 'bài thứ 2', '', '<p>&aacute;dasd<br />\r\n&nbsp;</p>\r\n', '1490776027-57355c1302b01f7898000001.jpg', 'a:1:{i:0;s:39:\"1490776027-57355c1302b01f7898000001.jpg\";}', '1', '3', '1', '', '', '', '1490776027', null, '1490776031', 'admin');
+INSERT INTO `web_news` VALUES ('15', 'thử xem ok chưa', '', '<p>&aacute;dasdasd<br />\r\n&aacute;dasdasd</p>\r\n', '1490779473-1323299717367536732369379167136563154391026n.jpg', 'a:1:{i:0;s:59:\"1490779473-1323299717367536732369379167136563154391026n.jpg\";}', '1', '3', '1', '', '', '', '1490779473', 'admin', '1490779731', 'admin');
 
 -- ----------------------------
 -- Table structure for web_order
@@ -1426,8 +1437,8 @@ CREATE TABLE `web_type_setting` (
 -- ----------------------------
 -- Records of web_type_setting
 -- ----------------------------
-INSERT INTO `web_type_setting` VALUES ('1', 'Kiểu khoa', 'định nghĩa kiểu khoa hay trung tâm ', 'type_khoa', 'group_type', '1', '1');
-INSERT INTO `web_type_setting` VALUES ('2', 'Kiểu trung tâm', 'định nghĩa kiểu khoa hay trung tâm', 'type_trung tâm', 'group_type', '2', '1');
+INSERT INTO `web_type_setting` VALUES ('1', 'Kiểu chuyên mục', 'định nghĩa kiểu khoa hay trung tâm ', 'type_khoa', 'group_type', '1', '1');
+INSERT INTO `web_type_setting` VALUES ('2', 'Kiểu trung tâm', 'định nghĩa kiểu khoa hay trung tâm', 'type_trung tâm', 'group_type', '2', '0');
 INSERT INTO `web_type_setting` VALUES ('3', 'Giao diện trang chủ', 'kiểu hiển thị page', 'layouts_home', 'group_layouts', '3', '1');
 INSERT INTO `web_type_setting` VALUES ('4', 'Giao diện khoa', 'kiểu hiển thị page', 'layouts_khoa', 'group_layouts', '4', '1');
 INSERT INTO `web_type_setting` VALUES ('5', 'Danh mục sản phẩm', 'Danh mục sản phẩm', 'category_product', 'group_category', '0', '1');
