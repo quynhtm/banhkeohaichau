@@ -5,8 +5,8 @@
                 <i class="ace-icon fa fa-home home-icon"></i>
                 <a href="{{URL::route('admin.dashboard')}}">Home</a>
             </li>
-            <li><a href="{{URL::route('admin.department_list')}}"> Danh sách Khoa - Trung tâm</a></li>
-            <li class="active">@if($id > 0)Cập nhật Khoa - Trung tâm @else Tạo mới Khoa - Trung tâm @endif</li>
+            <li><a href="{{URL::route('admin.department_list')}}"> Danh sách chuyên mục</a></li>
+            <li class="active">@if($id > 0)Cập nhật chuyên mục @else Tạo mới chuyên mục @endif</li>
         </ul><!-- /.breadcrumb -->
     </div>
 
@@ -26,7 +26,7 @@
                 <div style="float: left; width: 50%">
                     <div class="col-sm-10">
                         <div class="form-group">
-                            <label for="name" class="control-label">Tên Khoa - Trung tâm<span class="red"> (*) </span></label>
+                            <label for="name" class="control-label">Tên chuyên mục<span class="red"> (*) </span></label>
                             <input type="text" placeholder="Tên khoa - trung tâm" id="department_name" name="department_name"  class="form-control input-sm" value="@if(isset($data['department_name'])){{$data['department_name']}}@endif">
                         </div>
                     </div>
@@ -40,7 +40,7 @@
                     @endif
 
                     <div class="clearfix"></div>
-                    <div class="col-sm-10">
+                    <div class="col-sm-5">
                         <div class="form-group">
                             <label for="name" class="control-label">Kiểu</label>
                             <select name="department_type" id="department_type" class="form-control input-sm">
@@ -48,9 +48,7 @@
                             </select>
                         </div>
                     </div>
-
-                    <div class="clearfix"></div>
-                    <div class="col-sm-10">
+                    <div class="col-sm-5">
                         <div class="form-group">
                             <label for="name" class="control-label">Layous hiển thị</label>
                             <select name="department_layouts" id="department_layouts" class="form-control input-sm">
@@ -60,7 +58,15 @@
                     </div>
 
                     <div class="clearfix"></div>
-                    <div class="col-sm-10">
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <label for="name" class="control-label">Hiển thị trang chủ</label>
+                            <select name="department_status_home" id="department_status_home" class="form-control input-sm">
+                                {{$optionStatusHome}}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
                         <div class="form-group">
                             <label for="name" class="control-label">Trạng thái</label>
                             <select name="department_status" id="department_status" class="form-control input-sm">

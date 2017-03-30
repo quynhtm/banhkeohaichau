@@ -5,7 +5,7 @@
                 <i class="ace-icon fa fa-home home-icon"></i>
                 <a href="{{URL::route('admin.dashboard')}}">Home</a>
             </li>
-            <li class="active">Danh mục sản phẩm</li>
+            <li class="active">Danh mục chuyên mục</li>
         </ul><!-- /.breadcrumb -->
     </div>
 
@@ -17,7 +17,7 @@
                     {{ Form::open(array('method' => 'GET', 'role'=>'form')) }}
                     <div class="panel-body">
                         <div class="form-group col-lg-3">
-                            <label for="department_name">Tên khoa - trung tâm</label>
+                            <label for="department_name">Tên chuyên mục</label>
                             <input type="text" class="form-control input-sm" id="department_name" name="department_name" placeholder="Tên khoa - trung tâm" @if(isset($search['department_name']) && $search['department_name'] != '')value="{{$search['department_name']}}"@endif>
                         </div>
                         <div class="form-group col-lg-3">
@@ -56,16 +56,17 @@
                     {{ Form::close() }}
                 </div>
                 @if(sizeof($data) > 0)
-                    <div class="span clearfix"> @if($total >0) Có tổng số <b>{{$total}}</b> khoa - trung tâm @endif </div>
+                    <div class="span clearfix"> @if($total >0) Có tổng số <b>{{$total}}</b> chuyên mục @endif </div>
                     <br>
                     <table class="table table-bordered table-hover">
                         <thead class="thin-border-bottom">
                         <tr class="">
                             <th width="2%"class="text-center">STT</th>
                             <!--<th width="1%" class="text-center"><input type="checkbox" id="checkAll"/></th>-->
-                            <th width="35%" class="td_list">Tên khoa - trung tâm</th>
+                            <th width="35%" class="td_list">Tên chuyên mục</th>
                             <th width="20%" class="td_list">Kiểu</th>
                             <th width="20%" class="td_list">Giao diện</th>
+                            <th width="5%" class="text-center">Show Home</th>
                             <th width="5%" class="text-center">Status</th>
                             <th width="10%" class="text-center">Action</th>
                         </tr>
@@ -81,6 +82,13 @@
                                 <td>@if(isset($arrTypeDepart[$item['department_type']])){{ $arrTypeDepart[$item['department_type']] }} @endif </td>
                                 <td>@if(isset($arrLayoutsDepart[$item['department_layouts']])){{ $arrLayoutsDepart[$item['department_layouts']] }} @endif </td>
 
+                                <td class="text-center">
+                                    @if($item['department_status_home'] == 1)
+                                        <a href="javascript:void(0);"title="Hiện"><i class="fa fa-check fa-2x"></i></a>
+                                    @else
+                                        <a href="javascript:void(0);"style="color: red" title="Ẩn"><i class="fa fa-close fa-2x"></i></a>
+                                    @endif
+                                </td>
                                 <td class="text-center">
                                     @if($item['department_status'] == 1)
                                         <a href="javascript:void(0);" onclick="Admin.updateStatusItem({{$item['department_id']}},{{$item['department_status']}},2)"title="Hiện"><i class="fa fa-check fa-2x"></i></a>

@@ -84,6 +84,7 @@ class DepartmentController extends BaseAdminController
         }
 
         $optionStatus = FunctionLib::getOption($this->arrStatus, isset($data['department_status'])? $data['department_status'] : CGlobal::status_show);
+        $optionStatusHome = FunctionLib::getOption($this->arrStatus, isset($data['department_status_home'])? $data['department_status_home'] : CGlobal::status_show);
         $optionTypeDepart = FunctionLib::getOption(array(''=>'---Chọn kiểu---')+$this->arrTypeDepart, isset($data['department_type'])? $data['department_type'] : '');
         $optionLayoutsDepart = FunctionLib::getOption(array(''=>'---Chọn giao diện hiển thị---')+$this->arrLayoutsDepart, isset($data['department_layouts'])? $data['department_layouts'] : '');
         $this->layout->content = View::make('admin.Department.add')
@@ -91,6 +92,7 @@ class DepartmentController extends BaseAdminController
             ->with('data', $data)
             ->with('optionTypeDepart', $optionTypeDepart)
             ->with('optionLayoutsDepart', $optionLayoutsDepart)
+            ->with('optionStatusHome', $optionStatusHome)
             ->with('optionStatus', $optionStatus);
     }
 
@@ -101,6 +103,7 @@ class DepartmentController extends BaseAdminController
 
         $dataSave['department_name'] = addslashes(Request::get('department_name'));
         $dataSave['department_status'] = (int)Request::get('department_status', CGlobal::status_show);
+        $dataSave['department_status_home'] = (int)Request::get('department_status_home', CGlobal::status_show);
         $dataSave['department_order'] = (int)Request::get('department_order', 1);
         $dataSave['department_type'] = Request::get('department_type', '');
         $dataSave['department_layouts'] = Request::get('department_layouts', '');
@@ -120,6 +123,7 @@ class DepartmentController extends BaseAdminController
             }
         }
         $optionStatus = FunctionLib::getOption($this->arrStatus, isset($dataSave['department_status'])? $dataSave['department_status'] : CGlobal::status_show);
+        $optionStatusHome = FunctionLib::getOption($this->arrStatus, isset($dataSave['department_status_home'])? $dataSave['department_status_home'] : CGlobal::status_show);
         $optionTypeDepart = FunctionLib::getOption(array(''=>'---Chọn kiểu---')+$this->arrTypeDepart, isset($dataSave['department_type'])? $dataSave['department_type'] : '');
         $optionLayoutsDepart = FunctionLib::getOption(array(''=>'---Chọn giao diện hiển thị---')+$this->arrLayoutsDepart, isset($dataSave['department_layouts'])? $dataSave['department_layouts'] : '');
 
@@ -127,6 +131,7 @@ class DepartmentController extends BaseAdminController
             ->with('id', $id)
             ->with('data', $dataSave)
             ->with('optionStatus', $optionStatus)
+            ->with('optionStatusHome', $optionStatusHome)
             ->with('optionTypeDepart', $optionTypeDepart)
             ->with('optionLayoutsDepart', $optionLayoutsDepart)
             ->with('error', $this->error);
