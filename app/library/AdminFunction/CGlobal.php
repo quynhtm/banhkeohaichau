@@ -14,12 +14,12 @@ class CGlobal{
     public static $extraFooterJS = '';
     public static $extraMeta = '';
     public static $pageAdminTitle = 'Dashboard Admin';
-    public static $pageShopTitle = 'CĐSPTW Admin';
+    public static $pageShopTitle = 'HaiChau Admin';
 
-    const web_name = 'Cdsptw.edu.vn';
-    const web_keywords= 'Cao đẳng Trung ương';
-    const web_description= 'Cao đẳng Trung ương';
-    public static $pageTitle = 'Cao đẳng Trung ương';
+    const web_name = 'Haichau.com.vn';
+    const web_keywords= 'Bánh kẹo Hải Châu';
+    const web_description= 'Bánh kẹo Hải Châu';
+    public static $pageTitle = 'Bánh kẹo Hải Châu';
     
     const num_scroll_page = 2;
     const number_limit_show = 30;
