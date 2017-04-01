@@ -58,6 +58,17 @@ class Category extends Eloquent
         return $data;
     }
 
+    public static function getDepartIdByCategoryId($category_id = 0) {
+        $category_depart_id = 0;
+        if($category_id > 0){
+            $category = Category::getByID($category_id);
+            if (sizeof($category) !== 0) {
+                $category_depart_id = isset($category->category_depart_id)? $category->category_depart_id : 0;
+            }
+        }
+        return $category_depart_id;
+    }
+
     public static function getAllParentCategoryId() {
         $data = (Memcache::CACHE_ON)? Cache::get(Memcache::CACHE_ALL_PARENT_CATEGORY) : array();
         if (sizeof($data) == 0) {
