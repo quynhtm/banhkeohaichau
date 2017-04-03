@@ -48,6 +48,14 @@
                             </select>
                         </div>
                         <div class="form-group col-lg-12 text-right">
+                            @if($is_root || $permission_full ==1 || $permission_create == 1)
+                                <span class="">
+                                    <a class="btn btn-danger btn-sm" href="{{URL::route('admin.productEdit')}}">
+                                        <i class="ace-icon fa fa-plus-circle"></i>
+                                        Thêm mới
+                                    </a>
+                                </span>
+                            @endif
                             <button class="btn btn-primary btn-sm" type="submit"><i class="fa fa-search"></i> Tìm kiếm</button>
                         </div>
                     </div>

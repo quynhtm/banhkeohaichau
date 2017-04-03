@@ -23,7 +23,7 @@
                     </div>
                 @endif
 
-                <div style="float: left;width: 38%">
+                <div style="float: left;width: 45%">
                     <div class="col-sm-12">
                         <div class="form-group">
                             <label for="name" class="control-label">Tên sản phẩm <span class="red"> (*) </span></label>
@@ -34,7 +34,17 @@
 
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="name" class="control-label">Danh mục<span class="red"> (*) </span></label>
+                            <label for="name" class="control-label">Thuộc chuyên mục <span class="red"> (*) </span></label>
+                            <div class="form-group">
+                                <select name="depart_id" id="depart_id" class="form-control input-sm">
+                                    {{$optionDepart}}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="name" class="control-label">Danh mục <span class="red"> (*) </span></label>
                             <div class="form-group">
                                 <select name="category_id" id="category_id" class="form-control input-sm">
                                     {{$optionCategory}}
@@ -42,16 +52,17 @@
                             </div>
                         </div>
                     </div>
+                    <!--
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="name" class="control-label">Thuộc nhà cung cấp</label>
                             <div class="form-group">
                                 <select name="provider_id" id="provider_id" class="form-control input-sm">
-                                    {{$optionStatusProduct}}
                                 </select>
                             </div>
                         </div>
                     </div>
+                    -->
                     <div class="clearfix"></div>
 
                     <div class="col-sm-6">
@@ -81,7 +92,7 @@
                             <label for="name" class="control-label">Trạng thái Ẩn/Hiện</label>
                             <div class="form-group">
                                 <select name="product_status" id="product_status" class="form-control input-sm">
-                                    {{$optionStatusProduct}}
+                                    {{$optionStatus}}
                                 </select>
                             </div>
                         </div>
@@ -96,17 +107,31 @@
 
                     <div class="col-sm-6">
                         <div class="form-group">
+                            <label for="name" class="control-label">Tình trạng hàng</label>
+                            <div class="form-group">
+                                <select name="is_sale" id="is_sale" class="form-control input-sm">
+                                    {{$optionIsSale}}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="name" class="control-label">Giá thị trường</label>
+                            <input type="text" placeholder="Giá thị trường" id="product_price_market" name="product_price_market" class="formatMoney text-left form-control" data-v-max="999999999999999" data-v-min="0" data-a-sep="." data-a-dec="," data-a-sign=" đ" data-p-sign="s" value="@if(isset($data['product_price_market'])){{$data['product_price_market']}}@endif">
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
                             <label for="name" class="control-label">Thông tin khuyến mại</label>
                             <div class="clearfix"></div>
                             <textarea rows="5" cols="8" name="product_selloff" class="form-control input-sm">@if(isset($data['product_selloff'])){{$data['product_selloff']}}@endif</textarea>
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="name" class="control-label">Giá thị trường</label>
-                            <input type="text" placeholder="Giá thị trường" id="product_price_market" name="product_price_market" class="formatMoney text-left form-control" data-v-max="999999999999999" data-v-min="0" data-a-sep="." data-a-dec="," data-a-sign=" đ" data-p-sign="s" value="@if(isset($data['product_price_market'])){{$data['product_price_market']}}@endif">
-                        </div>
-                    </div><div class="col-sm-6">
                         <div class="form-group">
                             <label for="name" class="control-label">Giá nhập</label>
                             <input type="text" placeholder="Giá nhập" id="product_price_input" name="product_price_input" class="formatMoney text-left form-control" data-v-max="999999999999999" data-v-min="0" data-a-sep="." data-a-dec="," data-a-sign=" đ" data-p-sign="s" value="@if(isset($data['product_price_input'])){{$data['product_price_input']}}@endif">
@@ -115,10 +140,10 @@
                     <div class="clearfix"></div>
                 </div>
 
-                <div style="float: left;width: 62%">
+                <div style="float: left;width: 55%">
                     <div class="col-sm-12">
                         <div class="form-group">
-                            <!--<a href="javascript:;"class="btn btn-primary" onclick="SITE.uploadImagesProduct(2);">Upload ảnh </a>-->
+                            <a href="javascript:;"class="btn btn-primary" onclick="Admin.uploadMultipleImages(2);">Upload ảnh</a>
                             <input name="image_primary" type="hidden" id="image_primary" value="@if(isset($data['product_image'])){{$data['product_image']}}@endif">
                             <input name="product_image_hover" type="hidden" id="image_primary_hover" value="@if(isset($data['product_image_hover'])){{$data['product_image_hover']}}@endif">
                         </div>

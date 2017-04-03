@@ -146,8 +146,8 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
 
     /*Quản lý San Pham*/
     Route::get('product/view',array('as' => 'admin.productView','uses' => 'ProductController@view'));
-    Route::get('product/productEdit/{id}', array('as' => 'admin.productEdit','uses' => 'ProductController@getProduct'))->where('id', '[0-9]+');
-    Route::post('product/productEdit/{id}', array('as' => 'admin.productEdit','uses' => 'ProductController@postProduct'))->where('id', '[0-9]+');
+    Route::get('product/productEdit/{id?}', array('as' => 'admin.productEdit','uses' => 'ProductController@getProduct'))->where('id', '[0-9]+');
+    Route::post('product/productEdit/{id?}', array('as' => 'admin.productEdit','uses' => 'ProductController@postProduct'))->where('id', '[0-9]+');
     Route::post('product/setStastusBlockProduct', array('as' => 'admin.setStastusBlockProduct','uses' => 'ProductController@setStastusBlockProduct'));//ajax
     Route::post('product/deleteMultiProduct', array('as' => 'admin.deleteMultiProduct','uses' => 'ProductController@deleteMultiProduct'));//ajax
 
