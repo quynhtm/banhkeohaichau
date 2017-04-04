@@ -105,6 +105,7 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
 
     /*Quan Ly hệ thống đơn hàng*/
     Route::get('managerOrder/view',array('as' => 'admin.managerOrderView','uses' => 'ManagerOrderController@view'));
+    Route::get('managerOrder/detailOrder/{order_id?}', array('as' => 'admin.detailOrder','uses' => 'ManagerOrderController@detailOrder'))->where('order_id', '[0-9]+');
     Route::post('managerOrder/deleteOrder', array('as' => 'admin.deleteOrder','uses' => 'ManagerOrderController@deleteOrder'));
 
     /*Quản lý Department*/

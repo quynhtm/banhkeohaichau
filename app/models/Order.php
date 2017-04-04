@@ -105,9 +105,9 @@ class Order extends Eloquent
                 $query->where($tbl_Order.'.order_user_shop_id', $dataSearch['order_user_shop_id']);
             }
 
-            $total = $query->count();
             $query->orderBy($tbl_Order.'.order_id', 'desc');
             $query->groupBy($tbl_Order.'.order_id');
+            $total = $query->count();
 
             $fields = array(
                 $tbl_Order.'.*',
