@@ -16,7 +16,7 @@ class ProductController extends BaseAdminController
         CGlobal::status_show => 'Hiện',
         2 => 'Khóa SP',
         3 => 'Mở khóa SP',
-        4 => 'Set top SP',
+        //4 => 'Set top SP',
         //product_is_hot: loại sản phẩm
         5 => 'Sản phẩm bình thường',
         6 => 'Sản phẩm nổi bật',
@@ -24,15 +24,15 @@ class ProductController extends BaseAdminController
         );
     private $arrStatus = array(-1 => 'Chọn trạng thái', CGlobal::status_hide => 'Ẩn', CGlobal::status_show => 'Hiện');
     private $arrBlock = array(-1 => 'Chọn kiểu khóa SP', CGlobal::PRODUCT_NOT_BLOCK => 'Đang mở', CGlobal::PRODUCT_BLOCK => 'Đang khóa');
-    private $arrTypePrice = array(CGlobal::TYPE_PRICE_NUMBER => 'Hiển thị giá bán', CGlobal::TYPE_PRICE_CONTACT => 'Liên hệ với shop');
+    private $arrTypePrice = array(CGlobal::TYPE_PRICE_NUMBER => 'Hiển thị giá bán', CGlobal::TYPE_PRICE_CONTACT => 'Liên hệ');
     private $arrTypeProduct = array(-1 => '--Chọn loại sản phẩm--', CGlobal::PRODUCT_NOMAL => 'Sản phẩm bình thường', CGlobal::PRODUCT_HOT => 'Sản phẩm nổi bật', CGlobal::PRODUCT_SELLOFF => 'Sản phẩm giảm giá');
     private $arrIsSale = array(CGlobal::PRODUCT_IS_SALE => 'Còn hàng', CGlobal::PRODUCT_NOT_IS_SALE => 'Hết hàng');
     private $error =  array();
-    private $arrShop =  array();
+    private $arrCategory = array();
+    private $arrDepart = array();
     public function __construct()
     {
         parent::__construct();
-        //$this->arrShop = UserShop::getShopAll();
         //Include style.
         FunctionLib::link_css(array(
             'lib/upload/cssUpload.css',
@@ -49,6 +49,15 @@ class ProductController extends BaseAdminController
             'lib/number/autoNumeric.js',
             //'frontend/js/site.js',
         ));
+
+        //danh mục
+        $arrCategoryAll = Category::buildTreeCategory(CGlobal::category_product);
+        foreach($arrCategoryAll as $k =>$cat){
+            $this->arrCategory[$cat['category_id']] = $cat['padding_left'].$cat['category_name'];
+        }
+
+        //láy thông tin depart_id
+        $this->arrDepart = Department::getDepart();
     }
 
     public function view() {
@@ -67,8 +76,7 @@ class ProductController extends BaseAdminController
         $search['product_status'] = (int)Request::get('product_status',-1);
         $search['product_is_hot'] = (int)Request::get('product_is_hot',-1);
         $search['category_id'] = (int)Request::get('category_id',-1);
-        $search['user_shop_id'] = (int)Request::get('user_shop_id',-1);
-        $search['is_block'] = (int)Request::get('is_block',-1);
+        $search['depart_id'] = (int)Request::get('depart_id',-1);
         //$search['field_get'] = 'order_id,order_product_name,order_status';//cac truong can lay
 
         $dataSearch = Product::searchByCondition($search, $limit, $offset,$total);
@@ -77,7 +85,7 @@ class ProductController extends BaseAdminController
 
         $optionStatus = FunctionLib::getOption($this->arrStatus, $search['product_status']);
         $optionType = FunctionLib::getOption($this->arrTypeProduct, $search['product_is_hot']);
-        $optionBlock = FunctionLib::getOption($this->arrBlock, $search['is_block']);
+        $optionDepart = FunctionLib::getOption($this->arrDepart, $search['depart_id']);
         $optionStatusUpdate = FunctionLib::getOption($this->arrStatusUpdate, -1);
         $this->layout->content = View::make('admin.Product.view')
             ->with('paging', $paging)
@@ -86,11 +94,13 @@ class ProductController extends BaseAdminController
             ->with('sizeShow', count($data))
             ->with('data', $dataSearch)
             ->with('search', $search)
-            ->with('arrShop', $this->arrShop)
             ->with('arrTypeProduct', $this->arrTypeProduct)
             ->with('optionStatus', $optionStatus)
             ->with('optionType', $optionType)
-            ->with('optionBlock', $optionBlock)
+            ->with('optionDepart', $optionDepart)
+
+            ->with('arrDepart', $this->arrDepart)
+            ->with('arrIsSale', $this->arrIsSale)
 
             ->with('optionStatusUpdate', $optionStatusUpdate)
             ->with('is_root', $this->is_root)//dùng common
@@ -109,9 +119,6 @@ class ProductController extends BaseAdminController
         $arrViewImgOther = array();
         $imagePrimary = $imageHover = '';
         $product = Product::getProductByID($id);
-        if(empty($product)){
-            return Redirect::route('admin.productView');
-        }
 
         //lấy ảnh show
         if(sizeof($product) > 0){
@@ -130,18 +137,12 @@ class ProductController extends BaseAdminController
             $imageHover = $product->product_image_hover;
         }
 
-        //danh muc san pham cua shop
-        $arrCategory = array();
-        $arrCategoryAll = Category::buildTreeCategory();
-        foreach($arrCategoryAll as $k =>$cat){
-            $arrCategory[$cat['category_id']] = $cat['padding_left'].$cat['category_name'];
-        }
-        //FunctionLib::debug($arrCategoryAll);
-
-        $optionCategory = FunctionLib::getOption(array(-1=>'---Chọn danh mục----') + $arrCategory,isset($product->category_id)? $product->category_id: -1);
-        $optionStatusProduct = FunctionLib::getOption($this->arrStatus,isset($product->product_status)? $product->product_status:CGlobal::status_hide);
+        $optionCategory = FunctionLib::getOption(array(-1=>'---Chọn danh mục----') + $this->arrCategory,isset($product->category_id)? $product->category_id: -1);
+        $optionDepart = FunctionLib::getOption(array(-1=>'---Chọn chuyên mục----') + $this->arrDepart,isset($product->depart_id)? $product->depart_id: -1);
+        $optionStatus = FunctionLib::getOption($this->arrStatus,isset($product->product_status)? $product->product_status: CGlobal::status_hide);
         $optionTypePrice = FunctionLib::getOption($this->arrTypePrice,isset($product->product_type_price)? $product->product_type_price:CGlobal::TYPE_PRICE_NUMBER);
         $optionTypeProduct = FunctionLib::getOption($this->arrTypeProduct,isset($product->product_is_hot)? $product->product_is_hot:CGlobal::PRODUCT_NOMAL);
+        $optionIsSale = FunctionLib::getOption($this->arrIsSale,isset($product->is_sale)? $product->is_sale:CGlobal::PRODUCT_IS_SALE);
 
         $this->layout->content = View::make('admin.Product.add')
             ->with('error', $this->error)
@@ -151,8 +152,10 @@ class ProductController extends BaseAdminController
             ->with('imagePrimary', $imagePrimary)
             ->with('imageHover', $imageHover)
             ->with('optionCategory', $optionCategory)
-            ->with('optionStatusProduct', $optionStatusProduct)
+            ->with('optionDepart', $optionDepart)
+            ->with('optionStatus', $optionStatus)
             ->with('optionTypePrice', $optionTypePrice)
+            ->with('optionIsSale', $optionIsSale)
             ->with('optionTypeProduct', $optionTypeProduct);
     }
     public function postProduct($id = 0){
@@ -161,21 +164,21 @@ class ProductController extends BaseAdminController
             return Redirect::route('admin.dashboard',array('error'=>1));
         }
         CGlobal::$pageAdminTitle = "Sửa sản phẩm | ".CGlobal::web_name;
-        $shopVip = 0;
-        $product = array();
         $arrViewImgOther = array();
         $imagePrimary = $imageHover = '';
 
+        $dataSave['category_id'] = (int)(Request::get('category_id',-1));
+        $dataSave['depart_id'] = (int)(Request::get('depart_id',-1));
+
         $dataSave['product_name'] = addslashes(Request::get('product_name'));
-        $dataSave['category_id'] = addslashes(Request::get('category_id'));
         $dataSave['product_selloff'] = addslashes(Request::get('product_selloff'));
         $dataSave['product_status'] = addslashes(Request::get('product_status'));
         $dataSave['product_type_price'] = addslashes(Request::get('product_type_price',CGlobal::TYPE_PRICE_NUMBER));
 
         $dataSave['product_sort_desc'] = addslashes(Request::get('product_sort_desc'));
         $dataSave['product_content'] = Request::get('product_content');
-        $dataSave['product_order'] = addslashes(Request::get('product_order'));
-        $dataSave['quality_input'] = addslashes(Request::get('quality_input'));
+        $dataSave['product_order'] = (int)(Request::get('product_order',100));
+        $dataSave['quality_input'] = (int)(Request::get('quality_input',0));
 
         $dataSave['product_price_sell'] = (int)str_replace('.','',Request::get('product_price_sell'));
         $dataSave['product_price_market'] = (int)str_replace('.','',Request::get('product_price_market'));
@@ -184,22 +187,22 @@ class ProductController extends BaseAdminController
 
         $dataSave['product_image'] = $imagePrimary = addslashes(Request::get('image_primary'));
         $dataSave['product_image_hover'] = $imageHover = addslashes(Request::get('product_image_hover'));
+        $dataSave['is_sale'] = addslashes(Request::get('is_sale',CGlobal::PRODUCT_IS_SALE));
+        $dataSave['product_code'] = addslashes(Request::get('product_code'));
+        $dataSave['product_is_hot'] = addslashes(Request::get('product_is_hot',CGlobal::PRODUCT_NOMAL));
+        $dataSave['provider_id'] = addslashes(Request::get('provider_id'));
 
-        //danh cho shop VIP
-        $dataSave['is_sale'] = ($shopVip == 1)? addslashes(Request::get('is_sale',CGlobal::PRODUCT_IS_SALE)): CGlobal::PRODUCT_IS_SALE;
-        $dataSave['product_code'] = ($shopVip == 1)? addslashes(Request::get('product_code')): '';
-        $dataSave['product_is_hot'] = ($shopVip == 1)? addslashes(Request::get('product_is_hot',CGlobal::PRODUCT_NOMAL)): CGlobal::PRODUCT_NOMAL;
-        $dataSave['provider_id'] = ($shopVip == 1)? addslashes(Request::get('provider_id')): 0;
+        //mac dinh
+        $dataSave['is_shop'] = 1; //0: sp của shop thường, 1: sản phẩm của shop vip
+        $dataSave['province_id'] = 0;
+        $dataSave['is_block'] = CGlobal::PRODUCT_NOT_BLOCK;
 
         //check lại xem SP co phai cua Shop nay ko
         $id_hiden = Request::get('id_hiden',0);
         $product_id = ($id >0)? $id: $id_hiden;
 
-        //danh muc san pham cua shop
-        //$arrCateShop = UserShop::getCategoryShopById($this->inforUserShop->shop_id);
-
         //danh sach NCC cua shop
-        $arrNCC = ($shopVip == 1)?Provider::getListProviderByShopId($this->inforUserShop->shop_id): array();
+        //$arrNCC = ($shopVip == 1)?Provider::getListProviderByShopId($this->inforUserShop->shop_id): array();
 
         //lay lai vi tri sap xep cua anh khac
         $arrInputImgOther = array();
@@ -208,7 +211,6 @@ class ProductController extends BaseAdminController
             foreach($getImgOther as $k=>$val){
                 if($val !=''){
                     $arrInputImgOther[] = $val;
-
                     //show ra anh da Upload neu co loi
                     $url_thumb = ThumbImg::getImageThumb(CGlobal::FOLDER_PRODUCT, $product_id, $val, CGlobal::sizeImage_100);
                     $url_thumb_content = ThumbImg::getImageThumb(CGlobal::FOLDER_PRODUCT, $product_id, $val, CGlobal::sizeImage_600);
@@ -229,61 +231,52 @@ class ProductController extends BaseAdminController
         }
 
         //FunctionLib::debug($dataSave);
-        $this->validInforProduct($dataSave);
-        if(empty($this->error)){
-            if($product_id > 0){
-                if(isset($this->inforUserShop->shop_id) && $this->inforUserShop->shop_id > 0 && $product_id > 0){
-                    $product = Product::getProductByShopId($this->inforUserShop->shop_id, $product_id);
+        if($this->validInforProduct($dataSave) && empty($this->error)) {
+            $dataSave['category_name'] = Category::getCategoryNameByID($dataSave['category_id']);
+            if($product_id > 0) {
+                //cap nhat
+                $dataSave['time_update'] = time();
+                $dataSave['user_id_update'] =  !empty($this->user)? $this->user['user_id']: 0;
+                $dataSave['user_name_update'] =  !empty($this->user)? $this->user['user_name']: '';
+                if(Product::updateData($product_id, $dataSave)) {
+                    return Redirect::route('admin.productView');
                 }
-                if(!empty($product)){
-                    if($product_id > 0){//cap nhat
-                        if($id_hiden == 0){
-                            $dataSave['time_created'] = time();
-                            $dataSave['time_update'] = time();
-                        }else{
-                            $dataSave['time_update'] = time();
-                        }
-                        //lay tên danh mục
-                        $dataSave['category_name'] = isset($this->arrCateShop[$dataSave['category_id']])?$this->arrCateShop[$dataSave['category_id']]: '';
-                        $dataSave['user_shop_id'] = $this->inforUserShop->shop_id;
-                        $dataSave['user_shop_name'] = $this->inforUserShop->shop_name;
-                        $dataSave['is_shop'] = $this->inforUserShop->is_shop;
-                        $dataSave['shop_province'] = $this->inforUserShop->shop_province;
-                        $dataSave['is_block'] = CGlobal::PRODUCT_NOT_BLOCK;
-
-                        if(Product::updateData($product_id,$dataSave)){
-                            return Redirect::route('shop.listProduct');
-                        }
-                    }
+            } else {
+                //them moi
+                $dataSave['time_created'] = time();
+                $dataSave['user_id_creater'] =  !empty($this->user)? $this->user['user_id']: 0;
+                $dataSave['user_name_creater'] =  !empty($this->user)? $this->user['user_name']: '';
+                $submit = Product::addData($dataSave);
+                if($submit) {
+                    return Redirect::route('admin.productView');
                 }else{
-                    return Redirect::route('shop.listProduct');
+                    $this->error[] = $submit;
                 }
-            }
-            else{
-                return Redirect::route('shop.listProduct');
             }
         }
+
         //FunctionLib::debug($dataSave);
-        $optionNCC = FunctionLib::getOption(array(-1=>'---Chọn nhà cung cấp ----') + $arrNCC, $dataSave['provider_id']);
-        $optionCategory = FunctionLib::getOption(array(-1=>'---Chọn danh mục----') + $this->arrCateShop,$dataSave['category_id']);
-        $optionStatusProduct = FunctionLib::getOption($this->arrStatus,$dataSave['product_status']);
+        //$optionNCC = FunctionLib::getOption(array(-1=>'---Chọn nhà cung cấp ----') + $arrNCC, $dataSave['provider_id']);
+        $optionCategory = FunctionLib::getOption(array(-1=>'---Chọn danh mục----') + $this->arrCategory,$dataSave['category_id']);
+        $optionStatus = FunctionLib::getOption($this->arrStatus,$dataSave['product_status']);
         $optionTypePrice = FunctionLib::getOption($this->arrTypePrice,$dataSave['product_type_price']);
         $optionTypeProduct = FunctionLib::getOption($this->arrTypeProduct,$dataSave['product_is_hot']);
+        $optionDepart = FunctionLib::getOption(array(-1=>'---Chọn chuyên mục----') + $this->arrDepart,$dataSave['depart_id']);
         $optionIsSale = FunctionLib::getOption($this->arrIsSale,$dataSave['is_sale']);
 
-        $this->layout->content = View::make('site.ShopAdmin.EditProduct')
+        $this->layout->content = View::make('admin.Product.add')
             ->with('error', $this->error)
-            ->with('product_id', $product_id)
-            ->with('user_shop', $this->inforUserShop)
+            ->with('id', $product_id)
             ->with('data', $dataSave)
             ->with('arrViewImgOther', $arrViewImgOther)
             ->with('imagePrimary', $imagePrimary)
             ->with('imageHover', $imageHover)
+
             ->with('optionCategory', $optionCategory)
-            ->with('optionNCC', $optionNCC)
-            ->with('optionStatusProduct', $optionStatusProduct)
-            ->with('optionTypePrice', $optionTypePrice)
             ->with('optionIsSale', $optionIsSale)
+            ->with('optionDepart', $optionDepart)
+            ->with('optionStatus', $optionStatus)
+            ->with('optionTypePrice', $optionTypePrice)
             ->with('optionTypeProduct', $optionTypeProduct);
     }
     private function validInforProduct($data=array()) {
@@ -297,6 +290,9 @@ class ProductController extends BaseAdminController
             if(isset($data['category_id']) && $data['category_id'] == -1) {
                 $this->error[] = 'Chưa chọn danh mục';
             }
+            if(isset($data['depart_id']) && $data['depart_id'] == -1) {
+                $this->error[] = 'Chưa chọn chuyên mục';
+            }
             if(isset($data['product_type_price']) && $data['product_type_price'] == CGlobal::TYPE_PRICE_NUMBER) {
                 if(isset($data['product_price_sell']) && $data['product_price_sell'] <= 0) {
                     $this->error[] = 'Chưa nhập giá bán';
@@ -305,67 +301,6 @@ class ProductController extends BaseAdminController
             return true;
         }
         return false;
-    }
-
-    public function postProduct__($id=0) {
-        if(!$this->is_root && !in_array($this->permission_full,$this->permission) && !in_array($this->permission_edit,$this->permission) && !in_array($this->permission_create,$this->permission)){
-            return Redirect::route('admin.dashboard',array('error'=>1));
-        }
-        die('Không có chức năng này trong admin');
-        FunctionLib::link_css(array(
-            'lib/upload/cssUpload.css',
-        ));
-
-        //Include javascript.
-        FunctionLib::link_js(array(
-            'lib/upload/jquery.uploadfile.js',
-            'lib/ckeditor/ckeditor.js',
-            'lib/ckeditor/config.js',
-            'lib/dragsort/jquery.dragsort.js',
-            //'js/common.js',
-            'lib/number/autoNumeric.js',
-            'frontend/js/site.js',
-        ));
-        $dataSave['category_name'] = addslashes(Request::get('category_name'));
-        $dataSave['category_icons'] = addslashes(Request::get('category_icons'));
-        $dataSave['category_image_background'] = addslashes(Request::get('category_image_background'));
-        $dataSave['category_status'] = (int)Request::get('category_status', 0);
-        $dataSave['category_parent_id'] = (int)Request::get('category_parent_id', 0);
-        $dataSave['category_content_front'] = (int)Request::get('category_content_front', 0);
-        $dataSave['category_content_front_order'] = (int)Request::get('category_content_front_order', 0);
-        $dataSave['category_order'] = (int)Request::get('category_order', 0);
-
-        $file = Input::file('image');
-        if($file){
-            $destinationPath = public_path().'/images/category/';
-            $filename = $file->getClientOriginalName();
-            $upload  = Input::file('image')->move($destinationPath, $filename);
-            //FunctionLib::debug($filename);
-            $dataSave['category_image_background'] = $filename;
-        }else{
-            $dataSave['category_image_background'] = Request::get('category_image_background', '');
-        }
-
-        if($this->valid($dataSave) && empty($this->error)) {
-            if($id > 0) {
-                //cap nhat
-                if(Product::updateData($id, $dataSave)) {
-                    return Redirect::route('admin.productView');
-                }
-            } else {
-                //them moi
-                if(Product::addData($dataSave)) {
-                    return Redirect::route('admin.productView');
-                }
-            }
-        }
-        $optionStatus = FunctionLib::getOption($this->arrStatus, isset($dataSave['category_status'])? $dataSave['category_status'] : -1);
-        $this->layout->content =  View::make('admin.Product.add')
-            ->with('id', $id)
-            ->with('data', $dataSave)
-            ->with('optionStatus', $optionStatus)
-            ->with('error', $this->error)
-            ->with('arrStatus', $this->arrStatus);
     }
 
     //ajax
@@ -388,6 +323,7 @@ class ProductController extends BaseAdminController
         }
         return Response::json($data);
     }
+
     public function setStastusBlockProduct(){
         $data = array('isIntOk' => 0);
         if(!$this->is_root && !in_array($this->permission_full,$this->permission) && !in_array($this->permission_delete,$this->permission)){
@@ -443,18 +379,4 @@ class ProductController extends BaseAdminController
         }
         return Response::json($data);
     }
-
-    private function valid($data=array()) {
-        if(!empty($data)) {
-            if(isset($data['category_name']) && $data['category_name'] == '') {
-                $this->error[] = 'Tên danh mục không được trống';
-            }
-            if(isset($data['category_status']) && $data['category_status'] == -1) {
-                $this->error[] = 'Bạn chưa chọn trạng thái cho danh mục';
-            }
-            return true;
-        }
-        return false;
-    }
-
 }

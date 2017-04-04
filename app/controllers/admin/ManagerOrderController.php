@@ -47,11 +47,10 @@ class ManagerOrderController extends BaseAdminController
         $search['time_end_time'] = addslashes(Request::get('time_end_time',''));
         $search['order_status'] = (int)Request::get('order_status',-1);
         $search['order_user_shop_id'] = (int)Request::get('order_user_shop_id',-1);
-        ///$search['field_get'] = 'order_id,order_product_name,order_status';//cac truong can lay
 
         $data = Order::searchByCondition($search, $limit, $offset,$total);
-        //FunctionLib::debug($data);
         $paging = $total > 0 ? Pagging::getNewPager(3, $pageNo, $total, $limit, $search) : '';
+        //FunctionLib::debug($data);
 
         $arrStatusOrder = array(-1 => '---- Trạng thái đơn hàng ----',
             CGlobal::ORDER_STATUS_NEW => 'Đơn hàng mới',
@@ -76,6 +75,23 @@ class ManagerOrderController extends BaseAdminController
             ->with('permission_delete', in_array($this->permission_delete, $this->permission) ? 1 : 0)//dùng common
             ->with('permission_create', in_array($this->permission_create, $this->permission) ? 1 : 0)//dùng common
             ->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 0);//dùng common
+    }
+
+    public function detailOrder($order_id=0) {
+        if(!$this->is_root && !in_array($this->permission_full,$this->permission) && !in_array($this->permission_edit,$this->permission) && !in_array($this->permission_create,$this->permission)){
+            return Redirect::route('admin.dashboard',array('error'=>1));
+        }
+        $data = array();
+        if($order_id > 0) {
+            $data = Order::getOrderById($order_id);
+            //FunctionLib::debug($data);
+        }
+        $optionStatus = FunctionLib::getOption($this->arrStatus, isset($data['news_status'])? $data['news_status'] : CGlobal::status_show);
+        $this->layout->content = View::make('admin.ManagerOrder.detailOrder')
+            ->with('id', $order_id)
+            ->with('data', $data)
+            ->with('optionStatus', $optionStatus)
+            ->with('arrStatus', $this->arrStatus);
     }
 
     public function deleteOrderShop(){

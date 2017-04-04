@@ -33,21 +33,20 @@
                             </select>
                         </div>
                         <div class="form-group col-lg-3">
-                            <label for="order_status">Kiểu khóa SP</label>
-                            <select name="is_block" id="is_block" class="form-control input-sm">
-                                {{$optionBlock}}
-                            </select>
-                        </div>
-                        <div class="form-group col-lg-3">
-                            <label for="order_status">Sản phẩm của Shop</label>
-                            <select name="user_shop_id" id="user_shop_id" class="form-control input-sm chosen-select-deselect" tabindex="12" data-placeholder="Chọn tên shop">
-                                <option value=""></option>
-                                @foreach($arrShop as $shop_id => $shopName)
-                                    <option value="{{$shop_id}}" @if($search['user_shop_id'] == $shop_id) selected="selected" @endif>{{$shopName}}</option>
-                                @endforeach
+                            <label for="order_status">Thuộc chuyên mục</label>
+                            <select name="depart_id" id="depart_id" class="form-control input-sm">
+                                {{$optionDepart}}
                             </select>
                         </div>
                         <div class="form-group col-lg-12 text-right">
+                            @if($is_root || $permission_full ==1 || $permission_create == 1)
+                                <span class="">
+                                    <a class="btn btn-danger btn-sm" href="{{URL::route('admin.productEdit')}}">
+                                        <i class="ace-icon fa fa-plus-circle"></i>
+                                        Thêm mới
+                                    </a>
+                                </span>
+                            @endif
                             <button class="btn btn-primary btn-sm" type="submit"><i class="fa fa-search"></i> Tìm kiếm</button>
                         </div>
                     </div>
@@ -76,8 +75,8 @@
                             <th width="8%" class="text-center">Ảnh SP</th>
                             <th width="24%">Thông tin sản phẩm</th>
                             <th width="15%">Giá bán</th>
-                            <th width="15%">Mô tả ngắn</th>
                             <th width="15%">Thông tin khác</th>
+                            <th width="15%">Ngày</th>
                             <th width="10%" class="text-center">Thao tác</th>
                         </tr>
                         </thead>
@@ -99,6 +98,9 @@
                                     @else
                                         [<b>{{ $item->product_id }}</b>] {{ $item->product_name }}
                                     @endif
+                                    @if(isset($arrDepart[$item->depart_id]))
+                                        <br/><b>Chuyên mục:</b> {{ $arrDepart[$item->depart_id] }}
+                                    @endif
                                     @if($item->category_name != '')
                                         <br/><b>Danh mục:</b> {{ $item->category_name }}
                                     @endif
@@ -116,14 +118,13 @@
                                     @endif
                                 </td>
                                 <td class="text-left text-middle">
-                                    @if($item->product_sort_desc != ''){{ FunctionLib::substring($item->product_sort_desc,100) }}@endif
+                                    @if(isset($arrIsSale[$item->is_sale]))
+                                        Tình trạng: <b>{{ $arrIsSale[$item->is_sale] }}</b>
+                                    @endif
                                 </td>
                                 <td class="text-left text-middle">
-                                    @if(isset($arrShop[$item->user_shop_id]))
-                                        <b>Shop:</b> {{ $arrShop[$item->user_shop_id] }}
-                                    @endif
-                                        <br/>Tạo: {{date ('d-m-Y H:i',$item->time_created)}}
-                                        <br/>Sửa: {{date ('d-m-Y H:i',$item->time_update)}}
+                                      Tạo: <b>{{$item->user_name_creater}}</b> <br/>{{date ('d-m-Y H:i',$item->time_created)}}
+                                      <br/>Sửa: <b>{{$item->user_name_update}}</b> <br/>{{date ('d-m-Y H:i',$item->time_update)}}
                                 </td>
                                 <td class="text-center text-middle">
                                     @if($item->is_block == CGlobal::PRODUCT_BLOCK)

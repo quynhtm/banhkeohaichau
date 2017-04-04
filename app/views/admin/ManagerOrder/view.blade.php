@@ -100,9 +100,11 @@
                                 </td>
                                 <td class="text-center text-middle">{{ date ('d-m-Y H:i:s',$item->order_time_creater) }}</td>
                                 <td class="text-center text-middle">
-                                    @if(isset($arrStatus[$item->order_status])){{$arrStatus[$item->order_status]}}@else --- @endif
+                                    @if($is_root || $permission_edit)
+                                        <a href="{{URL::route('admin.detailOrder',array('order_id' => $item->order_id))}}" title="Chi tiết đơn hàng"><i class="fa fa-file-text-o fa-2x"></i></a>
+                                    @endif
                                     @if($is_root)
-                                         <br/><a href="javascript:void(0);" onclick="Admin.deleteItem({{$item->order_id}},8)" title="Xóa Item"><i class="fa fa-trash fa-2x"></i></a>
+                                         <a href="javascript:void(0);" onclick="Admin.deleteItem({{$item->order_id}},8)" title="Xóa Item"><i class="fa fa-trash fa-2x"></i></a>
                                      @endif
                                     <span class="img_loading" id="img_loading_{{$item->order_id}}"></span>
                                 </td>

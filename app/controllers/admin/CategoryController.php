@@ -95,7 +95,7 @@ class CategoryController extends BaseAdminController
             ->with('id', $id)
             ->with('data', $data)
             ->with('optionStatus', $optionStatus)
-            ->with('category_type', $this->category_type)
+            ->with('category_type', $category_type)
             ->with('optionTypeCategory', $optionTypeCategory)
             ->with('optionCategoryDepart', $optionCategoryDepart)
             ->with('arrShowHide', $this->arrShowHide)
@@ -110,12 +110,15 @@ class CategoryController extends BaseAdminController
         $data['category_name'] = addslashes(Request::get('category_name'));
         $data['category_status'] = (int)Request::get('category_status', 0);
         $data['category_parent_id'] = (int)Request::get('category_parent_id', 0);
-        $data['category_order'] = (int)Request::get('category_order', 0);
         $data['category_depart_id'] = (int)Request::get('category_depart_id', 0);
+        $data['category_order'] = (int)Request::get('category_order', 0);
         $data['category_type'] = (int)Request::get('category_type', 0);
         $data['category_level'] = 1;
 
         if($this->valid($data) && empty($this->error)) {
+            if($data['category_parent_id'] > 0){
+                $data['category_depart_id'] = Category::getDepartIdByCategoryId($data['category_parent_id']);
+            }
             if($id > 0) {
                 if(Category::updateData($id, $data)) {
                     return Redirect::route('admin.categoryView',array('category_type'=>$data['category_type']));
@@ -151,6 +154,11 @@ class CategoryController extends BaseAdminController
             }
             if(isset($data['category_status']) && $data['category_status'] == -1) {
                 $this->error[] = 'Bạn chưa chọn trạng thái cho danh mục';
+            }
+            if(isset($data['category_parent_id']) && $data['category_parent_id'] == 0) {
+                if(isset($data['category_depart_id']) && $data['category_depart_id'] == 0) {
+                    $this->error[] = 'Bạn chưa chuyên mục';
+                }
             }
             return true;
         }

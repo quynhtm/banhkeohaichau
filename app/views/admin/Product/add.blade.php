@@ -23,7 +23,7 @@
                     </div>
                 @endif
 
-                <div style="float: left;width: 38%">
+                <div style="float: left;width: 50%">
                     <div class="col-sm-12">
                         <div class="form-group">
                             <label for="name" class="control-label">Tên sản phẩm <span class="red"> (*) </span></label>
@@ -34,7 +34,17 @@
 
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="name" class="control-label">Danh mục<span class="red"> (*) </span></label>
+                            <label for="name" class="control-label">Thuộc chuyên mục <span class="red"> (*) </span></label>
+                            <div class="form-group">
+                                <select name="depart_id" id="depart_id" class="form-control input-sm">
+                                    {{$optionDepart}}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="name" class="control-label">Danh mục <span class="red"> (*) </span></label>
                             <div class="form-group">
                                 <select name="category_id" id="category_id" class="form-control input-sm">
                                     {{$optionCategory}}
@@ -42,16 +52,17 @@
                             </div>
                         </div>
                     </div>
+                    <!--
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="name" class="control-label">Thuộc nhà cung cấp</label>
                             <div class="form-group">
                                 <select name="provider_id" id="provider_id" class="form-control input-sm">
-                                    {{$optionStatusProduct}}
                                 </select>
                             </div>
                         </div>
                     </div>
+                    -->
                     <div class="clearfix"></div>
 
                     <div class="col-sm-6">
@@ -81,7 +92,7 @@
                             <label for="name" class="control-label">Trạng thái Ẩn/Hiện</label>
                             <div class="form-group">
                                 <select name="product_status" id="product_status" class="form-control input-sm">
-                                    {{$optionStatusProduct}}
+                                    {{$optionStatus}}
                                 </select>
                             </div>
                         </div>
@@ -96,17 +107,31 @@
 
                     <div class="col-sm-6">
                         <div class="form-group">
+                            <label for="name" class="control-label">Tình trạng hàng</label>
+                            <div class="form-group">
+                                <select name="is_sale" id="is_sale" class="form-control input-sm">
+                                    {{$optionIsSale}}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="name" class="control-label">Giá thị trường</label>
+                            <input type="text" placeholder="Giá thị trường" id="product_price_market" name="product_price_market" class="formatMoney text-left form-control" data-v-max="999999999999999" data-v-min="0" data-a-sep="." data-a-dec="," data-a-sign=" đ" data-p-sign="s" value="@if(isset($data['product_price_market'])){{$data['product_price_market']}}@endif">
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
                             <label for="name" class="control-label">Thông tin khuyến mại</label>
                             <div class="clearfix"></div>
                             <textarea rows="5" cols="8" name="product_selloff" class="form-control input-sm">@if(isset($data['product_selloff'])){{$data['product_selloff']}}@endif</textarea>
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="name" class="control-label">Giá thị trường</label>
-                            <input type="text" placeholder="Giá thị trường" id="product_price_market" name="product_price_market" class="formatMoney text-left form-control" data-v-max="999999999999999" data-v-min="0" data-a-sep="." data-a-dec="," data-a-sign=" đ" data-p-sign="s" value="@if(isset($data['product_price_market'])){{$data['product_price_market']}}@endif">
-                        </div>
-                    </div><div class="col-sm-6">
                         <div class="form-group">
                             <label for="name" class="control-label">Giá nhập</label>
                             <input type="text" placeholder="Giá nhập" id="product_price_input" name="product_price_input" class="formatMoney text-left form-control" data-v-max="999999999999999" data-v-min="0" data-a-sep="." data-a-dec="," data-a-sign=" đ" data-p-sign="s" value="@if(isset($data['product_price_input'])){{$data['product_price_input']}}@endif">
@@ -115,10 +140,10 @@
                     <div class="clearfix"></div>
                 </div>
 
-                <div style="float: left;width: 62%">
+                <div style="float: left;width: 50%">
                     <div class="col-sm-12">
                         <div class="form-group">
-                            <!--<a href="javascript:;"class="btn btn-primary" onclick="SITE.uploadImagesProduct(2);">Upload ảnh </a>-->
+                            <a href="javascript:;"class="btn btn-primary" onclick="Admin.uploadMultipleImages(2);">Upload ảnh</a>
                             <input name="image_primary" type="hidden" id="image_primary" value="@if(isset($data['product_image'])){{$data['product_image']}}@endif">
                             <input name="product_image_hover" type="hidden" id="image_primary_hover" value="@if(isset($data['product_image_hover'])){{$data['product_image_hover']}}@endif">
                         </div>
@@ -134,15 +159,15 @@
                                             <img src="{{$imgNew['src_img_other']}}" height='100' width='100'>
                                             <input type="hidden" id="img_other_{{$key}}" name="img_other[]" value="{{$imgNew['img_other']}}" class="sys_img_other">
                                             <div class='clear'></div>
-                                            <input type="radio" id="chẹcked_image_{{$key}}" name="chẹcked_image" value="{{$key}}" @if(isset($imagePrimary) && $imagePrimary == $imgNew['img_other'] ) checked="checked" @endif onclick="SITE.checkedImage('{{$imgNew['img_other']}}','{{$key}}');">
+                                            <input type="radio" id="chẹcked_image_{{$key}}" name="chẹcked_image" value="{{$key}}" @if(isset($imagePrimary) && $imagePrimary == $imgNew['img_other'] ) checked="checked" @endif onclick="Admin.checkedImage('{{$imgNew['img_other']}}','{{$key}}');">
                                             <label for="chẹcked_image_{{$key}}" style='font-weight:normal'>Ảnh đại diện</label>
 
                                             <div class="clearfix"></div>
-                                            <input type="radio" id="chẹcked_image_hover_{{$key}}" name="chẹcked_image_hover" value="{{$key}}" @if(isset($imageHover) && $imageHover == $imgNew['img_other'] ) checked="checked" @endif onclick="SITE.checkedImageHover('{{$imgNew['img_other']}}','{{$key}}');">
+                                            <input type="radio" id="chẹcked_image_hover_{{$key}}" name="chẹcked_image_hover" value="{{$key}}" @if(isset($imageHover) && $imageHover == $imgNew['img_other'] ) checked="checked" @endif onclick="Admin.checkedImageHover('{{$imgNew['img_other']}}','{{$key}}');">
                                             <label for="chẹcked_image_hover_{{$key}}" style='font-weight:normal'>Ảnh hover</label>
 
                                             <div class="clearfix"></div>
-                                            <a href="javascript:void(0);" onclick="SITE.removeImage({{$key}},{{$id}},'{{$imgNew['img_other']}}');">Xóa ảnh</a>
+                                            <a href="javascript:void(0);" onclick="Admin.removeImage({{$key}},{{$id}},'{{$imgNew['img_other']}}',2);">Xóa ảnh</a>
                                             <span style="display: none"><b>{{$key}}</b></span>
                                         </div>
                                     </li>
@@ -178,6 +203,7 @@
                 <div class="col-sm-12">
                     <div class="form-group">
                         <label for="name" class="control-label">Thông tin chi tiết <span class="red"> (*) </span></label>
+                        <div class="controls"><button type="button" onclick="Admin.insertImageContent(2)" class="btn btn-primary">Chèn ảnh vào nội dung</button></div>
                         <textarea class="form-control input-sm" rows="8" name="product_content" id="product_content">@if(isset($data['product_content'])){{$data['product_content']}}@endif</textarea>
                     </div>
                 </div>
@@ -220,6 +246,30 @@
     </div>
 </div>
 <!--Popup upload ảnh-->
+
+<!--Popup anh khac de chen vao noi dung bai viet-->
+<div class="modal fade" id="sys_PopupImgOtherInsertContent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Click ảnh để chèn vào nội dung</h4>
+            </div>
+            <div class="modal-body">
+                <form name="uploadImage" method="post" action="#" enctype="multipart/form-data">
+                    <div class="form_group">
+                        <div class="clearfix"></div>
+                        <div class="clearfix" style='margin: 5px 10px; width:100%;'>
+                            <div id="div_image_insert_content" class="float_left"></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- chen anh vào noi dung-->
+
 <script>
     CKEDITOR.replace(
             'product_sort_desc',
@@ -242,7 +292,7 @@
         var data = jQuery("#sys_drag_sort li div span").map(function() { return jQuery(this).children().html(); }).get();
         jQuery("input[name=list1SortOrder]").val(data.join(","));
     };
-    function insertImgContent(src){
-        CKEDITOR.instances.news_content.insertHtml('<img src="'+src+'"/>');
+    function insertImgContent(src, title){
+        CKEDITOR.instances.product_content.insertHtml('<img src="'+src+'" alt="'+title+'"/>');
     }
 </script>

@@ -18,7 +18,7 @@ class AjaxCommonController extends BaseSiteController
             case 1://img news
                 $aryData = $this->uploadImageToFolder($dataImg, $id_hiden, CGlobal::FOLDER_NEWS, $type);
                 break;
-            case 2://img Item
+            case 2://img product
                 $aryData = $this->uploadImageToFolder($dataImg, $id_hiden, CGlobal::FOLDER_PRODUCT, $type);
                 break;
             case 3://img banner
@@ -51,22 +51,11 @@ class AjaxCommonController extends BaseSiteController
                         $item_id = News::addData($new_row);
                         break;
                     case 2://img Item
-                        $customerLogin = UserCustomer::user_login();
-                        $user_customer = UserCustomer::getByID($customerLogin->customer_id);//lay thông tin mới nhất của user
-                        if(sizeof($user_customer) > 0){
-                        	$new_row['time_created'] = time();
-                        	$new_row['time_ontop'] = time();
-                        	$new_row['item_status'] = CGlobal::status_hide;
-                        	$new_row['customer_id'] = $user_customer->customer_id;
-                        	$new_row['customer_name'] = $user_customer->customer_name;
-                        	$new_row['item_province_id'] = $user_customer->customer_province_id;
-                        	$item_id = Items::addData($new_row);
-                            if($item_id > 0){
-                                //cập nhật số lượng up tin
-                                $dataCustomer['customer_up_item'] = $user_customer->customer_up_item + 1;;
-                                UserCustomer::updateData($user_customer->customer_id,$dataCustomer);
-                            }
-                        }
+                        $new_row['time_created'] = time();
+                        $new_row['product_status'] = CGlobal::status_hide;
+                        $new_row['user_id_creater'] =  !empty($this->userAdmin)? $this->userAdmin['user_id']: 0;
+                        $new_row['user_name_creater'] =  !empty($this->userAdmin)? $this->userAdmin['user_name']: '';
+                        $item_id = Product::addData($new_row);
                         break;
                     case 3://img banner
                         $new_row['banner_create_time'] = time();
@@ -96,6 +85,7 @@ class AjaxCommonController extends BaseSiteController
                     $tmpImg['id_key'] = rand(10000, 99999);
                     $url_thumb = ThumbImg::getImageThumb($folder, $item_id, $file_name, $this->sizeImageShowUpload, '', true, CGlobal::type_thumb_image_banner, false);
                     $tmpImg['src'] = $url_thumb;
+
 					//Cap nhat DB de quan ly file anh new
                     if($type == 1 ){
                     	//img news
@@ -109,22 +99,23 @@ class AjaxCommonController extends BaseSiteController
                     		News::updateData($item_id,$proUpdate);
                     	}
                     }
-                    //cap nhat DB de quan ly cac file anh tin đăng
+
+                    //cap nhat DB de quan ly cac file anh Sản Phẩm
                     if( $type == 2 ){
-                        //img Product
-                       $user_customer = UserCustomer::user_login();
-                        if(sizeof($user_customer) > 0){
-                            //get mang anh other
-                            $customer = $user_customer->customer_id;
-                            $inforItem = Items::getItemByCustomerId($customer, $item_id);
-                            if($inforItem){
-                                $arrImagOther = unserialize($inforItem->item_image_other);
-                                $arrImagOther[] = $file_name;//gan anh vua upload
-                                $itemUpdate['item_image_other'] = serialize($arrImagOther);
-                                Items::updateData($item_id, $itemUpdate);
-                            }
+                        //img Product get mang anh other
+                        $inforItem = Product::getProductByID($item_id);
+                        if($inforItem){
+                            $arrImagOther = unserialize($inforItem->product_image_other);
+                            $arrImagOther[] = $file_name;//gan anh vua upload
+
+                            $itemUpdate['product_image_other'] = serialize($arrImagOther);
+                            $itemUpdate['time_update'] = time();
+                            $itemUpdate['user_id_update'] =  !empty($this->userAdmin)? $this->userAdmin['user_id']: 0;
+                            $itemUpdate['user_name_update'] =  !empty($this->userAdmin)? $this->userAdmin['user_name']: '';
+                            Product::updateData($item_id, $itemUpdate);
                         }
                     }
+
                     if($type == 3){//anh banner
                         $banner = Banner::getBannerByID($item_id);
                         if($banner){
@@ -204,11 +195,37 @@ class AjaxCommonController extends BaseSiteController
                     }
                     $aryData['intIsOK'] = 1;
                     break;
+                case 2:
+                    //img product
+                    $inforProduct = Product::getProductByID($item_id);
+                    if(sizeof($inforProduct) >0){
+                        $arrImagOther = unserialize($inforProduct->product_image_other);
+                        if(!empty($arrImagOther)){
+                            foreach($arrImagOther as $k=>$v){
+                                if($v == $nameImage){
+                                    unset($arrImagOther[$k]);
+                                    //xoa anh upload
+                                    FunctionLib::deleteFileUpload($nameImage,$item_id,CGlobal::FOLDER_PRODUCT);
+
+                                    //xóa anh thumb
+                                    $arrSizeThumb = CGlobal::$arrSizeImage;
+                                    foreach($arrSizeThumb as $k=>$size){
+                                        $sizeThumb = $size['w'].'x'.$size['h'];
+                                        FunctionLib::deleteFileThumb($nameImage,$item_id,CGlobal::FOLDER_PRODUCT,$sizeThumb);
+                                    }
+                                }
+                            }
+                        }
+                        $proUpdate['product_image_other'] = serialize($arrImagOther);
+                        Product::updateData($item_id,$proUpdate);
+                    }
+                    $aryData['intIsOK'] = 1;
+                    break;
                 case 5:
                 	//img thu vien anh
-                	$inforNews = LibraryImage::getById($item_id);
-                	if(sizeof($inforNews) >0){
-                        $arrImagOther = unserialize($inforNews->image_image_other);
+                	$inforImage = LibraryImage::getById($item_id);
+                	if(sizeof($inforImage) >0){
+                        $arrImagOther = unserialize($inforImage->image_image_other);
                         if(!empty($arrImagOther)){
                             foreach($arrImagOther as $k=>$v){
                                 if($v == $nameImage){
@@ -292,6 +309,24 @@ class AjaxCommonController extends BaseSiteController
             					'src_thumb_content'=>$url_thumb_content);
             		}
             		
+            	}
+            	$data['dataImage'] = $arrViewImgOther;
+            	$data['isIntOk'] = 1;
+            	return Response::json($data);
+            	break;
+             case 2://img Product
+            	$inforProduct = Product::getProductByID($id_hiden);
+            	if(sizeof($inforProduct) >0){
+            		$arrImg = unserialize($inforProduct->product_image_other);
+            		foreach($arrImg as $k=>$val){
+            			$url_thumb = ThumbImg::getImageThumb(CGlobal::FOLDER_PRODUCT, $id_hiden, $val, CGlobal::sizeImage_100);
+            			$url_thumb_content = ThumbImg::getImageThumb(CGlobal::FOLDER_PRODUCT, $id_hiden, $val, CGlobal::sizeImage_600);
+            			$arrViewImgOther[] = array(
+            					'post_title'=>$inforProduct->product_name,
+            					'src_img_other'=>$url_thumb,
+            					'src_thumb_content'=>$url_thumb_content);
+            		}
+
             	}
             	$data['dataImage'] = $arrViewImgOther;
             	$data['isIntOk'] = 1;

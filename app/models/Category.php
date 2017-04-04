@@ -25,6 +25,11 @@ class Category extends Eloquent
         return $category;
     }
 
+    public static function getCategoryNameByID($id){
+        $category = Category::getByID($id);
+        return (sizeof($category) > 0) ? $category->category_name: '';
+    }
+
     public static function getOptionAllCategory() {
         $data = array();
         $category = Category::where('category_id','>',0)->orderBy('category_id','asc')->get();
@@ -56,6 +61,17 @@ class Category extends Eloquent
             return $data;
         }
         return $data;
+    }
+
+    public static function getDepartIdByCategoryId($category_id = 0) {
+        $category_depart_id = 0;
+        if($category_id > 0){
+            $category = Category::getByID($category_id);
+            if (sizeof($category) !== 0) {
+                $category_depart_id = isset($category->category_depart_id)? $category->category_depart_id : 0;
+            }
+        }
+        return $category_depart_id;
     }
 
     public static function getAllParentCategoryId() {
@@ -270,8 +286,17 @@ class Category extends Eloquent
         return $data;
     }
 
-    public static function buildTreeCategory(){
-        $categories = Category::where('category_id', '>', 0)->where('category_status', '=', CGlobal::status_show)->get();
+    public static function buildTreeCategory($category_type = 0){
+            if($category_type > 0){
+                $categories = Category::where('category_id', '>', 0)
+                    ->where('category_status', '=', CGlobal::status_show)
+                    ->where('category_type', '=', $category_type)
+                    ->get();
+            }else{
+                $categories = Category::where('category_id', '>', 0)
+                    ->where('category_status', '=', CGlobal::status_show)
+                    ->get();
+            }
         return $treeCategroy = self::getTreeCategory($categories);
     }
     /**
