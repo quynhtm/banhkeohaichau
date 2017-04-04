@@ -23,7 +23,7 @@
                     </div>
                 @endif
 
-                <div style="float: left;width: 45%">
+                <div style="float: left;width: 50%">
                     <div class="col-sm-12">
                         <div class="form-group">
                             <label for="name" class="control-label">Tên sản phẩm <span class="red"> (*) </span></label>
@@ -140,7 +140,7 @@
                     <div class="clearfix"></div>
                 </div>
 
-                <div style="float: left;width: 55%">
+                <div style="float: left;width: 50%">
                     <div class="col-sm-12">
                         <div class="form-group">
                             <a href="javascript:;"class="btn btn-primary" onclick="Admin.uploadMultipleImages(2);">Upload ảnh</a>
@@ -159,15 +159,15 @@
                                             <img src="{{$imgNew['src_img_other']}}" height='100' width='100'>
                                             <input type="hidden" id="img_other_{{$key}}" name="img_other[]" value="{{$imgNew['img_other']}}" class="sys_img_other">
                                             <div class='clear'></div>
-                                            <input type="radio" id="chẹcked_image_{{$key}}" name="chẹcked_image" value="{{$key}}" @if(isset($imagePrimary) && $imagePrimary == $imgNew['img_other'] ) checked="checked" @endif onclick="SITE.checkedImage('{{$imgNew['img_other']}}','{{$key}}');">
+                                            <input type="radio" id="chẹcked_image_{{$key}}" name="chẹcked_image" value="{{$key}}" @if(isset($imagePrimary) && $imagePrimary == $imgNew['img_other'] ) checked="checked" @endif onclick="Admin.checkedImage('{{$imgNew['img_other']}}','{{$key}}');">
                                             <label for="chẹcked_image_{{$key}}" style='font-weight:normal'>Ảnh đại diện</label>
 
                                             <div class="clearfix"></div>
-                                            <input type="radio" id="chẹcked_image_hover_{{$key}}" name="chẹcked_image_hover" value="{{$key}}" @if(isset($imageHover) && $imageHover == $imgNew['img_other'] ) checked="checked" @endif onclick="SITE.checkedImageHover('{{$imgNew['img_other']}}','{{$key}}');">
+                                            <input type="radio" id="chẹcked_image_hover_{{$key}}" name="chẹcked_image_hover" value="{{$key}}" @if(isset($imageHover) && $imageHover == $imgNew['img_other'] ) checked="checked" @endif onclick="Admin.checkedImageHover('{{$imgNew['img_other']}}','{{$key}}');">
                                             <label for="chẹcked_image_hover_{{$key}}" style='font-weight:normal'>Ảnh hover</label>
 
                                             <div class="clearfix"></div>
-                                            <a href="javascript:void(0);" onclick="SITE.removeImage({{$key}},{{$id}},'{{$imgNew['img_other']}}');">Xóa ảnh</a>
+                                            <a href="javascript:void(0);" onclick="Admin.removeImage({{$key}},{{$id}},'{{$imgNew['img_other']}}',2);">Xóa ảnh</a>
                                             <span style="display: none"><b>{{$key}}</b></span>
                                         </div>
                                     </li>
@@ -203,6 +203,7 @@
                 <div class="col-sm-12">
                     <div class="form-group">
                         <label for="name" class="control-label">Thông tin chi tiết <span class="red"> (*) </span></label>
+                        <div class="controls"><button type="button" onclick="Admin.insertImageContent(2)" class="btn btn-primary">Chèn ảnh vào nội dung</button></div>
                         <textarea class="form-control input-sm" rows="8" name="product_content" id="product_content">@if(isset($data['product_content'])){{$data['product_content']}}@endif</textarea>
                     </div>
                 </div>
@@ -245,6 +246,30 @@
     </div>
 </div>
 <!--Popup upload ảnh-->
+
+<!--Popup anh khac de chen vao noi dung bai viet-->
+<div class="modal fade" id="sys_PopupImgOtherInsertContent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Click ảnh để chèn vào nội dung</h4>
+            </div>
+            <div class="modal-body">
+                <form name="uploadImage" method="post" action="#" enctype="multipart/form-data">
+                    <div class="form_group">
+                        <div class="clearfix"></div>
+                        <div class="clearfix" style='margin: 5px 10px; width:100%;'>
+                            <div id="div_image_insert_content" class="float_left"></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- chen anh vào noi dung-->
+
 <script>
     CKEDITOR.replace(
             'product_sort_desc',
@@ -267,7 +292,7 @@
         var data = jQuery("#sys_drag_sort li div span").map(function() { return jQuery(this).children().html(); }).get();
         jQuery("input[name=list1SortOrder]").val(data.join(","));
     };
-    function insertImgContent(src){
-        CKEDITOR.instances.news_content.insertHtml('<img src="'+src+'"/>');
+    function insertImgContent(src, title){
+        CKEDITOR.instances.product_content.insertHtml('<img src="'+src+'" alt="'+title+'"/>');
     }
 </script>

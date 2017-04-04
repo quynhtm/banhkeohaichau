@@ -16,7 +16,7 @@ class ProductController extends BaseAdminController
         CGlobal::status_show => 'Hiện',
         2 => 'Khóa SP',
         3 => 'Mở khóa SP',
-        4 => 'Set top SP',
+        //4 => 'Set top SP',
         //product_is_hot: loại sản phẩm
         5 => 'Sản phẩm bình thường',
         6 => 'Sản phẩm nổi bật',
@@ -28,13 +28,11 @@ class ProductController extends BaseAdminController
     private $arrTypeProduct = array(-1 => '--Chọn loại sản phẩm--', CGlobal::PRODUCT_NOMAL => 'Sản phẩm bình thường', CGlobal::PRODUCT_HOT => 'Sản phẩm nổi bật', CGlobal::PRODUCT_SELLOFF => 'Sản phẩm giảm giá');
     private $arrIsSale = array(CGlobal::PRODUCT_IS_SALE => 'Còn hàng', CGlobal::PRODUCT_NOT_IS_SALE => 'Hết hàng');
     private $error =  array();
-    private $arrShop =  array();
     private $arrCategory = array();
     private $arrDepart = array();
     public function __construct()
     {
         parent::__construct();
-        //$this->arrShop = UserShop::getShopAll();
         //Include style.
         FunctionLib::link_css(array(
             'lib/upload/cssUpload.css',
@@ -78,8 +76,7 @@ class ProductController extends BaseAdminController
         $search['product_status'] = (int)Request::get('product_status',-1);
         $search['product_is_hot'] = (int)Request::get('product_is_hot',-1);
         $search['category_id'] = (int)Request::get('category_id',-1);
-        $search['user_shop_id'] = (int)Request::get('user_shop_id',-1);
-        $search['is_block'] = (int)Request::get('is_block',-1);
+        $search['depart_id'] = (int)Request::get('depart_id',-1);
         //$search['field_get'] = 'order_id,order_product_name,order_status';//cac truong can lay
 
         $dataSearch = Product::searchByCondition($search, $limit, $offset,$total);
@@ -88,7 +85,7 @@ class ProductController extends BaseAdminController
 
         $optionStatus = FunctionLib::getOption($this->arrStatus, $search['product_status']);
         $optionType = FunctionLib::getOption($this->arrTypeProduct, $search['product_is_hot']);
-        $optionBlock = FunctionLib::getOption($this->arrBlock, $search['is_block']);
+        $optionDepart = FunctionLib::getOption($this->arrDepart, $search['depart_id']);
         $optionStatusUpdate = FunctionLib::getOption($this->arrStatusUpdate, -1);
         $this->layout->content = View::make('admin.Product.view')
             ->with('paging', $paging)
@@ -97,11 +94,13 @@ class ProductController extends BaseAdminController
             ->with('sizeShow', count($data))
             ->with('data', $dataSearch)
             ->with('search', $search)
-            ->with('arrShop', $this->arrShop)
             ->with('arrTypeProduct', $this->arrTypeProduct)
             ->with('optionStatus', $optionStatus)
             ->with('optionType', $optionType)
-            ->with('optionBlock', $optionBlock)
+            ->with('optionDepart', $optionDepart)
+
+            ->with('arrDepart', $this->arrDepart)
+            ->with('arrIsSale', $this->arrIsSale)
 
             ->with('optionStatusUpdate', $optionStatusUpdate)
             ->with('is_root', $this->is_root)//dùng common
@@ -212,7 +211,6 @@ class ProductController extends BaseAdminController
             foreach($getImgOther as $k=>$val){
                 if($val !=''){
                     $arrInputImgOther[] = $val;
-
                     //show ra anh da Upload neu co loi
                     $url_thumb = ThumbImg::getImageThumb(CGlobal::FOLDER_PRODUCT, $product_id, $val, CGlobal::sizeImage_100);
                     $url_thumb_content = ThumbImg::getImageThumb(CGlobal::FOLDER_PRODUCT, $product_id, $val, CGlobal::sizeImage_600);
@@ -266,10 +264,9 @@ class ProductController extends BaseAdminController
         $optionDepart = FunctionLib::getOption(array(-1=>'---Chọn chuyên mục----') + $this->arrDepart,$dataSave['depart_id']);
         $optionIsSale = FunctionLib::getOption($this->arrIsSale,$dataSave['is_sale']);
 
-        $this->layout->content = View::make('site.ShopAdmin.EditProduct')
+        $this->layout->content = View::make('admin.Product.add')
             ->with('error', $this->error)
-            ->with('product_id', $product_id)
-            ->with('user_shop', $this->inforUserShop)
+            ->with('id', $product_id)
             ->with('data', $dataSave)
             ->with('arrViewImgOther', $arrViewImgOther)
             ->with('imagePrimary', $imagePrimary)
@@ -306,67 +303,6 @@ class ProductController extends BaseAdminController
         return false;
     }
 
-    public function postProduct__($id=0) {
-        if(!$this->is_root && !in_array($this->permission_full,$this->permission) && !in_array($this->permission_edit,$this->permission) && !in_array($this->permission_create,$this->permission)){
-            return Redirect::route('admin.dashboard',array('error'=>1));
-        }
-        die('Không có chức năng này trong admin');
-        FunctionLib::link_css(array(
-            'lib/upload/cssUpload.css',
-        ));
-
-        //Include javascript.
-        FunctionLib::link_js(array(
-            'lib/upload/jquery.uploadfile.js',
-            'lib/ckeditor/ckeditor.js',
-            'lib/ckeditor/config.js',
-            'lib/dragsort/jquery.dragsort.js',
-            //'js/common.js',
-            'lib/number/autoNumeric.js',
-            'frontend/js/site.js',
-        ));
-        $dataSave['category_name'] = addslashes(Request::get('category_name'));
-        $dataSave['category_icons'] = addslashes(Request::get('category_icons'));
-        $dataSave['category_image_background'] = addslashes(Request::get('category_image_background'));
-        $dataSave['category_status'] = (int)Request::get('category_status', 0);
-        $dataSave['category_parent_id'] = (int)Request::get('category_parent_id', 0);
-        $dataSave['category_content_front'] = (int)Request::get('category_content_front', 0);
-        $dataSave['category_content_front_order'] = (int)Request::get('category_content_front_order', 0);
-        $dataSave['category_order'] = (int)Request::get('category_order', 0);
-
-        $file = Input::file('image');
-        if($file){
-            $destinationPath = public_path().'/images/category/';
-            $filename = $file->getClientOriginalName();
-            $upload  = Input::file('image')->move($destinationPath, $filename);
-            //FunctionLib::debug($filename);
-            $dataSave['category_image_background'] = $filename;
-        }else{
-            $dataSave['category_image_background'] = Request::get('category_image_background', '');
-        }
-
-        if($this->valid($dataSave) && empty($this->error)) {
-            if($id > 0) {
-                //cap nhat
-                if(Product::updateData($id, $dataSave)) {
-                    return Redirect::route('admin.productView');
-                }
-            } else {
-                //them moi
-                if(Product::addData($dataSave)) {
-                    return Redirect::route('admin.productView');
-                }
-            }
-        }
-        $optionStatus = FunctionLib::getOption($this->arrStatus, isset($dataSave['category_status'])? $dataSave['category_status'] : -1);
-        $this->layout->content =  View::make('admin.Product.add')
-            ->with('id', $id)
-            ->with('data', $dataSave)
-            ->with('optionStatus', $optionStatus)
-            ->with('error', $this->error)
-            ->with('arrStatus', $this->arrStatus);
-    }
-
     //ajax
     public function deleteMultiProduct(){
         $data = array('isIntOk' => 0);
@@ -387,6 +323,7 @@ class ProductController extends BaseAdminController
         }
         return Response::json($data);
     }
+
     public function setStastusBlockProduct(){
         $data = array('isIntOk' => 0);
         if(!$this->is_root && !in_array($this->permission_full,$this->permission) && !in_array($this->permission_delete,$this->permission)){
@@ -442,18 +379,4 @@ class ProductController extends BaseAdminController
         }
         return Response::json($data);
     }
-
-    private function valid($data=array()) {
-        if(!empty($data)) {
-            if(isset($data['category_name']) && $data['category_name'] == '') {
-                $this->error[] = 'Tên danh mục không được trống';
-            }
-            if(isset($data['category_status']) && $data['category_status'] == -1) {
-                $this->error[] = 'Bạn chưa chọn trạng thái cho danh mục';
-            }
-            return true;
-        }
-        return false;
-    }
-
 }
