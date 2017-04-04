@@ -12,12 +12,10 @@ class OrderItem extends Eloquent
     public $timestamps = false;
 
     //cac truong trong DB
-    protected $fillable = array('order_item_id','order_id', 'order_product_name',
+    protected $fillable = array('order_item_id','order_id',
         'product_id', 'product_name', 'product_price_sell',
         'product_price_input', 'product_image', 'product_category_id',
-        'product_category_name', 'product_type_price', 'product_province', 'product_provider', 'number_buy',
-        'order_item_status','order_item_time_creater',
-        'order_item_pay', 'order_item_time_pay');
+        'product_category_name', 'product_type_price', 'product_province', 'product_provider', 'number_buy');
 
     public function order()
     {

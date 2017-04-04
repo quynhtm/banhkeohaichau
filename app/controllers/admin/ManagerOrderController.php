@@ -12,12 +12,27 @@ class ManagerOrderController extends BaseAdminController
     private $permission_create = 'managerOrder_create';
     private $permission_edit = 'managerOrder_edit';
     private $arrStatus = array(-1 => 'Chọn trạng thái', CGlobal::status_hide => 'Ẩn', CGlobal::status_show => 'Hiện');
-    private $arrShop = array();
+
+    private $arrCodOder = array(
+        CGlobal::order_cod_chuagiao => 'Chưa giao hàng',//0
+        CGlobal::order_cod_da_gan => 'Cod đang giữ hàng',//1
+        CGlobal::order_cod_danggiao => 'Đang giao hàng',//2
+        CGlobal::order_cod_da_giaohang => 'Đã giao hàng',//3
+        CGlobal::order_cod_hoantra => 'Cod hoàn trả');//4
+        //
+    private $arrStatusOder = array(
+        CGlobal::order_status_new => 'Đơn hàng mới',//1
+        CGlobal::order_status_confirm => 'Đơn hàng đã xác nhận',//2
+        CGlobal::order_status_succes => 'Đơn hàng hoàn thành',//3
+        CGlobal::order_status_remove => 'Đơn hàng hủy');//4
+
+    private $arrTypeOder = array(
+        CGlobal::order_type_site => 'Đặt mua từ site',//0
+        CGlobal::order_type_shop => 'Mua từ hệ thống bán hàng');//1
 
     public function __construct()
     {
         parent::__construct();
-        $this->arrShop = array();
 
         //Include javascript.
         FunctionLib::link_js(array(
@@ -66,7 +81,6 @@ class ManagerOrderController extends BaseAdminController
             ->with('sizeShow', count($data))
             ->with('data', $data)
             ->with('search', $search)
-            ->with('arrShop', $this->arrShop)
             ->with('optionStatus', $optionStatus)
             ->with('arrStatus', $arrStatusOrder)
 
@@ -90,6 +104,9 @@ class ManagerOrderController extends BaseAdminController
         $this->layout->content = View::make('admin.ManagerOrder.detailOrder')
             ->with('id', $order_id)
             ->with('data', $data)
+            ->with('arrCodOder', $this->arrCodOder)
+            ->with('arrStatusOder', $this->arrStatusOder)
+            ->with('arrTypeOder', $this->arrTypeOder)
             ->with('optionStatus', $optionStatus)
             ->with('arrStatus', $this->arrStatus);
     }

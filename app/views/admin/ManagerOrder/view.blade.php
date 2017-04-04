@@ -46,15 +46,7 @@
                                 <input type="text" class="form-control" id="time_end_time" name="time_end_time"  data-date-format="dd-mm-yyyy" value="@if(isset($data['time_end_time'])){{date('d-m-Y',$data['time_end_time'])}}@endif">
                             </div>
                         </div>
-                        <div class="form-group col-lg-3">
-                            <label for="order_user_shop_id">ĐH của Shop</label>
-                            <select name="order_user_shop_id" id="order_user_shop_id" class="form-control input-sm chosen-select-deselect" tabindex="12" data-placeholder="Chọn tên shop">
-                                <option value=""></option>
-                                @foreach($arrShop as $shop_id => $shopName)
-                                    <option value="{{$shop_id}}" @if($search['order_user_shop_id'] == $shop_id) selected="selected" @endif>{{$shopName}}</option>
-                                @endforeach
-                            </select>
-                        </div>
+
                         <div class="form-group col-lg-3">
                             <label for="order_status">Trạng thái</label>
                             <select name="order_status" id="order_status" class="form-control input-sm">

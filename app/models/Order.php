@@ -16,7 +16,7 @@ class Order extends Eloquent
         'order_product_price_sell', 'order_product_image', 'order_category_id',
         'order_category_name', 'order_product_type_price', 'order_product_province',
         'order_customer_name', 'order_customer_phone', 'order_customer_email', 'order_customer_address', 'order_customer_note',
-        'order_quality_buy', 'order_user_shop_id', 'order_user_shop_name', 'order_status', 'order_time');
+        'order_quality_buy', 'order_user_shop_id', 'order_user_shop_name', 'order_status','order_is_cod', 'order_time');
 
     public function orderItem(){
         return $this->hasMany('OrderItem','order_id');

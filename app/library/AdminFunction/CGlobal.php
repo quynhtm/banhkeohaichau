@@ -91,6 +91,28 @@ class CGlobal{
     const status_hide = 0;
     const status_block = -1;
 
+    /****************************************************************************
+     * ĐỊnh nghĩa đơn hàng
+     * **************************************************************************
+     */
+    const order_cod_chuagiao = 0;//chưa chuyển hàng
+    const order_cod_da_gan = 1;//đã gán COD
+    const order_cod_danggiao = 2;//COD dang chuyển hàng
+    const order_cod_da_giaohang = 3;//đã giao hàng
+    const order_cod_hoantra = 4;//hoàn trả hàng
+
+    const order_status_new = 1;//1: đơn hàng mới
+    const order_status_confirm = 2;// đơn hàng đã xác nhận
+    const order_status_succes = 1;//đơn hàng hoàn thành
+    const order_status_remove = 1;// đơn hàng bị hủy
+
+    const order_type_site = 0;// đặt hàng từ site
+    const order_type_shop = 1;// đặt hàng từ hệ thống
+
+    /****************************************************************************
+     * END đơn hàng
+     * **************************************************************************
+     */
     const category_product = 5;
     const category_new = 6;
 
