@@ -103,8 +103,8 @@ class CGlobal{
 
     const order_status_new = 1;//1: đơn hàng mới
     const order_status_confirm = 2;// đơn hàng đã xác nhận
-    const order_status_succes = 1;//đơn hàng hoàn thành
-    const order_status_remove = 1;// đơn hàng bị hủy
+    const order_status_succes = 3;//đơn hàng hoàn thành
+    const order_status_remove = 4;// đơn hàng bị hủy
 
     const order_type_site = 0;// đặt hàng từ site
     const order_type_shop = 1;// đặt hàng từ hệ thống
