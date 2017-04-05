@@ -58,6 +58,17 @@ class Product extends Eloquent
         return array();
     }
 
+    public static function getProductByArrayProId($arrProId = array(),$field_get = array()) {
+        if(!empty($arrProId)){
+            $query = Product::where('product_id','>',0);
+            $query->where('product_status','=',CGlobal::status_show);
+            $query->where('is_block','=',CGlobal::PRODUCT_NOT_BLOCK);
+            $query->whereIn('product_id',$arrProId);
+            return $result = (!empty($field_get)) ? $query->get($field_get) : $query->get();
+        }
+        return array();
+    }
+
     public static function getProductForSite($dataSearch = array(), $limit =0, $offset = 0, &$total){
         try{
             $query = Product::where('product_id','>',0);

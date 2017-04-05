@@ -11,6 +11,7 @@ class ManagerOrderController extends BaseAdminController
     private $permission_delete = 'managerOrder_delete';
     private $permission_create = 'managerOrder_create';
     private $permission_edit = 'managerOrder_edit';
+    private $permission_view_detail = 'managerOrder_view_detail';
     private $arrStatus = array(-1 => 'Chọn trạng thái', CGlobal::status_hide => 'Ẩn', CGlobal::status_show => 'Hiện');
 
     private $arrCodOder = array(
@@ -39,6 +40,7 @@ class ManagerOrderController extends BaseAdminController
             'lib/ckeditor/ckeditor.js',
             'lib/ckeditor/config.js',
             'admin/js/admin.js',
+            'admin/js/order.js',
         ));
     }
 
@@ -88,27 +90,84 @@ class ManagerOrderController extends BaseAdminController
             ->with('permission_full', in_array($this->permission_full, $this->permission) ? 1 : 0)//dùng common
             ->with('permission_delete', in_array($this->permission_delete, $this->permission) ? 1 : 0)//dùng common
             ->with('permission_create', in_array($this->permission_create, $this->permission) ? 1 : 0)//dùng common
+            ->with('permission_view_detail', in_array($this->permission_view_detail, $this->permission) ? 1 : 0)//dùng common
             ->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 0);//dùng common
     }
 
     public function detailOrder($order_id=0) {
-        if(!$this->is_root && !in_array($this->permission_full,$this->permission) && !in_array($this->permission_edit,$this->permission) && !in_array($this->permission_create,$this->permission)){
+        if(!$this->is_root && !in_array($this->permission_full,$this->permission) && !in_array($this->permission_view_detail,$this->permission)){
             return Redirect::route('admin.dashboard',array('error'=>1));
         }
         $data = array();
         if($order_id > 0) {
             $data = Order::getOrderById($order_id);
-            //FunctionLib::debug($data);
+            if(!$data){
+                return Redirect::route('admin.managerOrderView');
+            }
         }
-        $optionStatus = FunctionLib::getOption($this->arrStatus, isset($data['news_status'])? $data['news_status'] : CGlobal::status_show);
         $this->layout->content = View::make('admin.ManagerOrder.detailOrder')
             ->with('id', $order_id)
             ->with('data', $data)
             ->with('arrCodOder', $this->arrCodOder)
             ->with('arrStatusOder', $this->arrStatusOder)
             ->with('arrTypeOder', $this->arrTypeOder)
-            ->with('optionStatus', $optionStatus)
             ->with('arrStatus', $this->arrStatus);
+    }
+
+    public function getOrder($order_id=0) {
+        if(!$this->is_root && !in_array($this->permission_full,$this->permission) && !in_array($this->permission_edit,$this->permission) && !in_array($this->permission_create,$this->permission)){
+            return Redirect::route('admin.dashboard',array('error'=>1));
+        }
+        $data = array();
+        if($order_id > 0) {
+            $data = Order::getOrderById($order_id);
+        }
+        $optionCodOder = FunctionLib::getOption($this->arrCodOder, CGlobal::order_cod_chuagiao);
+        $optionStatusOder = FunctionLib::getOption($this->arrStatusOder, CGlobal::order_status_new);
+        $optionTypeOder = FunctionLib::getOption($this->arrTypeOder, CGlobal::order_type_shop);
+
+        $this->layout->content = View::make('admin.ManagerOrder.addOrder')
+            ->with('id', $order_id)
+            ->with('data', $data)
+            ->with('arrCodOder', $this->arrCodOder)
+            ->with('arrStatusOder', $this->arrStatusOder)
+            ->with('arrTypeOder', $this->arrTypeOder)
+            ->with('optionCodOder', $optionCodOder)
+            ->with('optionStatusOder', $optionStatusOder)
+            ->with('optionTypeOder', $optionTypeOder)
+            ->with('arrStatus', $this->arrStatus);
+    }
+    //load ajax
+    public function getInforProduct() {
+        if(!$this->is_root && !in_array($this->permission_full,$this->permission) && !in_array($this->permission_edit,$this->permission) && !in_array($this->permission_create,$this->permission)){
+            return Redirect::route('admin.dashboard',array('error'=>1));
+        }
+        $inforProduct = array();
+        $order_product_id = Request::get('order_product_id','');
+
+        if($order_product_id != ''){
+            $arrOrderProductId = explode(',',$order_product_id);
+            $arrProductId = array();
+            if(!empty($arrOrderProductId)){
+                foreach($arrOrderProductId as $pro){
+                    $arrProductId[] = (int)trim($pro);
+                }
+            }
+            if(!empty($arrProductId)){
+                $field_get = array('product_id','product_code', 'product_name', 'category_name','category_id',
+                    'product_price_sell', 'product_price_market', 'product_price_input', 'product_price_provider_sell','product_type_price',);
+                $inforProduct = Product::getProductByArrayProId($arrProductId,$field_get);
+            }
+            //FunctionLib::debug($inforProduct);
+        }
+        if($inforProduct){
+            $html = View::make('admin.ManagerOrder.listInforProduct')->with('inforProduct', $inforProduct)->render();
+            $arrAjax = array('intReturn' => 1, 'html' => $html);
+        }else{
+            $arrAjax = array('intReturn' => -1, 'msg' => 'Không có danh sách sale');
+        }
+
+        return Response::json($arrAjax);
     }
 
     public function deleteOrderShop(){
