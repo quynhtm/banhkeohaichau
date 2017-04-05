@@ -17,6 +17,12 @@ class BaseSiteController extends BaseController{
     public function header(){
     	$this->layout->header = View::make("site.BaseLayouts.header");
     }
+    public function middle(){
+        $this->layout->middle = View::make("site.BaseLayouts.middle");
+    }
+    public function consult(){
+        $this->layout->consult = View::make("site.BaseLayouts.consult");
+    }
 	public function footer(){
         $footer = '';
         $arrFooter = Info::getItemByKeyword('SITE_FOOTER_LEFT');

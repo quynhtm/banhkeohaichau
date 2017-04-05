@@ -26,6 +26,8 @@ class SiteHomeController extends BaseSiteController{
     	FunctionLib::SEO($meta_img, $meta_title, $meta_keywords, $meta_description);
     	
     	$this->header();
+    	$this->middle();
+    	$this->consult();
         $this->layout->content = View::make('site.SiteLayouts.Home');
         $this->footer();
     }
