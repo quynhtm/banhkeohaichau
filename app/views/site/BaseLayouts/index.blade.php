@@ -33,6 +33,11 @@
 		{{$header}}
 	</div>
 	@endif
+	@if(isset($middle))
+		<div id="middle">
+			{{$middle}}
+		</div>
+	@endif
 	<div id="content">
 		<div class="line-content">
 			@if(isset($content))
@@ -40,6 +45,11 @@
 			@endif
 		</div>
 	</div>
+	@if(isset($consult))
+		<div id="consult">
+			{{$consult}}
+		</div>
+	@endif
 	@if(isset($footer))
 	<div id="footer">
 		{{$footer}}
