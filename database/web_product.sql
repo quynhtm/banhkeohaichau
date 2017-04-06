@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-04-03 12:03:16
+Date: 2017-04-06 08:54:56
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -54,8 +54,10 @@ CREATE TABLE `web_product` (
   `user_name_update` varchar(255) DEFAULT NULL,
   `time_update` int(11) DEFAULT NULL,
   PRIMARY KEY (`product_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of web_product
 -- ----------------------------
+INSERT INTO `web_product` VALUES ('1', '', 'sản phẩm test', '1', '500000', '600000', '400000', '0', '1', '<p>m&ocirc; tả ngắn</p>\r\n', '<p>th&ocirc;ng tin chi tiết</p>\r\n\r\n<p><img alt=\"sản phẩm test\" src=\"http://localhost/banhkeohaichau/uploads/thumbs/product/1/600x600/1491273324-573cb4258e810763aa000001.jpg\" /></p>\r\n\r\n<p><img alt=\"sản phẩm test\" src=\"http://localhost/banhkeohaichau/uploads/thumbs/product/1/600x600/1491273770-9572042c1a3f27.jpg\" /></p>\r\n', 'thông tin khuyến mại', '1491273324-573cb4258e810763aa000001.jpg', '1491273324-573cb4258e810763aa000001.jpg', 'a:3:{i:0;s:39:\"1491273324-573cb4258e810763aa000001.jpg\";i:1;s:29:\"1491273770-9572042c1a3f27.jpg\";i:2;s:39:\"1491273770-57355c1302b01f7898000001.jpg\";}', '100', '0', '1', '4', 'Hàng đức', '0', '0', '1', '0', '1', '1', '1', '2', 'admin', '1491272625', '2', 'admin', '1491275505');
+INSERT INTO `web_product` VALUES ('2', '', 'Sản phẩm 2', '1', '350000', '450000', '300000', '0', '1', '<p>m&ocirc; tả ngắn</p>\r\n', '<p>chi tiết</p>\r\n', '', '1491359509-57355c1302b01f7898000001.jpg', '1491359509-57355c1302b01f7898000001.jpg', 'a:1:{i:0;s:39:\"1491359509-57355c1302b01f7898000001.jpg\";}', '100', '0', '1', '4', 'Hàng đức', '0', '0', '1', '0', '1', '1', '1', '2', 'admin', '1491359509', '2', 'admin', '1491359512');
