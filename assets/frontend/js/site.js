@@ -1,7 +1,6 @@
 jQuery(document).ready(function($){
 	SITE.backTop();
 	SITE.contact();
-	SITE.captchaCheckAjax();
 });
 
 SITE={
@@ -58,7 +57,8 @@ SITE={
 				jQuery('#securityCode').addClass('error');
 				valid = false;
 			}else{
-				SITE.captchaCheckAjax();
+                var img = document.images['imageCaptchar'];
+                img.src = img.src.substring(0,img.src.lastIndexOf("?"))+"?rand="+Math.round(1000*Math.random());
 			}
 			
 			var error = jQuery('#formSendContact .error').length;
@@ -67,10 +67,6 @@ SITE={
 			}
 			return valid;
 		});
-	},
-	refreshCaptcha:function(){
-		var img = document.images['imageCaptchar'];
-		img.src = img.src.substring(0,img.src.lastIndexOf("?"))+"?rand="+Math.round(1000*Math.random());
 	},
 	captchaCheckAjax:function(){
 		var captcha = jQuery('#securityCode').val();
@@ -83,7 +79,8 @@ SITE={
 				success: function(data){
 					if(data == 0){
 						jQuery('#securityCode').addClass('error');
-						SITE.refreshCaptcha();
+                        var img = document.images['imageCaptchar'];
+                        img.src = img.src.substring(0,img.src.lastIndexOf("?"))+"?rand="+Math.round(1000*Math.random());
 					}else{
 						jQuery('#securityCode').removeClass('error');
 					}
