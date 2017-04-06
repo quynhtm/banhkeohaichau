@@ -16,16 +16,19 @@
                 <td class="text-center text-middle">{{$product->product_id}}</td>
                 <td>{{$product->product_name}}</td>
                 <td>{{$product->category_name}}</td>
-                <td class="text-right"><b>{{FunctionLib::numberFormat($product->product_price_sell)}} đ</b></td>
+                <td class="text-right text-middle"><b>{{FunctionLib::numberFormat($product->product_price_sell)}} đ</b></td>
                 <td class="text-center text-middle">
                     <div>
-                        <input type="text" class="form-control input-sm" id="sys_number_buy_{{$product->product_id}}" name="number_buy_{{$product->product_id}}" placeholder="Mã sản phẩm: 1,2,3" value="1">
+                        <input type="text" class="form-control input-sm" id="sys_number_buy_{{$product->product_id}}" name="number_buy_{{$product->product_id}}" placeholder="Mã sản phẩm: 1,2,3" value="1" onblur="Order.changeNumberBuy({{$product->product_id}})">
                     </div>
                 </td>
-                <td class="text-right"><b class="red">{{FunctionLib::numberFormat($product->product_price_sell*1)}} đ</b></td>
+                <td class="text-right text-middle"><b class="red" id="sys_total_product_price_sell_{{$product->product_id}}">{{FunctionLib::numberFormat($product->product_price_sell)}} đ</b></td>
+
+                <input type="hidden" id="sys_product_price_sell_{{$product->product_id}}" name="product_price_sell_{{$product->product_id}}" class="form-control" value="{{$product->product_price_sell}}" >
+                <input type="hidden" id="total_product_price_sell_hiden_{{$product->product_id}}" name="total_product_price_sell_hiden[]" class="total_product_price_sell_hiden" value="{{$product->product_price_sell}}" >
                 <?php
                 $total_product = $total_product + 1;
-                $total_money = $total_money + ($product->product_price_sell*1);
+                $total_money = $total_money + ($product->product_price_sell);
                 ?>
             </tr>
         @endforeach
@@ -35,7 +38,7 @@
         </tr>
         <tr>
             <td colspan="5" class="text-right"><b>Tổng tiền:</b></td>
-            <td colspan="2" class="text-right"><b class="red">{{FunctionLib::numberFormat($total_money)}} đ</b></td>
+            <td colspan="2" class="text-right"><b class="red" id="sys_total_money">{{FunctionLib::numberFormat($total_money)}} đ</b></td>
         </tr>
         <tr>
             <td colspan="5" class="text-right"><b>Tiền ship:</b></td>
