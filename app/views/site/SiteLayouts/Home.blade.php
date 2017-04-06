@@ -2,12 +2,15 @@
    <div class="box-item-line">
         <div class="line-title-menu-post">
         <div class="box-line-title-menu-post">CÁC LOẠI BÁNH</div>
+        <ul class="btn-more-title">
+            <li><i class="fa fa-angle-double-right icon-more-font"></i><a href="">Xem tất cả</a></li>
+        </ul>
         <ul>
             <li><a href="">Bánh hộp tết</a></li>
             <li><a href="">Bánh trung thu</a></li>
             <li><a href="">Bánh kem xốp</a></li>
         </ul>
-    </div>
+   </div>
         <div class="box-list-item">
         <div class="one-item">
             <a href="#" title="">
@@ -74,6 +77,9 @@
    <div class="box-item-line">
         <div class="line-title-menu-post">
             <div class="box-line-title-menu-post blue">CÁC LOẠI KẸO</div>
+            <ul class="btn-more-title">
+                <li><i class="fa fa-angle-double-right icon-more-font"></i><a href="">Xem tất cả</a></li>
+            </ul>
             <ul>
                 <li><a href="">Bánh hộp tết</a></li>
                 <li><a href="">Bánh trung thu</a></li>
@@ -146,6 +152,9 @@
    <div class="box-item-line">
         <div class="line-title-menu-post">
             <div class="box-line-title-menu-post green">LƯƠNG KHÔ</div>
+            <ul class="btn-more-title">
+                <li><i class="fa fa-angle-double-right icon-more-font"></i><a href="">Xem tất cả</a></li>
+            </ul>
             <ul>
                 <li><a href="">Bánh hộp tết</a></li>
                 <li><a href="">Bánh trung thu</a></li>
@@ -218,6 +227,9 @@
    <div class="box-item-line">
         <div class="line-title-menu-post">
             <div class="box-line-title-menu-post blue">Bột canh - Hạt nêm</div>
+            <ul class="btn-more-title">
+                <li><i class="fa fa-angle-double-right icon-more-font"></i><a href="">Xem tất cả</a></li>
+            </ul>
             <ul>
                 <li><a href="">Bánh hộp tết</a></li>
                 <li><a href="">Bánh trung thu</a></li>
@@ -293,6 +305,9 @@
    <div class="box-item-line">
         <div class="line-title-menu-post">
             <div class="box-line-title-menu-post brown">Sản phẩm khuyến mại</div>
+            <ul class="btn-more-title">
+                <li><i class="fa fa-angle-double-right icon-more-font"></i><a href="">Xem tất cả</a></li>
+            </ul>
             <ul>
                 <li><a href="">Bánh hộp tết</a></li>
                 <li><a href="">Bánh trung thu</a></li>

@@ -933,3 +933,11 @@ h1, h2, h3, h4, h5, h6{
     background-position: 2px -918px;
     width: 38px;
 }
+.btn-more-title{
+    display: inline-block;
+    float: right;
+}
+.btn-more-title li .icon-more-font {
+    font-size: 18px;
+    margin-right: 5px;
+}
