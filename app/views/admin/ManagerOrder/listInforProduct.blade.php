@@ -18,7 +18,9 @@
                 <td>{{$product->category_name}}</td>
                 <td class="text-right"><b>{{FunctionLib::numberFormat($product->product_price_sell)}} đ</b></td>
                 <td class="text-center text-middle">
-                    <div><input type="text" class="form-control input-sm" id="sys_number_buy" name="number_buy" placeholder="Mã sản phẩm: 1,2,3" value="1"></div>
+                    <div>
+                        <input type="text" class="form-control input-sm" id="sys_number_buy_{{$product->product_id}}" name="number_buy_{{$product->product_id}}" placeholder="Mã sản phẩm: 1,2,3" value="1">
+                    </div>
                 </td>
                 <td class="text-right"><b class="red">{{FunctionLib::numberFormat($product->product_price_sell*1)}} đ</b></td>
                 <?php
@@ -29,21 +31,26 @@
         @endforeach
         <tr>
             <td colspan="5" class="text-right"><b>Tổng số lượng hàng:</b></td>
-            <td colspan="2" class="text-left"><b>{{FunctionLib::numberFormat($total_product)}}</b></td>
+            <td colspan="2" class="text-right"><b>{{FunctionLib::numberFormat($total_product)}}</b></td>
         </tr>
         <tr>
             <td colspan="5" class="text-right"><b>Tổng tiền:</b></td>
-            <td colspan="2" class="text-left"><b class="red">{{FunctionLib::numberFormat($total_money)}} đ</b></td>
+            <td colspan="2" class="text-right"><b class="red">{{FunctionLib::numberFormat($total_money)}} đ</b></td>
         </tr>
         <tr>
             <td colspan="5" class="text-right"><b>Tiền ship:</b></td>
-            <td colspan="2" class="text-left">
-                <div><input type="text" class="form-control input-sm" id="sys_order_money_ship" name="order_money_ship" value="15.000"></div>
+            <td colspan="2" class="text-right">
+                <div><input type="text" class="formatMoney text-left form-control" data-v-max="999999999999999" data-v-min="0" data-a-sep="." data-a-dec="," data-a-sign=" đ" data-p-sign="s" id="sys_order_money_ship" name="order_money_ship" value=""></div>
             </td>
         </tr>
         <tr>
             <td colspan="5" class="text-right"><b>Tổng tiền thanh toán:</b></td>
-            <td colspan="2" class="text-left"><b class="red" style="font-size: 18px">{{FunctionLib::numberFormat($total_money+15000)}} đ</b></td>
+            <td colspan="2" class="text-right"><b class="red" style="font-size: 18px">{{FunctionLib::numberFormat($total_money+15000)}} đ</b></td>
         </tr>
     </table>
 @endif
+
+<script type="text/javascript">
+    jQuery('.formatMoney').autoNumeric('init');
+
+</script>

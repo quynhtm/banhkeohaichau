@@ -122,57 +122,70 @@
                         </div>
                     </div>
                     <div class="clear"></div>
-                    <div class="panel-body" id="sys_show_infor_cart">
-                        @if(isset($data->orderitem) && !empty($data->orderitem))
-                            <table class="table table-bordered table-hover">
-                                <tr style="background-color: #c0a16b">
-                                    <th width="2%" class="text-center text-middle">STT</th>
-                                    <th width="5%" class="text-center text-middle">ID SP</th>
-                                    <th width="35%">Sản phẩm</th>
-                                    <th width="20%">Danh mục</th>
-                                    <th width="10%" class="text-right">Giá bán</th>
-                                    <th width="5%" class="text-center text-middle">SL</th>
-                                    <th width="10%" class="text-right">Tổng tiền</th>
-                                </tr>
-                                <?php $total_product = 0; $total_money = 0;?>
-                                @foreach($data->orderitem as $k=>$order_itm)
-                                    <tr>
-                                        <td class="text-center text-middle">{{$k+1}}</td>
-                                        <td class="text-center text-middle">{{$order_itm->product_id}}</td>
-                                        <td>{{$order_itm->product_name}}</td>
-                                        <td>{{$order_itm->product_category_name}}</td>
-                                        <td class="text-right"><b>{{FunctionLib::numberFormat($order_itm->product_price_sell)}} đ</b></td>
-                                        <td class="text-center text-middle">{{$order_itm->number_buy}}</td>
-                                        <td class="text-right"><b class="red">{{FunctionLib::numberFormat($order_itm->product_price_sell*$order_itm->number_buy)}} đ</b></td>
-                                        <?php
-                                        $total_product = $total_product + $order_itm->number_buy;
-                                        $total_money = $total_money + ($order_itm->product_price_sell*$order_itm->number_buy);
-                                        ?>
+                    <div class="panel-body">
+                        <div id="sys_show_infor_cart">
+                            @if(isset($data->orderitem) && !empty($data->orderitem))
+                                <table class="table table-bordered table-hover">
+                                    <tr style="background-color: #c0a16b">
+                                        <th width="2%" class="text-center text-middle">STT</th>
+                                        <th width="5%" class="text-center text-middle">ID SP</th>
+                                        <th width="35%">Sản phẩm</th>
+                                        <th width="20%">Danh mục</th>
+                                        <th width="10%" class="text-right">Giá bán</th>
+                                        <th width="5%" class="text-center text-middle">SL</th>
+                                        <th width="10%" class="text-right">Tổng tiền</th>
                                     </tr>
-                                @endforeach
-                                <tr>
-                                    <td colspan="5" class="text-right"><b>Tổng số lượng hàng:</b></td>
-                                    <td colspan="2" class="text-left"><b>{{FunctionLib::numberFormat($total_product)}}</b></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="5" class="text-right"><b>Tổng tiền:</b></td>
-                                    <td colspan="2" class="text-left"><b class="red">{{FunctionLib::numberFormat($total_money)}} đ</b></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="5" class="text-right"><b>Tiền ship:</b></td>
-                                    <td colspan="2" class="text-left"><b class="red">{{FunctionLib::numberFormat($data->order_money_ship)}} đ</b></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="5" class="text-right"><b>Tổng tiền thanh toán:</b></td>
-                                    <td colspan="2" class="text-left"><b class="red" style="font-size: 18px">{{FunctionLib::numberFormat($total_money+$data->order_money_ship)}} đ</b></td>
-                                </tr>
-                            </table>
-                        @endif
+                                    <?php $total_product = 0; $total_money = 0;?>
+                                    @foreach($data->orderitem as $k=>$order_itm)
+                                        <tr>
+                                            <td class="text-center text-middle">{{$k+1}}</td>
+                                            <td class="text-center text-middle">{{$order_itm->product_id}}</td>
+                                            <td>{{$order_itm->product_name}}</td>
+                                            <td>{{$order_itm->product_category_name}}</td>
+                                            <td class="text-right"><b>{{FunctionLib::numberFormat($order_itm->product_price_sell)}} đ</b></td>
+                                            <td class="text-center text-middle">{{$order_itm->number_buy}}</td>
+                                            <td class="text-right">
+                                                <b class="red">{{FunctionLib::numberFormat($order_itm->product_price_sell*$order_itm->number_buy)}} đ</b>
+                                            </td>
+                                            <?php
+                                            $total_product = $total_product + $order_itm->number_buy;
+                                            $total_money = $total_money + ($order_itm->product_price_sell*$order_itm->number_buy);
+                                            ?>
+                                        </tr>
+                                    @endforeach
+                                    <tr>
+                                        <td colspan="5" class="text-right"><b>Tổng số lượng hàng:</b></td>
+                                        <td colspan="2" class="text-left"><b>{{FunctionLib::numberFormat($total_product)}}</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5" class="text-right"><b>Tổng tiền:</b></td>
+                                        <td colspan="2" class="text-left"><b class="red">{{FunctionLib::numberFormat($total_money)}} đ</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5" class="text-right"><b>Tiền ship:</b></td>
+                                        <td colspan="2" class="text-left"><b class="red">{{FunctionLib::numberFormat($data->order_money_ship)}} đ</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5" class="text-right"><b>Tổng tiền thanh toán:</b></td>
+                                        <td colspan="2" class="text-left"><b class="red" style="font-size: 18px">{{FunctionLib::numberFormat($total_money+$data->order_money_ship)}} đ</b></td>
+                                    </tr>
+                                </table>
+                            @endif
+                        </div>
+                        <div class="form-group col-sm-12 text-right">
+                            <a class="btn btn-warning" href="javascript:void(0);"><i class="fa fa-reply"></i> Trở lại</a>
+                            <button  class="btn btn-primary"><i class="glyphicon glyphicon-floppy-saved"></i> Đặt hàng</button>
+                        </div>
                     </div>
                 </div>
                 {{ Form::close() }}
+
             </div>
         </div>
     </div>
-
 </div>
+
+<script type="text/javascript">
+    jQuery('.formatMoney').autoNumeric('init');
+
+</script>

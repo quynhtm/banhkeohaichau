@@ -83,8 +83,8 @@
 
                             @if(isset($data->order_user_shipper_name) && $data->order_user_shipper_name != '')
                                 <div class="form-group col-lg-12">
-                                    <label class="col-lg-3 text-right">NV giao hàng:</label>
-                                    <label class="col-lg-8 red">{{$data->order_user_shipper_name}}</label>
+                                    <label class="col-lg-4 text-right">NV giao hàng:</label>
+                                    <label class="col-lg-8 green">{{$data->order_user_shipper_name}}</label>
                                 </div>
                             @endif
                         </div>
@@ -127,19 +127,19 @@
                             @endforeach
                             <tr>
                                 <td colspan="5" class="text-right"><b>Tổng số lượng hàng:</b></td>
-                                <td colspan="2" class="text-left"><b>{{FunctionLib::numberFormat($total_product)}}</b></td>
+                                <td colspan="2" class="text-right"><b>{{FunctionLib::numberFormat($total_product)}}</b></td>
                             </tr>
                             <tr>
                                 <td colspan="5" class="text-right"><b>Tổng tiền:</b></td>
-                                <td colspan="2" class="text-left"><b class="red">{{FunctionLib::numberFormat($total_money)}} đ</b></td>
+                                <td colspan="2" class="text-right"><b class="red">{{FunctionLib::numberFormat($total_money)}} đ</b></td>
                             </tr>
                             <tr>
                                 <td colspan="5" class="text-right"><b>Tiền ship:</b></td>
-                                <td colspan="2" class="text-left"><b class="red">{{FunctionLib::numberFormat($data->order_money_ship)}} đ</b></td>
+                                <td colspan="2" class="text-right"><b class="red">{{FunctionLib::numberFormat($data->order_money_ship)}} đ</b></td>
                             </tr>
                             <tr>
                                 <td colspan="5" class="text-right"><b>Tổng tiền thanh toán:</b></td>
-                                <td colspan="2" class="text-left"><b class="red" style="font-size: 18px">{{FunctionLib::numberFormat($total_money+$data->order_money_ship)}} đ</b></td>
+                                <td colspan="2" class="text-right"><b class="red" style="font-size: 18px">{{FunctionLib::numberFormat($total_money+$data->order_money_ship)}} đ</b></td>
                             </tr>
                         </table>
                         @endif
