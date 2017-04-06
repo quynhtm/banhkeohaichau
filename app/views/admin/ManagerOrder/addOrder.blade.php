@@ -9,12 +9,13 @@
             <li class="active">Thông tin đơn hàng</li>
         </ul><!-- /.breadcrumb -->
     </div>
-    {{Form::open(array('method' => 'POST','role'=>'form','files' => true))}}
+
     <div class="page-content">
         <div class="row">
             <div class="col-xs-12">
+                {{Form::open(array('method' => 'POST','role'=>'form','files' => true))}}
                 <!--thông tin khách hàng-->
-                <div style="float: left; width: 45%; ">
+                <div style="float: left; width: 45%;">
                     <div class="panel panel-info" >
                         <div class="panel-footer text-left">
                             <h3>Thông tin khách hàng</h3>
@@ -169,8 +170,9 @@
                         @endif
                     </div>
                 </div>
+                {{ Form::close() }}
             </div>
         </div>
     </div>
-    {{ Form::close() }}
+
 </div>
