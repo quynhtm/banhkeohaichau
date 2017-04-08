@@ -39,14 +39,34 @@
                         </div>
                     </div>
                 </div>
-                <div class="line-bottom-head-icon">
-                    <ul>
-                        <li class="bg icon-sanpham">Sản phẩm chất lượng</li>
-                        <li class="bg icon-phucvu">Phục vụ chu đáo</li>
-                        <li class="bg icon-thutuc">Thủ tục nhanh gọn</li>
-                        <li class="bg icon-giaohang">Giao hàng nhanh chóng</li>
-                    </ul>
-                </div>
+				<div class="line-sologan-content ">
+					<div class="line-sologan">
+						<div class="col-xs-12 col-md-3">
+							<div class="bg-icon icon1">
+								<span class="text1">Sản phẩm</span><br>
+								<span class="text2">Chất lượng</span>
+							</div>
+						</div>
+						<div class="col-xs-12 col-md-3">
+							<div class="bg-icon icon2">
+								<span class="text1">Phục vụ</span><br>
+								<span class="text2">chu đáo</span>
+							</div>
+						</div>
+						<div class="col-xs-12 col-md-3">
+							<div class="bg-icon icon4">
+								<span class="text1">Thủ tục</span><br>
+								<span class="text2">Nhanh gọn</span>
+							</div>
+						</div>
+						<div class="col-xs-12 col-md-3">
+							<div class="bg-icon icon3">
+								<span class="text1">Giao hàng</span><br>
+								<span class="text2">Nhanh chóng</span>
+							</div>
+						</div>
+					</div>
+				</div>
             </div>
         </div>
         </div>

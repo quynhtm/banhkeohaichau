@@ -16,6 +16,16 @@
     font-weight: normal;
     font-style: normal;
 }
+@font-face {
+    font-family: 'RobotoCondensed-Bold';
+    src: url('../fonts/RobotoCondensed-Bold.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/RobotoCondensed-Bold.otf') format('opentype'),
+    url('../fonts/RobotoCondensed-Bold.woff') format('woff'),
+    url('../fonts/RobotoCondensed-Bold.ttf') format('truetype'),
+    url('../fonts/RobotoCondensed-Bold.svg#RobotoCondensed-Bold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
 /*Default*/
 *{
     margin: 0;
@@ -413,43 +423,51 @@ h1, h2, h3, h4, h5, h6{
     display: inline-block;
     width: 100%;
 }
-.line-bottom-head-icon{
-    margin-top: 5px;
-    clear: both;
-    width: 100%;
+.line-sologan-content .text1 {
+    text-align: left;
+    color: #525252;
+    text-transform: uppercase;
+    font-size: 16px;
+    margin-left: 9px;
+    float: left;
+	font-family: 'RobotoCondensed-Bold';
+	clear:both;
 }
-.line-bottom-head-icon li {
-    display: inline-block;
-    margin-right: 25px;
-    margin-left: 10px;
+.line-sologan-content  .text2 {
+    text-align: left;
+    color: #d9151d;
+    text-transform: uppercase;
+    font-size: 20px;
+    margin-left: 9px;
+    float: left;
+	font-family: 'RobotoCondensed-Bold';
+	clear:both;
 }
-.line-bottom-head-icon li.icon-sanpham {
-    background-position: 0 -132px;
-    height: 60px;
-    padding-left: 65px;
-    line-height: 55px;
-    font-size: 15px;
+.bg-icon{
+	background:url("../img/sologan.png") no-repeat;
 }
-.line-bottom-head-icon li.icon-phucvu {
-    background-position: 0 -207px;
-    height: 58px;
-    padding-left: 65px;
-    line-height: 55px;
-    font-size: 15px;
+.icon1 {
+    background-position: 0 -2px;
+    height: 53px;
+    padding-left: 52px;
 }
-.line-bottom-head-icon li.icon-thutuc {
-    background-position: 0 -268px;
-    height: 60px;
-    padding-left: 65px;
-    line-height: 55px;
-    font-size: 15px;
+.icon2 {
+    background-position: 0 -72px;
+    height: 53px;
+    padding-left: 52px;
 }
-.line-bottom-head-icon li.icon-giaohang {
-    background-position: 0 -332px;
-    height: 60px;
-    padding-left: 65px;
-    line-height: 55px;
-    font-size: 15px;
+.icon3 {
+    background-position: 0 -135px;
+    height: 53px;
+    padding-left: 52px;
+}
+.icon4 {
+    background-position: 0 -208px;
+    height: 53px;
+    padding-left: 52px;
+}
+.line-sologan {
+    margin-top: 12px;
 }
 #middle .wrapp-line-bottom-head{
     background: #f0f0f2 url("../img/bg-body.png") repeat 0 0;
