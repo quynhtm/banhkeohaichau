@@ -26,13 +26,22 @@
                     <div class="col-sm-10">
                         <div class="form-group">
                             <label for="name" class="control-label">Tài khoản đăng nhập<span class="red"> (*) </span></label>
-                            <input type="text" placeholder="Tài khoản đăng nhập" id="user_name" name="user_name"  class="form-control input-sm" value="@if(isset($data['user_name'])){{$data['user_name']}}@endif">
+                            <input type="text" placeholder="Tài khoản đăng nhập" id="user_name" name="user_name"  class="form-control input-sm" value="@if(isset($data['user_name'])){{$data['user_name']}}@endif"  @if($id > 0) readonly @endif>
                         </div>
                     </div>
+                    @if($id == 0)
+                    <div class="col-sm-10">
+                        <div class="form-group">
+                            <label for="name" class="control-label">Mật khẩu đăng nhập mặc định: abcD1243<span class="red"> (*) </span></label>
+                            <input type="password" placeholder="Mật khẩu mặc định: abcD1234" id="user_password_new" name="user_password_new"  class="form-control input-sm" value="abcD1243">
+                        </div>
+                    </div>
+                    @endif
+
                     <div class="clearfix"></div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="name" class="control-label">Tên nhân viên</label>
+                            <label for="name" class="control-label">Tên nhân viên <span class="red"> (*) </span></label>
                             <input type="text" placeholder="Tên nhân viên" id="user_full_name" name="user_full_name"  class="form-control input-sm" value="@if(isset($data['user_full_name'])){{$data['user_full_name']}}@endif">
                         </div>
                     </div>
@@ -95,7 +104,7 @@
                     <input type="hidden" id="id_hiden" name="id_hiden" value="{{$id}}"/>
                 </div>
 
-                <div style="float: left; width: 50%">
+                <div style="float: left; width: 50%;display: none">
                     <div id="show_category_sub_campaign" class="body">
                         <div class="form-group">
                             <label for="textDescrip" class="control-label col-lg-12 font2">Thuộc khoa, ngành</label>

@@ -98,6 +98,8 @@ class UserController extends BaseAdminController
         }
         if($id == 0){
             $dataSave['user_name'] = htmlspecialchars(trim(Request::get('user_name', '')));
+            $pass = Request::get('user_password', 'abcD1243');
+            $dataSave['user_password'] = $pass;
         }
         $dataSave['user_full_name'] = htmlspecialchars(trim(Request::get('user_full_name', '')));
         $dataSave['user_email'] = htmlspecialchars(trim(Request::get('user_email', '')));
@@ -107,7 +109,6 @@ class UserController extends BaseAdminController
         $dataSave['user_sex'] = (int)(Request::get('user_sex', 0));
 
         //khoa cần phân quyền
-
         $arrGroupDepart = Request::get('checkGroupDepart',array());
         $dataSave['user_group_depart'] = !empty($arrGroupDepart)? join(',',$arrGroupDepart): '';
 
@@ -173,7 +174,7 @@ class UserController extends BaseAdminController
             }
 
             if(isset($data['user_full_name']) && trim($data['user_full_name']) == '') {
-                $this->error[] = 'Tài nhân viên không được bỏ trống';
+                $this->error[] = 'Tên nhân viên không được bỏ trống';
             }
         }
         return true;

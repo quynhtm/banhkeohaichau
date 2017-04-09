@@ -44,15 +44,17 @@ class BaseAdminController extends BaseController
             'name'=>'QL user Admin',
             'link'=>'javascript:void(0)',
             'icon'=>'fa fa-user',
-            'arr_link_sub'=>array('admin.user_view','admin.permission_view','admin.groupUser_view',),//dung de check menu left action
+            'arr_link_sub'=>array('admin.user_view','admin.permission_view','admin.groupUser_view','admin.typeSettingView','admin.sizeImageView'),//dung de check menu left action
             'sub'=>array(
                 array('name'=>'Tài khoản Admin', 'RouteName'=>'admin.user_view', 'icon'=>'fa fa-user icon-4x', 'showcontent'=>1,'showMenu'=>1, 'permission'=>'user_view'),
                 array('name'=>'Danh sách quyền', 'RouteName'=>'admin.permission_view', 'icon'=>'fa fa-user icon-4x', 'showcontent'=>0,'showMenu'=>0, 'permission'=>'permission_full'),
                 array('name'=>'Danh sách nhóm quyền', 'RouteName'=>'admin.groupUser_view', 'icon'=>'fa fa-user icon-4x', 'showcontent'=>0,'showMenu'=>0, 'permission'=>'group_user_view'),
+                array('name'=>'Type Setting', 'RouteName'=>'admin.typeSettingView', 'icon'=>'fa fa-wrench icon-4x', 'showcontent'=>0,'showMenu'=>0, 'permission'=>'setting_site_full'),
+                array('name'=>'Size ảnh', 'RouteName'=>'admin.sizeImageView', 'icon'=>'fa fa-camera icon-4x', 'showcontent'=>0,'showMenu'=>0, 'permission'=>'sizeImage_full'),
             ),
         );
 
-        $menu[] = array(
+        /*$menu[] = array(
             'name'=>'Setting site',
             'link'=>'javascript:void(0)',
             'icon'=>'fa fa-cogs',
@@ -61,7 +63,7 @@ class BaseAdminController extends BaseController
                 array('name'=>'Type Setting', 'RouteName'=>'admin.typeSettingView', 'icon'=>'fa fa-wrench icon-4x', 'showcontent'=>1,'showMenu'=>1, 'permission'=>'setting_site_full'),
                 array('name'=>'Size ảnh', 'RouteName'=>'admin.sizeImageView', 'icon'=>'fa fa-camera icon-4x', 'showcontent'=>1,'showMenu'=>1, 'permission'=>'sizeImage_full'),
             ),
-        );
+        );*/
 
         $menu[] = array(
             'name'=>'QL Sản phẩm',

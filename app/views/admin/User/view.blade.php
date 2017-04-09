@@ -10,14 +10,6 @@
     </div>
 
     <div class="page-content">
-        {{--<div class="page-header">--}}
-        {{--<h1>--}}
-        {{--<small>--}}
-        {{--Danh sách khách hàng--}}
-        {{--</small>--}}
-        {{--</h1>--}}
-        {{--</div><!-- /.page-header -->--}}
-
         <div class="row">
             <div class="col-xs-12">
                 <!-- PAGE CONTENT BEGINS -->
@@ -66,8 +58,9 @@
                         <thead class="thin-border-bottom">
                         <tr class="">
                             <th width="5%" class="text-center">STT</th>
-                            <th width="30%">Thông tin đăng nhập</th>
-                            <th width="30%">Thông nhân viên</th>
+                            <th width="20%">Thông tin đăng nhập</th>
+                            <th width="20%">Tên nhân viên</th>
+                            <th width="20%">Sơ yếu lý lịch</th>
                             <th width="10%" class="text-center">Trạng thái</th>
                             <th width="10%" class="text-center">Ngày tạo</th>
                             <th width="15%" class="text-center">Thao tác</th>
@@ -84,6 +77,8 @@
                                 <td>
                                     <div><b>Họ tên : </b>{{ $item['user_full_name'] }}</div>
                                     <div><b>Giới tính : </b>@if(isset($arrSex[$item['user_sex']])) {{$arrSex[$item['user_sex']]}} @endif</div>
+                                </td>
+                                <td>
                                     <div><b>Chức vụ : </b>{{ $item['user_service'] }}</div>
                                     <div><b>Phone : </b>{{ $item['user_phone'] }}</div>
                                     <div><b>Email : </b>{{ $item['user_email'] }}</div>

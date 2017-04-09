@@ -92,7 +92,8 @@ class LoginController extends BaseController
             // Session::forget('key');
             Session::forget('user');
         }
-        return Redirect::route('admin.login', array('url' => self::buildUrlEncode(URL::previous())));
+        //return Redirect::route('admin.login', array('url' => self::buildUrlEncode(URL::previous())));
+        return Redirect::route('admin.login');
     }
 
 }
