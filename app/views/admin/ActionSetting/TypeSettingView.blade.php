@@ -86,7 +86,7 @@
                                     @endif
                                     @if($is_root)
                                        &nbsp;&nbsp;&nbsp;
-                                       <a href="javascript:void(0);" onclick="Admin.deleteItem({{$item['type_id']}},10)" title="Xóa Item"><i class="fa fa-trash fa-2x"></i></a>
+                                       <a href="javascript:void(0);" onclick="Admin.deleteItem({{$item['type_id']}},13)" title="Xóa Item"><i class="fa fa-trash fa-2x"></i></a>
                                     @endif
                                 </td>
                             </tr>

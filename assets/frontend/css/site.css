@@ -208,7 +208,6 @@ h1, h2, h3, h4, h5, h6{
     width: 285px;
 }
 #logo a {
-    background: url("../img/logo.png") no-repeat;
     display: inline-block;
     width: 100%;
     height: 78px;

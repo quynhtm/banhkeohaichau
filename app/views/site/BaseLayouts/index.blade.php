@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<link rel="shortcut icon" href="{{Config::get('config.WEB_ROOT')}}assets/frontend/img/favicon.ico" type="image/vnd.microsoft.icon">
-		
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 	{{ HTML::style('assets/lib/bootstrap/css/bootstrap.css'); }}
 	{{ HTML::style('assets/frontend/css/site.css'); }}
 	{{ HTML::style('assets/frontend/css/media.css'); }}

@@ -13,13 +13,15 @@
 </div>
 <div class="mid-head">
     <div class="container">
-        @if(Route::currentRouteName() == 'site.index')
+        @if(Route::currentRouteName() == 'site.home')
             <h1 id="logo">
-                <a href="{{URL::route('site.home')}}"></a>
+                <a href="{{URL::route('site.home')}}">
+                    <img src="{{URL::route('site.home')}}/assets/frontend/img/logo.png" alt="{{CGlobal::web_name}}">
+                </a>
             </h1>
         @else
             <div id="logo">
-                <a href="{{URL::route('site.home')}}"></a>
+                <img src="{{URL::route('site.home')}}/assets/frontend/img/logo.png" alt="{{CGlobal::web_name}}">
             </div>
         @endif
         <div class="box-search">
