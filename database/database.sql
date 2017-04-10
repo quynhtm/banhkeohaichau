@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost
-Source Server Version : 50505
+Source Server         : LOCALHOST
+Source Server Version : 50625
 Source Host           : localhost:3306
 Source Database       : banhkeohaichau
 
 Target Server Type    : MYSQL
-Target Server Version : 50505
+Target Server Version : 50625
 File Encoding         : 65001
 
-Date: 2017-04-06 09:01:10
+Date: 2017-04-10 21:54:30
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -150,10 +150,9 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('2', 'admin', 'eef828faf0754495136af05c051766cb', 'Admin', '0', '', '', '', '0', '0', '', '1', '1,2', '1491443516', '::1', null, null, null, null, null, null);
+INSERT INTO `user` VALUES ('2', 'admin', 'eef828faf0754495136af05c051766cb', 'Admin', '0', '', '', '', '0', '0', '', '1', '1,2', '1491827955', '127.0.0.1', null, null, null, null, null, null);
 INSERT INTO `user` VALUES ('19', 'tech_code', '273704d8aff01015b6bdd001f5e73463', 'Tech code 3555', '0', '', '', '', '0', '0', '', '1', '2', '1487301492', '::1', null, null, '2', 'admin', null, '1481772561');
 INSERT INTO `user` VALUES ('20', 'svquynhtm', 'fa268d7af7410dbf1b860075e9074889', 'Trương Mạnh Quỳnh', '1', 'manhquynh1984@gmail.com', '0938413368', 'Cộng tác viên', '1483203600', '1484240400', '1,6,7,8,9', '1', '3', '1482826054', '::1', '2', 'admin', '2', 'admin', '1482823830', '1482824272');
-INSERT INTO `user` VALUES ('21', 'quantricaodang', '8223661a604a916364b6581ce1ca44db', 'Quản trị site', '0', '', '', 'Admin site', '0', '0', '1,2,3,4,5,6,7,8,9', '1', '3', null, null, null, null, null, null, null, null);
 INSERT INTO `user` VALUES ('22', 'congtacvien', 'b899cec2f6ecfaf912ff013647d0a9e8', 'Cộng tác viên', '0', '', '', '', '0', '0', '1,7', '1', '4', '1487306266', '::1', null, null, null, null, null, null);
 
 -- ----------------------------
@@ -217,47 +216,133 @@ CREATE TABLE `web_category` (
   `category_image_background` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `category_icons` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `category_status` tinyint(1) DEFAULT '0',
+  `category_menu_status` tinyint(1) DEFAULT '0',
+  `category_menu_right` tinyint(1) DEFAULT NULL,
   `category_order` tinyint(5) DEFAULT '0',
   PRIMARY KEY (`category_id`),
   KEY `status` (`category_status`) USING BTREE,
   KEY `id_parrent` (`category_parent_id`,`category_status`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=119 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=COMPACT;
 
 -- ----------------------------
 -- Records of web_category
 -- ----------------------------
-INSERT INTO `web_category` VALUES ('1', 'Kẹo chew', '0', '1', '5', '1', null, null, '1', '0');
-INSERT INTO `web_category` VALUES ('2', 'Lương khô', '0', '3', '5', '1', null, null, '1', '1');
-INSERT INTO `web_category` VALUES ('3', 'Tin tức nổi bật', '0', '0', '6', '1', null, null, '1', '0');
-INSERT INTO `web_category` VALUES ('4', 'Lương khô 65g', '2', '3', '5', '1', null, null, '1', '0');
-INSERT INTO `web_category` VALUES ('5', 'Tin giới thiệu', '0', '0', '6', '1', null, null, '1', '0');
-INSERT INTO `web_category` VALUES ('6', 'Bánh lương khô Omega 420g', '2', '3', '5', '1', null, null, '1', '0');
-INSERT INTO `web_category` VALUES ('7', 'Lương khô rong biển 70gr', '2', '3', '5', '1', null, null, '1', '0');
-INSERT INTO `web_category` VALUES ('8', 'Lương khô 5+', '2', '3', '5', '1', null, null, '1', '0');
-INSERT INTO `web_category` VALUES ('9', 'Bánh Omega 420gr', '2', '3', '5', '1', null, null, '1', '0');
-INSERT INTO `web_category` VALUES ('10', 'Kẹo Chew 100', '1', '1', '5', '1', null, null, '1', '0');
-INSERT INTO `web_category` VALUES ('11', 'Kẹo xoắn 260g', '1', '1', '5', '1', null, null, '1', '0');
-INSERT INTO `web_category` VALUES ('12', 'Kẹo gối 260g', '1', '1', '5', '1', null, null, '1', '0');
-INSERT INTO `web_category` VALUES ('13', 'Kẹo chew cốm', '1', '1', '5', '1', null, null, '1', '0');
-INSERT INTO `web_category` VALUES ('14', 'Kẹo Chew sữa', '1', '1', '5', '1', null, null, '1', '0');
-INSERT INTO `web_category` VALUES ('15', 'Kẹo mềm sữa 255g', '1', '1', '5', '1', null, null, '1', '0');
-INSERT INTO `web_category` VALUES ('16', 'Kẹo mềm cà phê 255g', '1', '1', '5', '1', null, null, '1', '0');
-INSERT INTO `web_category` VALUES ('17', 'Hạt nêm - Bột Canh ', '0', '4', '5', '1', null, null, '1', '0');
-INSERT INTO `web_category` VALUES ('18', 'Bột Hải Châu', '17', '4', '5', '1', null, null, '1', '0');
-INSERT INTO `web_category` VALUES ('19', 'Bột canh Ngon', '17', '4', '5', '1', null, null, '1', '0');
-INSERT INTO `web_category` VALUES ('20', 'Hạt nêm Jito thịt 170g’', '17', '4', '5', '1', null, null, '1', '0');
-INSERT INTO `web_category` VALUES ('21', 'Hạt nêm Jito gà 170g', '17', '4', '5', '1', null, null, '1', '0');
-INSERT INTO `web_category` VALUES ('22', 'Hạt nêm Jito 800g', '17', '4', '5', '1', null, null, '1', '0');
-INSERT INTO `web_category` VALUES ('23', 'Mứt Tết', '0', '6', '5', '1', null, null, '1', '0');
-INSERT INTO `web_category` VALUES ('24', 'Mứt Gừng 130gr', '23', '6', '5', '1', null, null, '1', '0');
-INSERT INTO `web_category` VALUES ('25', 'Mứt Tết bát giác 220gr', '23', '6', '5', '1', null, null, '1', '0');
-INSERT INTO `web_category` VALUES ('26', 'Mứt Tết hộp Lục giác 250gr', '23', '6', '5', '1', null, null, '1', '0');
-INSERT INTO `web_category` VALUES ('27', 'Mứt Tết hộp nhựa 300gr', '23', '6', '5', '1', null, null, '1', '0');
-INSERT INTO `web_category` VALUES ('28', 'Mứt Tết hộp bát giác 300gr', '23', '6', '5', '1', null, null, '1', '0');
-INSERT INTO `web_category` VALUES ('29', 'Mứt Tết thập cẩm ĐB 420gr', '23', '6', '5', '1', null, null, '1', '0');
-INSERT INTO `web_category` VALUES ('30', 'Bánh trứng nướng PiSô', '23', '6', '5', '1', null, null, '1', '0');
-INSERT INTO `web_category` VALUES ('31', 'Bánh trứng nướng piso ( 10 g)', '23', '6', '5', '1', null, null, '1', '0');
-INSERT INTO `web_category` VALUES ('32', 'Bánh trứn Nướng Phomai', '23', '6', '5', '1', null, null, '1', '0');
+INSERT INTO `web_category` VALUES ('1', 'Kẹo chew', '0', '2', '5', '1', null, null, '1', '0', null, '1');
+INSERT INTO `web_category` VALUES ('2', 'Lương khô', '0', '3', '5', '1', null, null, '1', '0', null, '2');
+INSERT INTO `web_category` VALUES ('4', 'Lương khô 65g', '2', '3', '5', '1', null, null, '1', '0', null, '0');
+INSERT INTO `web_category` VALUES ('5', 'Giới thiệu', '0', '0', '6', '1', null, null, '1', '1', null, '1');
+INSERT INTO `web_category` VALUES ('6', 'Bánh lương khô Omega 420g', '2', '3', '5', '1', null, null, '1', '0', null, '0');
+INSERT INTO `web_category` VALUES ('7', 'Lương khô rong biển 70gr', '2', '3', '5', '1', null, null, '1', '0', null, '0');
+INSERT INTO `web_category` VALUES ('8', 'Lương khô 5+', '2', '3', '5', '1', null, null, '1', '0', null, '0');
+INSERT INTO `web_category` VALUES ('9', 'Bánh Omega 420gr', '2', '3', '5', '1', null, null, '1', '0', null, '0');
+INSERT INTO `web_category` VALUES ('10', 'Kẹo Chew 100', '1', '1', '5', '1', null, null, '1', '0', null, '0');
+INSERT INTO `web_category` VALUES ('11', 'Kẹo xoắn 260g', '1', '1', '5', '1', null, null, '1', '0', null, '0');
+INSERT INTO `web_category` VALUES ('12', 'Kẹo gối 260g', '1', '1', '5', '1', null, null, '1', '0', null, '0');
+INSERT INTO `web_category` VALUES ('13', 'Kẹo chew cốm', '1', '1', '5', '1', null, null, '1', '0', null, '0');
+INSERT INTO `web_category` VALUES ('14', 'Kẹo Chew sữa', '1', '1', '5', '1', null, null, '1', '0', null, '0');
+INSERT INTO `web_category` VALUES ('15', 'Kẹo mềm sữa 255g', '1', '1', '5', '1', null, null, '1', '0', null, '0');
+INSERT INTO `web_category` VALUES ('16', 'Kẹo mềm cà phê 255g', '1', '1', '5', '1', null, null, '1', '0', null, '0');
+INSERT INTO `web_category` VALUES ('17', 'Hạt nêm - Bột Canh ', '0', '4', '5', '1', null, null, '1', '0', null, '0');
+INSERT INTO `web_category` VALUES ('18', 'Bột Hải Châu', '17', '4', '5', '1', null, null, '1', '0', null, '0');
+INSERT INTO `web_category` VALUES ('19', 'Bột canh Ngon', '17', '4', '5', '1', null, null, '1', '0', null, '0');
+INSERT INTO `web_category` VALUES ('20', 'Hạt nêm Jito thịt 170g’', '17', '4', '5', '1', null, null, '1', '0', null, '0');
+INSERT INTO `web_category` VALUES ('21', 'Hạt nêm Jito gà 170g', '17', '4', '5', '1', null, null, '1', '0', null, '0');
+INSERT INTO `web_category` VALUES ('22', 'Hạt nêm Jito 800g', '17', '4', '5', '1', null, null, '1', '0', null, '0');
+INSERT INTO `web_category` VALUES ('23', 'Mứt Tết', '0', '6', '5', '1', null, null, '1', '0', null, '0');
+INSERT INTO `web_category` VALUES ('24', 'Mứt Gừng 130gr', '23', '6', '5', '1', null, null, '1', '0', null, '0');
+INSERT INTO `web_category` VALUES ('25', 'Mứt Tết bát giác 220gr', '23', '6', '5', '1', null, null, '1', '0', null, '0');
+INSERT INTO `web_category` VALUES ('26', 'Mứt Tết hộp Lục giác 250gr', '23', '6', '5', '1', null, null, '1', '0', null, '0');
+INSERT INTO `web_category` VALUES ('27', 'Mứt Tết hộp nhựa 300gr', '23', '6', '5', '1', null, null, '1', '0', null, '0');
+INSERT INTO `web_category` VALUES ('28', 'Mứt Tết hộp bát giác 300gr', '23', '6', '5', '1', null, null, '1', '0', null, '0');
+INSERT INTO `web_category` VALUES ('29', 'Mứt Tết thập cẩm ĐB 420gr', '23', '6', '5', '1', null, null, '1', '0', null, '0');
+INSERT INTO `web_category` VALUES ('30', 'Bánh trứng nướng PiSô', '23', '6', '5', '1', null, null, '1', '0', null, '0');
+INSERT INTO `web_category` VALUES ('31', 'Bánh trứng nướng piso ( 10 g)', '23', '6', '5', '1', null, null, '1', '0', null, '0');
+INSERT INTO `web_category` VALUES ('32', 'Bánh trứng Nướng Phomai', '23', '6', '5', '1', null, null, '1', '0', null, '0');
+INSERT INTO `web_category` VALUES ('33', 'Tin tức', '0', '0', '6', '1', null, null, '1', '1', null, '2');
+INSERT INTO `web_category` VALUES ('34', 'Đại lý', '0', '0', '6', '1', null, null, '1', '1', null, '3');
+INSERT INTO `web_category` VALUES ('35', 'Khuyến mại', '0', '0', '6', '1', null, null, '1', '1', null, '4');
+INSERT INTO `web_category` VALUES ('36', 'Bảng giá', '0', '0', '6', '1', null, null, '1', '1', null, '5');
+INSERT INTO `web_category` VALUES ('38', 'Tuyển dụng', '0', '0', '6', '1', null, null, '1', '1', null, '7');
+INSERT INTO `web_category` VALUES ('39', 'Bánh Quy', '0', '1', '5', '1', null, null, '1', '0', null, '1');
+INSERT INTO `web_category` VALUES ('40', 'Hương cam 130', '39', '1', '5', '1', null, null, '1', '0', null, '1');
+INSERT INTO `web_category` VALUES ('41', 'Hương thảo 225', '39', '1', '5', '1', null, null, '1', '0', null, '2');
+INSERT INTO `web_category` VALUES ('42', 'Quy kem 96gr', '39', '1', '5', '1', null, null, '1', '0', null, '3');
+INSERT INTO `web_category` VALUES ('43', 'Bánh quy sesame 205g', '39', '1', '5', '1', null, null, '1', '0', null, '4');
+INSERT INTO `web_category` VALUES ('44', 'Bánh quy Bictony 120g', '39', '1', '5', '1', null, null, '1', '0', null, '5');
+INSERT INTO `web_category` VALUES ('45', 'Bánh quy Maryo 88g', '39', '1', '5', '1', null, null, '1', '0', null, '6');
+INSERT INTO `web_category` VALUES ('46', 'Vani 300', '39', '1', '5', '1', null, null, '1', '0', null, '7');
+INSERT INTO `web_category` VALUES ('47', 'Quy + 110g', '39', '1', '5', '1', null, null, '1', '0', null, '8');
+INSERT INTO `web_category` VALUES ('48', 'Bánh Quy Hộp', '0', '1', '5', '1', null, null, '1', '0', null, '2');
+INSERT INTO `web_category` VALUES ('49', 'Fance 405g', '48', '1', '5', '1', null, null, '1', '0', null, '1');
+INSERT INTO `web_category` VALUES ('50', 'Uropi 305g', '48', '1', '5', '1', null, null, '1', '0', null, '2');
+INSERT INTO `web_category` VALUES ('51', 'Qui nếp 200', '48', '1', '5', '1', null, null, '1', '0', null, '3');
+INSERT INTO `web_category` VALUES ('52', 'Korolas 295g', '48', '1', '5', '1', null, null, '1', '0', null, '4');
+INSERT INTO `web_category` VALUES ('53', 'Vani 270g', '48', '1', '5', '1', null, null, '1', '0', null, '5');
+INSERT INTO `web_category` VALUES ('54', 'Bánh Orio 240gr', '48', '1', '5', '1', null, null, '1', '0', null, '6');
+INSERT INTO `web_category` VALUES ('55', 'Bánh hộp Antiqes 415g', '48', '1', '5', '1', null, null, '1', '0', null, '7');
+INSERT INTO `web_category` VALUES ('56', 'Bánh hộp Antiqes 450g', '48', '1', '5', '1', null, null, '1', '0', null, '8');
+INSERT INTO `web_category` VALUES ('57', 'Bánh quy bơ Roal 300g', '48', '1', '5', '1', null, null, '1', '0', null, '9');
+INSERT INTO `web_category` VALUES ('58', 'Bánh quy vừng GOLD 340g', '48', '1', '5', '1', null, null, '1', '0', null, '10');
+INSERT INTO `web_category` VALUES ('59', 'Bánh quy bơ Famlys 260gr', '48', '1', '5', '1', null, null, '1', '0', null, '11');
+INSERT INTO `web_category` VALUES ('60', 'Bánh quy bơ Famlys 320gr', '48', '1', '5', '1', null, null, '1', '0', null, '12');
+INSERT INTO `web_category` VALUES ('61', 'Bánh quy Forever 360g', '48', '1', '5', '1', null, null, '1', '0', null, '13');
+INSERT INTO `web_category` VALUES ('62', 'Bánh quy FC A+ 320g', '48', '1', '5', '1', null, null, '1', '0', null, '14');
+INSERT INTO `web_category` VALUES ('63', 'Bánh quy kem hộp 255', '48', '1', '5', '1', null, null, '1', '0', null, '15');
+INSERT INTO `web_category` VALUES ('64', 'Bánh kem xốp', '0', '1', '5', '1', null, null, '1', '0', null, '3');
+INSERT INTO `web_category` VALUES ('65', 'Kem xốp 90', '64', '1', '5', '1', null, null, '1', '0', null, '1');
+INSERT INTO `web_category` VALUES ('66', 'Kem xốp 300', '64', '1', '5', '1', null, null, '1', '0', null, '2');
+INSERT INTO `web_category` VALUES ('67', 'Kem xốp 310', '64', '1', '5', '1', null, null, '1', '0', null, '3');
+INSERT INTO `web_category` VALUES ('68', 'Kem xốp gấc 285g', '64', '1', '5', '1', null, null, '1', '0', null, '4');
+INSERT INTO `web_category` VALUES ('69', 'Kem xốp trà xanh 135g', '64', '1', '5', '1', null, null, '1', '0', null, '5');
+INSERT INTO `web_category` VALUES ('70', 'Kem xốp trà xanh 98gr', '64', '1', '5', '1', null, null, '1', '0', null, '6');
+INSERT INTO `web_category` VALUES ('71', 'Kem xốp dừa gấc 98gr', '64', '1', '5', '1', null, null, '1', '0', null, '7');
+INSERT INTO `web_category` VALUES ('72', 'Kem xốp colamik 240g', '64', '1', '5', '1', null, null, '1', '0', null, '8');
+INSERT INTO `web_category` VALUES ('73', 'Kem xốp socola 170gr', '64', '1', '5', '1', null, null, '1', '0', null, '9');
+INSERT INTO `web_category` VALUES ('74', 'Kem xốp 260g', '64', '1', '5', '1', null, null, '1', '0', null, '10');
+INSERT INTO `web_category` VALUES ('75', 'Kem xốp socola 280', '64', '1', '5', '1', null, null, '1', '0', null, '11');
+INSERT INTO `web_category` VALUES ('76', 'Xốp sữa 170', '64', '1', '5', '1', null, null, '1', '0', null, '12');
+INSERT INTO `web_category` VALUES ('77', 'Kem xốp kobe 205', '64', '1', '5', '1', null, null, '1', '0', null, '13');
+INSERT INTO `web_category` VALUES ('78', 'Kem xốp giấy bạc 230', '64', '1', '5', '1', null, null, '1', '0', null, '14');
+INSERT INTO `web_category` VALUES ('79', 'Bánh kem xốp hộp', '0', '1', '5', '1', null, null, '1', '0', null, '4');
+INSERT INTO `web_category` VALUES ('80', 'Bánh mềm', '0', '1', '5', '1', null, null, '1', '0', null, '5');
+INSERT INTO `web_category` VALUES ('81', 'Bánh cookie', '0', '1', '5', '1', null, null, '1', '0', null, '5');
+INSERT INTO `web_category` VALUES ('82', 'Kẹo hộp', '0', '2', '5', '1', null, null, '1', '0', null, '6');
+INSERT INTO `web_category` VALUES ('83', 'Kẹo cứng', '0', '2', '5', '1', null, null, '1', '0', null, '7');
+INSERT INTO `web_category` VALUES ('84', 'Kem xốp hộp 405g', '79', '1', '5', '1', null, null, '1', '0', null, '1');
+INSERT INTO `web_category` VALUES ('85', 'Kem xốp hộp 295g', '79', '1', '5', '1', null, null, '1', '0', null, '2');
+INSERT INTO `web_category` VALUES ('86', 'Kem xốp phủ SCL Anper 255g', '79', '1', '5', '1', null, null, '1', '0', null, '3');
+INSERT INTO `web_category` VALUES ('87', 'Bánh kem xốp Pari 320g', '79', '1', '5', '1', null, null, '1', '0', null, '4');
+INSERT INTO `web_category` VALUES ('88', 'Bánh kem xốp 3 in 1 265g', '79', '1', '5', '1', null, null, '1', '0', null, '4');
+INSERT INTO `web_category` VALUES ('89', 'Bánh asea stlye 306g', '79', '1', '5', '1', null, null, '1', '0', null, '6');
+INSERT INTO `web_category` VALUES ('90', 'Bánh kem xốp bela 310g', '79', '1', '5', '1', null, null, '1', '0', null, '7');
+INSERT INTO `web_category` VALUES ('91', 'Kem xốp KX 190g', '79', '1', '5', '1', null, null, '1', '0', null, '8');
+INSERT INTO `web_category` VALUES ('92', 'Bánh kem xốp varicty 355g', '79', '1', '5', '1', null, null, '1', '0', null, '9');
+INSERT INTO `web_category` VALUES ('93', 'Bánh kem xốp Koji hộp 465g', '79', '1', '5', '1', null, null, '1', '0', null, '10');
+INSERT INTO `web_category` VALUES ('94', 'Bánh kem xốp Apples hộp 315g', '79', '1', '5', '1', null, null, '1', '0', null, '10');
+INSERT INTO `web_category` VALUES ('95', 'Bánh kem xốp hộp XP 320g', '79', '1', '5', '1', null, null, '1', '0', null, '11');
+INSERT INTO `web_category` VALUES ('96', 'Bánh kem xốp hộp XP 306g', '79', '1', '5', '1', null, null, '1', '0', null, '12');
+INSERT INTO `web_category` VALUES ('97', 'Kem Xop Phuc Loc Tho', '79', '1', '5', '1', null, null, '1', '0', null, '12');
+INSERT INTO `web_category` VALUES ('98', 'Bánh Euro style 775g', '79', '1', '5', '1', null, null, '1', '0', null, '12');
+INSERT INTO `web_category` VALUES ('99', 'Kem xốp hoàng gia 52gr', '79', '1', '5', '1', null, null, '1', '0', null, '13');
+INSERT INTO `web_category` VALUES ('100', 'Kem xốp colamik hộp 270g', '79', '1', '5', '1', null, null, '1', '0', null, '14');
+INSERT INTO `web_category` VALUES ('101', 'Bánh kem xốp caste 340g', '79', '1', '5', '1', null, null, '1', '0', null, '15');
+INSERT INTO `web_category` VALUES ('102', 'Kem  xốp hôp 60g', '79', '1', '5', '1', null, null, '1', '0', null, '16');
+INSERT INTO `web_category` VALUES ('103', 'Kem xốp hộp classic 272gr', '79', '1', '5', '1', null, null, '1', '0', null, '17');
+INSERT INTO `web_category` VALUES ('104', 'Bánh Kem xốp Hộp Martin 336gr', '79', '1', '5', '1', null, null, '1', '0', null, '18');
+INSERT INTO `web_category` VALUES ('105', 'Kem xốp KX + 280g', '79', '1', '5', '1', null, null, '1', '0', null, '22');
+INSERT INTO `web_category` VALUES ('106', 'Tin tức hoạt động của Công ty Bánh kẹo Hải Châu', '33', '0', '6', '1', null, null, '1', '1', null, '1');
+INSERT INTO `web_category` VALUES ('107', 'Tin tức hoạt động của các chinh nhánh của Công ty', '33', '0', '6', '1', null, null, '1', '1', null, '2');
+INSERT INTO `web_category` VALUES ('108', 'Giới thiệu chung', '5', '0', '6', '1', null, null, '1', '1', null, '1');
+INSERT INTO `web_category` VALUES ('109', 'Hệ thống tổ chức', '5', '0', '6', '1', null, null, '1', '1', null, '2');
+INSERT INTO `web_category` VALUES ('110', 'Thông điệp của Tổng Giám Đốc', '5', '0', '6', '1', null, null, '1', '1', null, '3');
+INSERT INTO `web_category` VALUES ('111', 'Tầm nhìn và Sứ mệnh', '5', '0', '6', '1', null, null, '1', '1', null, '4');
+INSERT INTO `web_category` VALUES ('112', 'Các thành tích đã đạt được', '5', '0', '6', '1', null, null, '1', '1', null, '5');
+INSERT INTO `web_category` VALUES ('113', 'Danh sách lãnh đạo qua các thời kỳ', '5', '0', '6', '1', null, null, '1', '1', null, '6');
+INSERT INTO `web_category` VALUES ('114', 'Thông tin liên hệ', '5', '0', '6', '1', null, null, '1', '1', null, '7');
+INSERT INTO `web_category` VALUES ('115', 'Chi nhánh Miền Bắc', '34', '0', '6', '1', null, null, '1', '1', null, '1');
+INSERT INTO `web_category` VALUES ('116', 'Chi nhánh Miền Nam', '34', '0', '6', '1', null, null, '1', '1', null, '2');
+INSERT INTO `web_category` VALUES ('117', 'Chi Nhánh Miền Trung', '34', '0', '6', '1', null, null, '1', '0', null, '3');
+INSERT INTO `web_category` VALUES ('118', 'Hệ thống Phân Phối', '34', '0', '6', '1', null, null, '1', '0', null, '4');
 
 -- ----------------------------
 -- Table structure for web_contact
@@ -302,7 +387,7 @@ CREATE TABLE `web_department` (
   PRIMARY KEY (`department_id`),
   KEY `status` (`department_status`) USING BTREE,
   KEY `id_parrent` (`department_status`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=COMPACT;
 
 -- ----------------------------
 -- Records of web_department
@@ -312,7 +397,7 @@ INSERT INTO `web_department` VALUES ('2', 'Các loại kẹo', 'cacloaikeo', 'ty
 INSERT INTO `web_department` VALUES ('3', 'Lương khô', 'luongkho', 'type_khoa', 'layouts_home', '1', '1', '3');
 INSERT INTO `web_department` VALUES ('4', 'Bột Nêm – Bột canh', 'botnembotcanh', 'type_khoa', 'layouts_home', '1', '1', '4');
 INSERT INTO `web_department` VALUES ('5', 'Khuyến Mại', 'khuyenmai', 'type_khoa', 'layouts_home', '1', '1', '5');
-INSERT INTO `web_department` VALUES ('6', 'Mứt TẾT ', 'muttet', 'type_khoa', 'layouts_home', '1', '1', '0');
+INSERT INTO `web_department` VALUES ('6', 'Mứt TẾT ', 'muttet', 'type_khoa', 'layouts_home', '1', '1', '6');
 
 -- ----------------------------
 -- Table structure for web_districts
@@ -1105,15 +1190,17 @@ CREATE TABLE `web_info` (
   `meta_keywords` text COMMENT 'Meta keywords',
   `meta_description` text COMMENT 'Meta description',
   PRIMARY KEY (`info_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='Stores news content.';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='Stores news content.';
 
 -- ----------------------------
 -- Records of web_info
 -- ----------------------------
-INSERT INTO `web_info` VALUES ('1', null, 'Thông tin chân trang', 'SITE_FOOTER_LEFT', '', '<p><strong>TRƯỜNG CAO ĐẲNG SƯ PHẠM TRUNG ƯƠNG</strong></p>\r\n\r\n<p>Địa chỉ: 387 Ho&agrave;ng Quốc Việt - Cầu Giấy - H&agrave; Nội. ĐT: (04) 37565209. Fax: (04) 37914850</p>\r\n\r\n<p>Copyright @2011 Khoa Th&ocirc;ng tin m&aacute;y t&iacute;nh</p>\r\n\r\n<p>Email: admin@cdsptw.edu.vn</p>\r\n\r\n<p>Th&ocirc;ng tin Tuyển sinh: ĐT (04) 37565209 - 37562670</p>\r\n\r\n<p>Email:cdsptw.qldt@gmail.com</p>\r\n', '1481877283-573cb4258e810763aa000001.jpg', '1447794727', '1', '1', '', '', '');
-INSERT INTO `web_info` VALUES ('2', null, 'Meta SEO trang liên hệ', 'SITE_SEO_CONTACT', '', '', '1487040720-anhtruong.jpg', '1487040558', '2', '1', 'Liên hệ - Trường Cao Đẳng Sư Phạm Trung Ương - Hà Nội', 'Trường Cao Đẳng Sư Phạm Trung Ương,Trường Cao Đẳng,Cao Đẳng Sư Phạm Trung Ương,Sư Phạm Trung Ương,Cao Đẳng Sư Phạm,Trường Cao Đẳng Sư Phạm', 'Thông tin liên hệ trường Cao Đẳng Sư Phạm Trung Ương - Hà Nội');
-INSERT INTO `web_info` VALUES ('3', null, 'Meta SEO trang chủ', 'SITE_SEO_HOME', '', '', '1487040710-anhtruong.jpg', '1487040663', '3', '1', 'Trường Cao Đẳng Sư Phạm Trung Ương - Hà Nội', 'Trường Cao Đẳng Sư Phạm Trung Ương,Trường Cao Đẳng,Cao Đẳng Sư Phạm Trung Ương,Sư Phạm Trung Ương,Cao Đẳng Sư Phạm,Trường Cao Đẳng Sư Phạm', 'Trường Cao Đẳng Sư Phạm Trung Ương - Hà Nội');
-INSERT INTO `web_info` VALUES ('4', null, 'Thông tin trang liên hệ', 'SITE_INFO_CONTACT', '', '<p><strong>TRƯỜNG CAO ĐẲNG SƯ PHẠM TRUNG ƯƠNG</strong></p>\r\n\r\n<p>Địa chỉ: 387 Ho&agrave;ng Quốc Việt - Cầu Giấy - H&agrave; Nội. ĐT: (04) 37565209. Fax: (04) 37914850</p>\r\n\r\n<p>Email: admin@cdsptw.edu.vn</p>\r\n\r\n<p>Th&ocirc;ng tin Tuyển sinh: ĐT (04) 37565209 - 37562670</p>\r\n\r\n<p>Email:cdsptw.qldt@gmail.com</p>\r\n', '', '1487042227', '4', '1', '', '', '');
+INSERT INTO `web_info` VALUES ('1', null, 'Thông tin chân trang', 'SITE_FOOTER_LEFT', '', '', '1481877283-573cb4258e810763aa000001.jpg', '1447794727', '1', '1', '', '', '');
+INSERT INTO `web_info` VALUES ('2', null, 'Meta SEO trang liên hệ', 'SITE_SEO_CONTACT', '', '', '1487040720-anhtruong.jpg', '1487040558', '2', '1', 'Công ty cổ phần bánh kẹo Hải Châu', 'Công ty cổ phần bánh kẹo Hải Châu', 'Công ty cổ phần bánh kẹo Hải Châu');
+INSERT INTO `web_info` VALUES ('3', null, 'Meta SEO trang chủ', 'SITE_SEO_HOME', '', '', '1487040710-anhtruong.jpg', '1487040663', '3', '1', 'Công ty cổ phần bánh kẹo Hải Châu', 'Công ty cổ phần bánh kẹo Hải Châu', 'Công ty cổ phần bánh kẹo Hải Châu');
+INSERT INTO `web_info` VALUES ('4', null, 'Thông tin trang liên hệ', 'SITE_INFO_CONTACT', '', '', '', '1487042227', '4', '1', '', '', '');
+INSERT INTO `web_info` VALUES ('5', null, 'Số điện thoại hotline đầu trang', 'SITE_NUM_NICK_SUPPORT_ONLINE', '', '01999.102.888', '', '1491797620', '5', '1', '', '', '');
+INSERT INTO `web_info` VALUES ('6', null, 'Số danh mục ở menu ngang đầu trang', 'SITE_NUM_CATEGORY_HORIZONTAL', '', '50', '', '1491799448', '6', '1', '', '', '');
 
 -- ----------------------------
 -- Table structure for web_library_images
@@ -1177,7 +1264,9 @@ CREATE TABLE `web_news` (
   `news_image_other` varchar(255) DEFAULT NULL COMMENT 'Lưu ảnh của bài viết',
   `news_type` tinyint(5) DEFAULT '1' COMMENT 'Kiểu tin',
   `news_category` int(11) DEFAULT NULL,
+  `news_category_name` varchar(255) DEFAULT NULL,
   `news_status` tinyint(5) DEFAULT NULL,
+  `news_hot` tinyint(2) DEFAULT NULL,
   `meta_title` varchar(255) DEFAULT NULL,
   `meta_keywords` varchar(255) DEFAULT NULL,
   `meta_description` varchar(255) DEFAULT NULL,
@@ -1186,14 +1275,15 @@ CREATE TABLE `web_news` (
   `news_update` int(11) DEFAULT NULL,
   `news_user_update` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`news_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of web_news
 -- ----------------------------
-INSERT INTO `web_news` VALUES ('3', 'test thử tin tức', '', '<p>sadasd</p>\r\n', '1490775913-573cb4258e810763aa000001.jpg', 'a:1:{i:0;s:39:\"1490775913-573cb4258e810763aa000001.jpg\";}', '1', '3', '1', '', '', '', '1490775913', null, '1490775918', 'admin');
-INSERT INTO `web_news` VALUES ('4', 'bài thứ 2', '', '<p>&aacute;dasd<br />\r\n&nbsp;</p>\r\n', '1490776027-57355c1302b01f7898000001.jpg', 'a:1:{i:0;s:39:\"1490776027-57355c1302b01f7898000001.jpg\";}', '1', '3', '1', '', '', '', '1490776027', null, '1490776031', 'admin');
-INSERT INTO `web_news` VALUES ('15', 'thử xem ok chưa', '', '<p>&aacute;dasdasd<br />\r\n&aacute;dasdasd</p>\r\n', '1490779473-1323299717367536732369379167136563154391026n.jpg', 'a:1:{i:0;s:59:\"1490779473-1323299717367536732369379167136563154391026n.jpg\";}', '1', '3', '1', '', '', '', '1490779473', 'admin', '1490779731', 'admin');
+INSERT INTO `web_news` VALUES ('16', 'Bánh kẹo Hải Châu vào Top 500 doanh nghiệp triển vọng xuất sắc nhất 2016', 'Năm nay, lần đầu tiên, Công ty cổ phần Bánh kẹo Hải Châu lọt vào Top 500 doanh nghiệp (DN) tăng trưởng và triển vọng xuất sắc nhất Việt Năm 2016.', '<p>Năm nay, lần đầu ti&ecirc;n, C&ocirc;ng ty cổ phần B&aacute;nh kẹo Hải Ch&acirc;u lọt v&agrave;o Top 500 doanh nghiệp (DN) tăng trưởng v&agrave; triển vọng xuất sắc nhất Việt Năm 2016.</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"null\" src=\"http://project.vn/KHAC/haichau.com.vn/uploads/thumbs/news/16/600x600/1491809734-1.jpg\" /></p>\r\n\r\n<p style=\"text-align:center\"><em>&Ocirc;ng Nguyễn Đ&igrave;nh Khi&ecirc;m- Tổng gi&aacute;m đốc C&ocirc;ng ty cổ phần B&aacute;nh kẹo Hải Ch&acirc;u nhận chứng nhận l&agrave; đơn vị triển vọng xuất sắc nhất 2016</em></p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"null\" src=\"http://project.vn/KHAC/haichau.com.vn/uploads/thumbs/news/16/600x600/1491809745-2.jpg\" /></p>\r\n\r\n<p>Tại Lễ c&ocirc;ng bố 500 DN tăng trưởng v&agrave; triển vọng xuất sắc nhất Việt Nam 2016 diễn ra ng&agrave;y 12/4/2016 tại H&agrave; Nội, C&ocirc;ng ty cổ phần B&aacute;nh kẹo Hải Ch&acirc;u được xướng t&ecirc;n trong Top 500 DN tăng trưởng v&agrave; triển vọng xuất sắc nhất.</p>\r\n\r\n<p>Chương tr&igrave;nh do C&ocirc;ng ty CP B&aacute;o c&aacute;o Đ&aacute;nh gi&aacute; Việt Nam (Vietnam Report) phối hợp c&ugrave;ng B&aacute;o VietnamNet ch&iacute;nh thức tổ chức. Buổi lễ cũng l&agrave; dịp nh&igrave;n lại v&agrave; ghi nhận những nỗ lực cũng như th&agrave;nh quả hoạt động kinh doanh xuất sắc của c&aacute;c doanh nghiệp tăng trưởng v&agrave; triển vọng xuất sắc nhất Việt Nam trong thời gian vừa qua. C&aacute;c doanh nghiệp được vinh danh đều l&agrave; những đại diện c&oacute; tiềm lực thực sự v&agrave; tiềm năng tăng trưởng trong tương lai.</p>\r\n\r\n<p>C&ocirc;ng ty cổ phần B&aacute;nh kẹo Hải Ch&acirc;u lu&ocirc;n nỗ lực nghi&ecirc;n cứu đưa ra sản phẩm mới ph&ugrave; hợp thị hiếu người ti&ecirc;u d&ugrave;ng, hiện c&ocirc;ng ty c&oacute; tr&ecirc;n 80 chủng loại sản phẩm chất lượng cao được người ti&ecirc;u d&ugrave;ng tin d&ugrave;ng. Đặc biệt, sản phẩm s&ocirc;c&ocirc;la vi&ecirc;n v&agrave; thanh của c&ocirc;ng ty đạt ti&ecirc;u chuẩn ch&acirc;u &Acirc;u, được kh&aacute;ch h&agrave;ng trong v&agrave; ngo&agrave;i nước rất ưa chuộng. B&ecirc;n cạnh đ&oacute;, c&ocirc;ng ty c&ograve;n nghi&ecirc;n cứu triển khai c&aacute;c dự &aacute;n mới trong lĩnh vực chế biến c&aacute;c sản phẩm sữa, đồ uống cao cấp tổng hợp, thực phẩm ăn liền gi&agrave;u dinh dưỡng, sản phẩm ăn ki&ecirc;ng&hellip; để đ&aacute;p ứng ng&agrave;y c&agrave;ng tốt hơn nhu cầu đa dạng của người ti&ecirc;u d&ugrave;ng.</p>\r\n', '1491809734-1.jpg', 'a:2:{i:0;s:16:\"1491809734-1.jpg\";i:1;s:16:\"1491809745-2.jpg\";}', '1', '33', 'Tin tức', '1', '0', 'Bánh kẹo Hải Châu vào Top 500 doanh nghiệp triển vọng xuất sắc nhất 2016', 'Bánh kẹo Hải Châu vào Top 500 doanh nghiệp triển vọng xuất sắc nhất 2016', 'Năm nay, lần đầu tiên, Công ty cổ phần Bánh kẹo Hải Châu lọt vào Top 500 doanh nghiệp (DN) tăng trưởng và triển vọng xuất sắc nhất Việt Năm 2016.', '1491809734', 'admin', '1491835999', 'admin');
+INSERT INTO `web_news` VALUES ('17', 'Bánh kẹo Hải Châu nhận Bằng khen của tỉnh Hưng Yên về thành tích nộp thuế năm 2015', 'Hội nghị tuyên dương người nộp thuế tiêu biểu năm 2015 và đối thoại với người nộp thuế', '<p>Hội nghị tuy&ecirc;n dương người nộp thuế ti&ecirc;u biểu năm 2015 v&agrave; đối thoại với người nộp thuế</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"null\" src=\"http://project.vn/KHAC/haichau.com.vn/uploads/thumbs/news/17/600x600/1491809981-3.jpg\" /></p>\r\n\r\n<p><em>B&agrave; Phạm Thị Mai Hương -Ph&oacute; tổng gi&aacute;m đốc, Kế to&aacute;n trưởng C&ocirc;ng ty cổ phần B&aacute;nh kẹo Hải Ch&acirc;u nhận bằng khen l&agrave; đơn vị xuất sắc trong thực hiện nghĩa vụ nộp thuế năm 2015 tỉnh Hưng Y&ecirc;n</em></p>\r\n\r\n<p>Ng&agrave;y 24/8/2016, Chi nh&aacute;nh C&ocirc;ng ty cổ phần b&aacute;nh kẹo Hải Ch&acirc;u (Nh&agrave; m&aacute;y b&aacute;nh kẹo Hải Ch&acirc;u) tại x&atilde; Vĩnh kh&uacute;c -huyện Văn giang -tỉnh Hưng Y&ecirc;n đ&oacute;n nhận Bằng khen của Ủy Ban Nh&acirc;n d&acirc;n tỉnh Hưng Y&ecirc;n về th&agrave;nh t&iacute;ch xuất sắc trong thực hiện nghĩa vụ nộp thuế năm 2015.</p>\r\n', '1491809981-3.jpg', 'a:1:{i:0;s:16:\"1491809981-3.jpg\";}', '1', '33', 'Tin tức', '1', '1', 'Bánh kẹo Hải Châu nhận Bằng khen của tỉnh Hưng Yên về thành tích nộp thuế năm 2015', 'Hội nghị tuyên dương người nộp thuế tiêu biểu năm 2015 và đối thoại với người nộp thuế', 'Hội nghị tuyên dương người nộp thuế tiêu biểu năm 2015 và đối thoại với người nộp thuế', '1491809981', 'admin', '1491835894', 'admin');
+INSERT INTO `web_news` VALUES ('18', 'Một số hoạt động thể thao kỷ niệm 51 năm ngày TL Công ty Hải Châu (02/9/1965-02/9/2016)', 'Một số hình ảnh hoạt động thể thao kỷ niệm 51 năm ngày thành lập Công ty cổ phần Bánh kẹo Hải Châu (02/9/1965 - 02/9/2016)', '<p>Một số h&igrave;nh ảnh hoạt động thể thao kỷ niệm 51 năm ng&agrave;y th&agrave;nh lập C&ocirc;ng ty cổ phần B&aacute;nh kẹo Hải Ch&acirc;u (02/9/1965 - 02/9/2016)</p>\r\n\r\n<p>Ng&agrave;y 11/9/2016, tại C&ocirc;ng vi&ecirc;n Tuổi Trẻ, Quận HBT tổ chức thi Chung kết giải chạy b&aacute;o H&agrave; Nội mới lần thứ 43 &quot;v&igrave; h&ograve;a b&igrave;nh&quot;, kết quả chung cuộc: B&aacute;nh kẹo Hải Ch&acirc;u đạt Nhất giải Đồng đội Nữ v&agrave; Nhất giải đồng đội Nam. Xin ch&uacute;c mừng, năm 2015 cũng đ&atilde; đoạt giải cao: Nhất đồng đội Nam, Nh&igrave; đồng đội Nữ.</p>\r\n\r\n<p>Ch&uacute;c mừng: Hội thi k&eacute;o co: Nhất XN Gia vị Thực phẩm; Nh&igrave; XN Quy Kem xốp; Ba Chi nh&aacute;nh HN; Bốn Khối Cung t&agrave;i; Năm Khối Nghiệp vụ v&agrave; XN B&aacute;nh kẹo; v&agrave; Giao hữu b&oacute;ng đ&aacute; giữa c&ocirc;ng ty Hải Ch&acirc;u &amp; c&ocirc;ng ty Vĩnh Th&agrave;nh; Hội thi chạy giải b&aacute;o HNM lần thứ 43 &quot;v&igrave; h&ograve;a b&igrave;nh&quot; tại Nh&agrave; m&aacute;y BKHC: Về giải đồng đội nam: Nhất XN Quy KX, nh&igrave; XN GVTP, ba khối Cung t&agrave;i v&agrave; giải đồng đội nữ: Nhất XN Quy KX, nh&igrave; XN GVTP , ba XN B&aacute;nh kẹo. Xin ch&uacute;c mừng.</p>\r\n\r\n<p><img alt=\"Một số hoạt động thể thao kỷ niệm 51 năm ngày TL Công ty Hải Châu (02/9/1965-02/9/2016)\" src=\"http://project.vn/KHAC/haichau.com.vn/uploads/thumbs/news/18/600x600/1491810173-1.jpg\" /><img alt=\"Một số hoạt động thể thao kỷ niệm 51 năm ngày TL Công ty Hải Châu (02/9/1965-02/9/2016)\" src=\"http://project.vn/KHAC/haichau.com.vn/uploads/thumbs/news/18/600x600/1491810190-7.jpg\" /><img alt=\"Một số hoạt động thể thao kỷ niệm 51 năm ngày TL Công ty Hải Châu (02/9/1965-02/9/2016)\" src=\"http://project.vn/KHAC/haichau.com.vn/uploads/thumbs/news/18/600x600/1491810190-6.jpg\" /><img alt=\"Một số hoạt động thể thao kỷ niệm 51 năm ngày TL Công ty Hải Châu (02/9/1965-02/9/2016)\" src=\"http://project.vn/KHAC/haichau.com.vn/uploads/thumbs/news/18/600x600/1491810190-2.jpg\" /><img alt=\"Một số hoạt động thể thao kỷ niệm 51 năm ngày TL Công ty Hải Châu (02/9/1965-02/9/2016)\" src=\"http://project.vn/KHAC/haichau.com.vn/uploads/thumbs/news/18/600x600/1491810190-3.jpg\" /><img alt=\"Một số hoạt động thể thao kỷ niệm 51 năm ngày TL Công ty Hải Châu (02/9/1965-02/9/2016)\" src=\"http://project.vn/KHAC/haichau.com.vn/uploads/thumbs/news/18/600x600/1491810190-5.jpg\" /><img alt=\"Một số hoạt động thể thao kỷ niệm 51 năm ngày TL Công ty Hải Châu (02/9/1965-02/9/2016)\" src=\"http://project.vn/KHAC/haichau.com.vn/uploads/thumbs/news/18/600x600/1491810190-4.jpg\" /></p>\r\n', '1491810173-1.jpg', 'a:7:{i:0;s:16:\"1491810173-1.jpg\";i:1;s:16:\"1491810190-7.jpg\";i:2;s:16:\"1491810190-6.jpg\";i:3;s:16:\"1491810190-2.jpg\";i:4;s:16:\"1491810190-3.jpg\";i:5;s:16:\"1491810190-5.jpg\";i:6;s:16:\"1491810190-4.jpg\";}', '1', '33', 'Tin tức', '1', '1', 'Một số hoạt động thể thao kỷ niệm 51 năm ngày TL Công ty Hải Châu (02/9/1965-02/9/2016)', 'Một số hoạt động thể thao kỷ niệm 51 năm ngày TL Công ty Hải Châu (02/9/1965-02/9/2016)', '', '1491810160', 'admin', '1491835885', 'admin');
+INSERT INTO `web_news` VALUES ('19', 'Hải Châu chia sẻ cùng đồng bào miền Trung mùa lũ', 'Hướng về Miền Trung luôn có sự đồng hành thân thiết của Hải Châu trong nhiều năm qua v.v.v…Được sự chỉ đạo của đ/c Bí thư Đảng ủy, Tổng giám đốc Công ty, Đảng bộ, Công đoàn, Đoàn Thanh niên sự thống nhất Ban lãnh đạo Công ty, BCH Công đoàn công ty đã thông báo trong toàn công ty quyên góp được 100% cán bộ công nhân viên công ty tham gia ủng hộ.', '<p>&quot;&Ocirc;i đẹp l&agrave;m sao t&igrave;nh người sau cơn lũ Đem nụ cười sinh sự sống cho đời&quot;</p>\r\n\r\n<p>&quot;Nghe tin đọc b&aacute;o rưng nước mắt</p>\r\n\r\n<p>Dải ruột miền Trung mưa lớn về</p>\r\n\r\n<p>Chống b&atilde;o chưa xong phải chống lũ,</p>\r\n\r\n<p>&nbsp;Lũ chồng lũ chống chất kh&oacute; khăn&quot;</p>\r\n\r\n<p>Hướng về Miền Trung lu&ocirc;n c&oacute; sự đồng h&agrave;nh th&acirc;n thiết của Hải Ch&acirc;u trong nhiều năm qua v.v.v&hellip;Được sự chỉ đạo của đ/c B&iacute; thư Đảng ủy, Tổng gi&aacute;m đốc C&ocirc;ng ty, Đảng bộ, C&ocirc;ng đo&agrave;n, Đo&agrave;n Thanh ni&ecirc;n sự thống nhất Ban l&atilde;nh đạo C&ocirc;ng ty, BCH C&ocirc;ng đo&agrave;n c&ocirc;ng ty đ&atilde; th&ocirc;ng b&aacute;o trong to&agrave;n c&ocirc;ng ty quy&ecirc;n g&oacute;p được 100% c&aacute;n bộ c&ocirc;ng nh&acirc;n vi&ecirc;n c&ocirc;ng ty tham gia ủng hộ.</p>\r\n\r\n<p>C&ocirc;ng ty đ&atilde; tổ chức c&aacute;c chuyến đi thăm hỏi, tặng qu&agrave; cho đồng b&agrave;o bị thiệt hại mưa lũ tại Miền Trung trong đợt mưa lũ vừa qua, trực tiếp l&agrave; c&aacute;c tỉnh từ Nghệ an, H&agrave; Tĩnh, Quảng B&igrave;nh, Qu&agrave;ng Trị... Nhiều địa phương đ&atilde; ngập trong biển nước, l&agrave;m thiệt hại v&ocirc; c&ugrave;ng lớn về người v&agrave; t&agrave;i sản.</p>\r\n\r\n<p>Ng&agrave;y 24/10/2016, C&ocirc;ng ty đ&atilde; tặng gần 100 suất qu&agrave; gồm tiền v&agrave; c&aacute;c sản phẩm của c&ocirc;ng ty sản xuất như bột canh Hải Ch&acirc;u, b&aacute;nh kẹo v&agrave; lương kh&ocirc; 5+ ...đồng h&agrave;nh c&ugrave;ng c&aacute;c anh chị trong c&ocirc;ng ty đi đến c&aacute;c x&atilde; c&oacute; c&aacute;c hộ bị ảnh hưởng (nhưng &iacute;t c&oacute; c&aacute;c đo&agrave;n cứu trợ đến tặng qu&agrave;) mới thấm nỗi l&ograve;ng của người đi thiện nguyện v&agrave; c&aacute;n bộ dưới x&atilde;, th&ocirc;n đ&atilde; lăn lộn c&ugrave;ng c&aacute;c đo&agrave;n thiện nguyện trong việc triển khai lựa chọn, bố tr&iacute; trao qu&agrave; đ&uacute;ng đối tượng. Vui v&igrave; b&agrave; con c&oacute; qu&agrave; th&ecirc;m v&agrave;o khắc phục phần n&agrave;o thiệt hại, buồn v&igrave; thấy khi cơn lũ đi qua đời sống b&agrave; con th&ecirc;m phần kh&oacute; khăn. Cảm ơn C&ocirc;ng ty CP B&aacute;nh kẹo Hải Ch&acirc;u đ&atilde; đem đến nụ cười cho người d&acirc;n c&aacute;c nơi đến. Cảm ơn Tập đo&agrave;n Ph&uacute; T&agrave;i Đức đ&atilde; tạo điều kiện cho đo&agrave;n c&oacute; chỗ nghỉ ngơi sạch đẹp. Cảm ơn sự chu đ&aacute;o của c&aacute;c anh chị đi thiện nguyện tại địa phương đồng h&agrave;nh c&ugrave;ng đo&agrave;n.</p>\r\n\r\n<p><img alt=\"null\" src=\"http://project.vn/KHAC/haichau.com.vn/uploads/thumbs/news/19/600x600/1491810332-1.jpg\" /></p>\r\n\r\n<p>Cảm ơn Chi nh&aacute;nh c&ocirc;ng ty tại Nghệ An ng&agrave;y 19/10/2016 đ&atilde; c&ugrave;ng đại l&yacute; L&acirc;m B&acirc;n -H&agrave; Tĩnh kịp thời đưa những tấm l&ograve;ng Hải Ch&acirc;u đến với miền Trung ruột thịt.</p>\r\n\r\n<p><img alt=\"null\" src=\"http://project.vn/KHAC/haichau.com.vn/uploads/thumbs/news/19/600x600/1491810336-2.jpg\" /></p>\r\n\r\n<p>Mong cộng đồng tiếp tục quan t&acirc;m gi&uacute;p đỡ b&agrave; con v&ugrave;ng lũ, c&aacute;c hộ ch&iacute;nh s&aacute;ch, kh&oacute; khăn..v&agrave; c&ugrave;ng chia sẻ tấm l&ograve;ng với &ldquo;The Kindness - Việc tử tế&rdquo; tại trang facebook: https://www.facebook.com/TheKindnessViecTuTe1/</p>\r\n', '1491810332-1.jpg', 'a:2:{i:0;s:16:\"1491810332-1.jpg\";i:1;s:16:\"1491810336-2.jpg\";}', '1', '33', 'Tin tức', '1', '1', 'Hải Châu chia sẻ cùng đồng bào miền Trung mùa lũ', 'Hải Châu chia sẻ cùng đồng bào miền Trung mùa lũ', 'Hải Châu chia sẻ cùng đồng bào miền Trung mùa lũ', '1491810332', 'admin', '1491835877', 'admin');
 
 -- ----------------------------
 -- Table structure for web_order
@@ -1464,9 +1554,7 @@ CREATE TABLE `web_type_setting` (
 -- Records of web_type_setting
 -- ----------------------------
 INSERT INTO `web_type_setting` VALUES ('1', 'Kiểu chuyên mục', 'định nghĩa kiểu khoa hay trung tâm ', 'type_khoa', 'group_type', '1', '1');
-INSERT INTO `web_type_setting` VALUES ('2', 'Kiểu trung tâm', 'định nghĩa kiểu khoa hay trung tâm', 'type_trung tâm', 'group_type', '2', '0');
 INSERT INTO `web_type_setting` VALUES ('3', 'Giao diện trang chủ', 'kiểu hiển thị page', 'layouts_home', 'group_layouts', '3', '1');
-INSERT INTO `web_type_setting` VALUES ('4', 'Giao diện khoa', 'kiểu hiển thị page', 'layouts_khoa', 'group_layouts', '4', '1');
 INSERT INTO `web_type_setting` VALUES ('5', 'Danh mục sản phẩm', 'Danh mục sản phẩm', 'category_product', 'group_category', '0', '1');
 INSERT INTO `web_type_setting` VALUES ('6', 'Danh mục tin tức', 'Danh mục tin tức', 'category_news', 'group_category', '0', '1');
 
