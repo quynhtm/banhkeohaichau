@@ -27,7 +27,7 @@
                     <div class="col-sm-10">
                         <div class="form-group">
                             <label for="name" class="control-label">Tên chuyên mục<span class="red"> (*) </span></label>
-                            <input type="text" placeholder="Tên khoa - trung tâm" id="department_name" name="department_name"  class="form-control input-sm" value="@if(isset($data['department_name'])){{$data['department_name']}}@endif">
+                            <input type="text" placeholder="Tên chuyên mục" id="department_name" name="department_name"  class="form-control input-sm" value="@if(isset($data['department_name'])){{$data['department_name']}}@endif">
                         </div>
                     </div>
                     @if($id > 0)

@@ -283,7 +283,7 @@ class FunctionLib {
         if ($text) {
             return $text;
         } else {
-            return "shop";
+            return "tin-tuc";
         }
     }
 
@@ -301,7 +301,7 @@ class FunctionLib {
         if ($text) {
             return $text;
         } else {
-            return "shop";
+            return "tin-tuc";
         }
     }
 
@@ -469,9 +469,9 @@ class FunctionLib {
      * @param string $cat_name
      * @return string
      */
-    static function buildLinkDetailNews($new_id = 0,$news_title = 'tin tức'){
+    static function buildLinkDetailNews($catname='danh-muc', $news_title = 'tin tức', $new_id = 0){
         if($new_id > 0){
-            //return URL::route('Site.pageDetailNew', array('news_title'=>strtolower(FunctionLib::safe_title($news_title)), 'new_id'=>$new_id));
+            return URL::route('Site.pageDetailNew', array('catname'=>strtolower(FunctionLib::safe_title($catname)), 'news_title'=>strtolower(FunctionLib::safe_title($news_title)), 'new_id'=>$new_id));
         }
         return '#';
     }

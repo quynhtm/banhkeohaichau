@@ -71,7 +71,7 @@ class BaseAdminController extends BaseController
             'icon'=>'fa fa-gift',
             'arr_link_sub'=>array('admin.productView','admin.providerView','admin.categoryView','admin.department_list',),
             'sub'=>array(
-                array('name'=>'Chuyên mục', 'RouteName'=>'admin.department_list', 'icon'=>'fa fa-users icon-4x', 'showcontent'=>1, 'showMenu'=>1,'permission'=>'department_full'),
+                array('name'=>'Phân loại sản phẩm', 'RouteName'=>'admin.department_list', 'icon'=>'fa fa-users icon-4x', 'showcontent'=>1, 'showMenu'=>1,'permission'=>'department_full'),
                 array('name'=>'Danh mục sản phẩm', 'RouteName'=>'admin.categoryView','param'=>array('category_type'=>CGlobal::category_product), 'icon'=>'fa fa-indent icon-4x', 'showcontent'=>1,'showMenu'=>1, 'permission'=>'category_full'),
                 array('name'=>'Sản phẩm', 'RouteName'=>'admin.productView', 'icon'=>'fa fa-users icon-4x', 'showcontent'=>1, 'showMenu'=>1,'permission'=>'product_full'),
                 //array('name'=>'QL nhà cung cấp', 'RouteName'=>'admin.providerView', 'icon'=>'fa fa-indent icon-4x', 'showcontent'=>1,'showMenu'=>1, 'permission'=>'provider_full'),
@@ -116,8 +116,8 @@ class BaseAdminController extends BaseController
             'icon'=>'fa fa-book',
             'arr_link_sub'=>array('admin.newsView','admin.bannerView','admin.videoView','admin.libraryImageView','admin.provinceView',),
             'sub'=>array(
-                array('name'=>'Tin tức', 'RouteName'=>'admin.newsView', 'icon'=>'fa fa-book icon-4x', 'showcontent'=>1,'showMenu'=>1, 'permission'=>'news_full'),
                 array('name'=>'Danh mục tin tức', 'RouteName'=>'admin.categoryView','param'=>array('category_type'=>CGlobal::category_new), 'icon'=>'fa fa-indent icon-4x', 'showcontent'=>1,'showMenu'=>1, 'permission'=>'category_full'),
+                array('name'=>'Tin tức', 'RouteName'=>'admin.newsView', 'icon'=>'fa fa-book icon-4x', 'showcontent'=>1,'showMenu'=>1, 'permission'=>'news_full'),
                 array('name'=>'Banner quảng cáo', 'RouteName'=>'admin.bannerView', 'icon'=>'fa fa-globe icon-4x', 'showcontent'=>1,'showMenu'=>1, 'permission'=>'banner_full'),
                 array('name'=>'Video', 'RouteName'=>'admin.videoView', 'icon'=>'fa fa-video-camera icon-4x', 'showcontent'=>1,'showMenu'=>1, 'permission'=>'video_full'),
                 array('name'=>'Thư viện ảnh', 'RouteName'=>'admin.libraryImageView', 'icon'=>'fa fa-picture-o icon-4x', 'showcontent'=>1,'showMenu'=>1, 'permission'=>'libraryImage_full'),

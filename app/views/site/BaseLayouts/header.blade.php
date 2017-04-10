@@ -5,7 +5,7 @@
             <li><a href="?en">En</a></li>
         </ul>
         <ul class="support">
-            <li>Hotline: 01999.102.888</li>
+            <li>Hotline: {{$hotline}}</li>
             <li><a href="">Chăm sóc khách hàng</a></li>
             <li><a href="">Kiểm tra đơn hàng</a></li>
         </ul>
@@ -47,15 +47,24 @@
         <div class="line-bottom-head first">
             <div class="box-title-category">Danh mục sản phẩm</div>
             <div class="box-catid">
-                <ul>
-                    <li><a href="">Trang chủ</a></li>
-                    <li><a href="">Giới thiệu</a></li>
-                    <li><a href="">Tin tức</a></li>
-                    <li><a href="">Đại lý</a></li>
-                    <li><a href="">Khuyến mại</a></li>
-                    <li><a href="">Bảng giá</a></li>
-                    <li><a href="">video</a></li>
-                    <li><a href="">Tuyển Dụng</a></li>
+                <ul class="menu">
+                    <li><a href="{{URL::route('site.home')}}" title="Trang chủ">Trang chủ</a></li>
+                    @if(isset($menuCateHorizontal) && sizeof($menuCateHorizontal) > 0)
+                        @foreach($menuCateHorizontal as $k=>$item)
+                            @if($item['category_menu_status'] == CGlobal::status_show && $item['category_parent_id'] == 0)
+                            <li>
+                                <a href="{{FunctionLib::buildLinkCategory($item['category_id'], $item['category_name'])}}" title="{{$item['category_name']}}">{{$item['category_name']}}</a>
+                                <ul class="menu-sub">
+                                    @foreach($menuCateHorizontal as $sub)
+                                        @if($sub['category_parent_id'] == $item['category_id'] && $sub['category_menu_status'] == CGlobal::status_show)
+                                            <li><a href="{{FunctionLib::buildLinkCategory($sub['category_id'], $sub['category_name'])}}" title="{{$sub['category_name']}}">{{$sub['category_name']}}</a></li>
+                                        @endif
+                                    @endforeach
+                                </ul>
+                            </li>
+                            @endif
+                            @endforeach
+                    @endif
                 </ul>
             </div>
         </div>

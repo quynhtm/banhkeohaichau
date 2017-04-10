@@ -14,8 +14,23 @@ class BaseSiteController extends BaseController{
     	FunctionLib::site_js('frontend/js/site.js', CGlobal::$POS_END);
         $this->userAdmin = User::user_login();
     }
-    public function header(){
-    	$this->layout->header = View::make("site.BaseLayouts.header");
+    public function header($catid=0){
+        $hotline = '';
+        $arrHotline = Info::getItemByKeyword('SITE_NUM_NICK_SUPPORT_ONLINE');
+        if(sizeof($arrHotline) > 0){
+            $hotline = strip_tags(stripslashes($arrHotline->info_content));
+        }
+        //Cagegory Horizontal
+        $numCategoryHorizontal = 0;
+        $numCategoryShowHorizontal = Info::getItemByKeyword('SITE_NUM_CATEGORY_HORIZONTAL');
+        if(sizeof($numCategoryShowHorizontal) > 0){
+            $numCategoryHorizontal = (int)strip_tags(stripslashes($numCategoryShowHorizontal->info_content));
+        }
+        $menuCateHorizontal = Category::getAllCategoryByType(CGlobal::category_new, $numCategoryHorizontal);
+    	$this->layout->header = View::make("site.BaseLayouts.header")
+                                ->with('catid', $catid)
+                                ->with('hotline', $hotline)
+                                ->with('menuCateHorizontal', $menuCateHorizontal);
     }
     public function middle(){
         $this->layout->middle = View::make("site.BaseLayouts.middle");

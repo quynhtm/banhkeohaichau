@@ -31,9 +31,54 @@ class SiteHomeController extends BaseSiteController{
         $this->layout->content = View::make('site.SiteLayouts.Home');
         $this->footer();
     }
-	public function pageCategory(){
-		return Redirect::route('site.home');
+	public function pageCategory($catname='', $caid=0){
+        $arrCat = array(
+            'category_id'=>0,
+            'category_name'=>'',
+        );
+        $arrItem = array();
+        $paging = '';
+        $meta_title = $meta_keywords = $meta_description = CGlobal::web_name;
+        $meta_img = '';
+
+        if($caid > 0){
+            $arrCat = Category::getByID($caid);
+            if(sizeof($arrCat) > 0){
+                $meta_title = stripslashes($arrCat->category_name);
+                $meta_keywords = stripslashes($arrCat->category_meta_keywords);
+                $meta_description = stripslashes($arrCat->category_meta_description);
+            }
+
+            $pageNo = (int) Request::get('page_no',1);
+            $limit = CGlobal::number_show_20;
+            $offset = ($pageNo - 1) * $limit;
+            $search = $data = array();
+            $total = 0;
+            $search['news_category_name'] = $catname;
+            if($caid > 0){
+                $arrCats[0] = $caid;
+                Category::makeListCatId($caid, 0, $arrCats);
+                if(!empty($arrCats)){
+                    $search['news_category_id'] = $arrCats;
+                }
+            }else{
+                $search['news_category_id'] = (int)$caid;
+            }
+            $arrItem = News::searchByConditionSite($search, $limit, $offset,$total);
+            $paging = $total > 0 ? Pagging::getNewPager(3, $pageNo, $total, $limit, $search) : '';
+        }
+        FunctionLib::SEO($meta_img, $meta_title, $meta_keywords, $meta_description);
+
+        $this->header($caid);
+        $this->layout->content = View::make('site.SiteLayouts.pageNews')
+                                ->with('arrItem', $arrItem)
+                                ->with('arrCat', $arrCat)
+                                ->with('paging', $paging);
+        $this->footer();
 	}
+    public function pageDetailNew($catname='', $title='', $id=0){
+	    echo "testing...";die;
+    }
     public function pageContact(){
         //Meta title
         $meta_title='';

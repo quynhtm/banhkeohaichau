@@ -259,6 +259,8 @@ class Category extends Eloquent
         Cache::forget(Memcache::CACHE_ALL_PARENT_CATEGORY);
         Cache::forget(Memcache::CACHE_ALL_PARENT_CATEGORY.'_'.$data->category_type);
         Cache::forget(Memcache::CACHE_ALL_SHOW_CATEGORY_FRONT);
+        Cache::forget(Memcache::CACHE_ALL_CATEGORY_BY_TYPE.$data->category_type);
+
     }
 
     public static function getCategoriessAll(){
@@ -356,4 +358,41 @@ class Category extends Eloquent
         }
     }
 
+    //SITE
+    public static function getAllCategoryByType($type=0, $limit=5) {
+        $data = (Memcache::CACHE_ON)? Cache::get(Memcache::CACHE_ALL_CATEGORY_BY_TYPE.$type) : array();
+        if (sizeof($data) == 0) {
+            $data = Category::where('category_id', '>', 0)
+                ->where('category_status', CGlobal::status_show)
+                ->where('category_type', $type)
+                ->take($limit)
+                ->orderBy('category_order','asc')->get();
+            if($data && Memcache::CACHE_ON){
+                Cache::put(Memcache::CACHE_ALL_CATEGORY_BY_TYPE.$type, $data, Memcache::CACHE_TIME_TO_LIVE_ONE_MONTH);
+            }
+        }
+        return $data;
+    }
+    //Make List Category
+    public static function makeListCatId($catid=0, $level=0, &$arrCat){
+        $listcat = explode(',', $catid);
+        if(!empty($listcat)){
+            $query = Category::where('category_status', '=', CGlobal::status_show);
+            foreach($listcat as $cat){
+                if($cat != end($listcat)){
+                    $query->orWhere('category_parent_id',$cat);
+                }else{
+                    $query->where('category_parent_id', $cat);
+                }
+            }
+            $result = $query->get();
+        }
+        if ($result != null){
+            foreach ($result as $k => $v){
+                array_push($arrCat, $v->category_id);
+                self::makeListCatId($v->category_id, $level+1, $arrCat);
+            }
+        }
+        return true;
+    }
 }

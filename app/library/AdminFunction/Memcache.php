@@ -22,6 +22,8 @@ class Memcache{
     const CACHE_ALL_CHILD_CATEGORY_BY_PARENT_ID    = 'cache_all_child_by_parent_id_';
     const CACHE_CATEGORY_ID    = 'cache_category_id_';
 
+    const CACHE_ALL_CATEGORY_BY_TYPE = 'cache_all_category_by_type_';
+
     //depart
     const CACHE_DEPARTMENT_ID    = 'cache_department_id_';
     const CACHE_ALL_DEPARTMENT    = 'cache_all_department';
