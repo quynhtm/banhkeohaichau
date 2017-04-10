@@ -12,7 +12,7 @@ class Category extends Eloquent
     //cac truong trong DB
     protected $fillable = array('category_id','category_name', 'category_depart_id','category_parent_id',
         'category_type', 'category_level', 'category_image_background', 'category_icons',
-        'category_status', 'category_order');
+        'category_status','category_menu_status', 'category_order');
 
     public static function getByID($id) {
         $category = (Memcache::CACHE_ON)? Cache::get(Memcache::CACHE_CATEGORY_ID.$id) : array();
@@ -278,6 +278,7 @@ class Category extends Eloquent
                         'category_image_background'=>$itm->category_image_background,
                         'category_icons'=>$itm->category_icons,
                         'category_status'=>$itm->category_status,
+                        'category_menu_status'=>$itm->category_menu_status,
                         'category_order'=>$itm->category_order);
                 }
                 if(!empty($data) && Memcache::CACHE_ON){
@@ -322,6 +323,7 @@ class Category extends Eloquent
                     'category_icons'=>$value->category_icons,
                     'category_order'=>$value->category_order,
                     'category_status'=>$value->category_status,
+                    'category_menu_status'=>$value->category_menu_status,
                     'category_name'=>$value->category_name);
             }
         }

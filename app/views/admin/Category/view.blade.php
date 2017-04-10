@@ -55,6 +55,7 @@
                             <th width="35%" class="td_list">Tên danh mục</th>
                             <th width="20%" class="td_list">Danh mục cha</th>
                             <!---<th width="15%" class="td_list">Khoa - trung tâm</th>-->
+                            <th width="5%" class="text-center">Menu</th>
                             <th width="5%" class="text-center">Thứ tự</th>
                             <th width="15%" class="text-center">Action</th>
                         </tr>
@@ -74,6 +75,13 @@
                                 </td>
                                 <td>
                                     @if(isset($arrCategoryParent[$item['category_parent_id']])){{$arrCategoryParent[$item['category_parent_id']]}}@else --- @endif
+                                </td>
+                                <td class="text-center">
+                                    @if($item['category_menu_status'] == 1)
+                                        <a href="javascript:void(0);" title="Hiện"><i class="fa fa-check fa-2x"></i></a>
+                                    @else
+                                        <a href="javascript:void(0);" style="color: red" title="Ẩn"><i class="fa fa-close fa-2x"></i></a>
+                                    @endif
                                 </td>
                                 <td class="text-center">{{$item['category_order']}}</td>
 

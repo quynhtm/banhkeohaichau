@@ -88,6 +88,7 @@ class CategoryController extends BaseAdminController
         $this->arrCategoryParent = Category::getAllParentCateWithType($category_type);
         //FunctionLib::debug($data);
         $optionStatus = FunctionLib::getOption($this->arrStatus, isset($data['category_status'])? $data['category_status'] : CGlobal::status_show);
+        $optionMenuStatus = FunctionLib::getOption($this->arrStatus, isset($data['category_menu_status'])? $data['category_menu_status'] : CGlobal::status_hide);
         $optionCategoryParent = FunctionLib::getOption($this->arrCategoryParent, isset($data['category_parent_id'])? $data['category_parent_id'] : 0);
         $optionCategoryDepart = FunctionLib::getOption($this->arrCategoryDepart, isset($data['category_depart_id'])? $data['category_depart_id'] : 0);
         $optionTypeCategory = FunctionLib::getOption($this->arrTypeCategory, isset($data['category_type'])? $data['category_type'] : $this->category_type);
@@ -95,6 +96,7 @@ class CategoryController extends BaseAdminController
             ->with('id', $id)
             ->with('data', $data)
             ->with('optionStatus', $optionStatus)
+            ->with('optionMenuStatus', $optionMenuStatus)
             ->with('category_type', $category_type)
             ->with('optionTypeCategory', $optionTypeCategory)
             ->with('optionCategoryDepart', $optionCategoryDepart)
@@ -109,6 +111,7 @@ class CategoryController extends BaseAdminController
 
         $data['category_name'] = addslashes(Request::get('category_name'));
         $data['category_status'] = (int)Request::get('category_status', 0);
+        $data['category_menu_status'] = (int)Request::get('category_menu_status', 0);
         $data['category_parent_id'] = (int)Request::get('category_parent_id', 0);
         $data['category_depart_id'] = (int)Request::get('category_depart_id', 0);
         $data['category_order'] = (int)Request::get('category_order', 0);
@@ -132,6 +135,7 @@ class CategoryController extends BaseAdminController
         }
         $this->arrCategoryParent = Category::getAllParentCateWithType($data['category_type']);
         $optionStatus = FunctionLib::getOption($this->arrStatus, isset($data['category_status'])? $data['category_status'] : CGlobal::status_show);
+        $optionMenuStatus = FunctionLib::getOption($this->arrStatus, isset($data['category_menu_status'])? $data['category_menu_status'] : CGlobal::status_hide);
         $optionCategoryParent = FunctionLib::getOption(array(0=>'--- Chọn danh mục cha ---')+$this->arrCategoryParent, isset($data['category_parent_id'])? $data['category_parent_id'] : -1);
         $optionTypeCategory = FunctionLib::getOption($this->arrTypeCategory, isset($data['category_type'])? $data['category_type'] : -1);
         $optionCategoryDepart = FunctionLib::getOption($this->arrCategoryDepart, isset($data['category_depart_id'])? $data['category_depart_id'] : 0);
@@ -139,6 +143,7 @@ class CategoryController extends BaseAdminController
             ->with('id', $id)
             ->with('data', $data)
             ->with('optionStatus', $optionStatus)
+            ->with('optionMenuStatus', $optionMenuStatus)
             ->with('category_type', $data['category_type'])
             ->with('optionTypeCategory', $optionTypeCategory)
             ->with('optionCategoryDepart', $optionCategoryDepart)

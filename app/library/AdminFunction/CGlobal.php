@@ -210,8 +210,8 @@ class CGlobal{
     const BANNER_TARGET_BLANK = 1;
 
     const BANNER_TYPE_TOP = 1;
-    const BANNER_TYPE_LEFT = 2;
-    const BANNER_TYPE_RIGHT = 3;
+    const BANNER_TYPE_LEFT_TOP = 2;
+    const BANNER_TYPE_LEFT_BOTTOM = 3;
     const BANNER_TYPE_BOTTOM = 4;
     const BANNER_TYPE_CENTER = 5;
     const BANNER_TYPE_SLIDE = 6;

@@ -151,6 +151,7 @@ class NewsController extends BaseAdminController
         //FunctionLib::debug($dataSave);
         if($this->valid($dataSave) && empty($this->error)) {
             $id = ($id == 0)?$id_hiden: $id;
+            $dataSave['news_category_name'] = Category::getCategoryNameByID($dataSave['news_category']);
             if($id > 0) {
                 //cap nhat
                 $dataSave['news_update'] = time();

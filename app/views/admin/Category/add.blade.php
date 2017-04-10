@@ -55,12 +55,18 @@
                     @endif
 
                     <div class="clearfix"></div>
-                    <div class="col-sm-10">
+                    <div class="col-sm-5">
                         <div class="form-group">
                             <label for="name" class="control-label">Loại danh mục</label>
                             <select name="category_type" id="category_type" class="form-control input-sm" readonly>
                                 {{$optionTypeCategory}}
                             </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <label for="name" class="control-label">Thứ tự hiển thị</label>
+                            <input type="text" placeholder="Thứ tự hiển thị" id="category_order" name="category_order"  class="form-control input-sm" value="@if(isset($data['category_order'])){{$data['category_order']}}@endif">
                         </div>
                     </div>
 
@@ -75,10 +81,13 @@
                     </div>
                     <div class="col-sm-5">
                         <div class="form-group">
-                            <label for="name" class="control-label">Thứ tự hiển thị</label>
-                            <input type="text" placeholder="Thứ tự hiển thị" id="category_order" name="category_order"  class="form-control input-sm" value="@if(isset($data['category_order'])){{$data['category_order']}}@endif">
+                            <label for="name" class="control-label">Hiển thị ở menu</label>
+                            <select name="category_menu_status" id="category_menu_status" class="form-control input-sm">
+                                {{$optionMenuStatus}}
+                            </select>
                         </div>
                     </div>
+
 
                     <div class="clearfix"></div>
                     <div class="form-group col-sm-12 text-left">
