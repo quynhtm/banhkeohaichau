@@ -27,9 +27,9 @@ class BannerController extends BaseAdminController
 
     private $arrTypeBanner = array(-1 => '--- Chọn loại Banner --',
         CGlobal::BANNER_TYPE_TOP => 'Banner Top Header',
-        CGlobal::BANNER_TYPE_RIGHT => 'Banner Phải',
-        CGlobal::BANNER_TYPE_LEFT => 'Banner Trái',
-        CGlobal::BANNER_TYPE_SLIDE => 'Banner slide' );
+        CGlobal::BANNER_TYPE_CENTER => 'Banner nội dung giữa',
+        CGlobal::BANNER_TYPE_LEFT_TOP => 'Banner Trái trên',
+        CGlobal::BANNER_TYPE_LEFT_BOTTOM => 'Banner Trái dưới');
 
     /*const BANNER_PAGE_HOME = 1;
     const BANNER_PAGE_DETAIL = 3;
