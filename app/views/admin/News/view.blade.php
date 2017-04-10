@@ -21,6 +21,12 @@
                             <input type="text" class="form-control input-sm" id="news_title" name="news_title" placeholder="Tiêu đề tin tức" @if(isset($search['news_title']) && $search['news_title'] != '')value="{{$search['news_title']}}"@endif>
                         </div>
                         <div class="form-group col-lg-3">
+                            <label for="news_hot">Nổi bật</label>
+                            <select name="news_hot" id="news_hot" class="form-control input-sm">
+                                {{$optionHot}}
+                            </select>
+                        </div>
+                        <div class="form-group col-lg-3">
                             <label for="category_status">Trạng thái</label>
                             <select name="news_status" id="news_status" class="form-control input-sm">
                                 {{$optionStatus}}
@@ -50,6 +56,7 @@
                             <th width="5%" class="text-center">Ảnh</th>
                             <th width="30%">Tên bài viết</th>
                             <th width="16%">Danh mục tin</th>
+                            <th width="10%" class="text-center">Nổi bật</th>
                             <th width="12%">Ngày tạo</th>
                             <th width="12%">Ngày sửa</th>
                             <th width="10%" class="text-center">Thao tác</th>
@@ -72,6 +79,13 @@
                                         {{$arrCategoryNew[$item->news_category]}}
                                     @else
                                         ----
+                                    @endif
+                                </td>
+                                <td class="text-center">
+                                    @if($item['news_hot'] == '1')
+                                        <i class="fa fa-check fa-admin green fa-2x"></i>
+                                    @else
+                                        <i class="fa fa-remove fa-admin red fa-2x"></i>
                                     @endif
                                 </td>
                                 <td>

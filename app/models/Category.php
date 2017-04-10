@@ -12,7 +12,7 @@ class Category extends Eloquent
     //cac truong trong DB
     protected $fillable = array('category_id','category_name', 'category_depart_id','category_parent_id',
         'category_type', 'category_level', 'category_image_background', 'category_icons',
-        'category_status','category_menu_status', 'category_order');
+        'category_status','category_menu_status', 'category_menu_right', 'category_order');
 
     public static function getByID($id) {
         $category = (Memcache::CACHE_ON)? Cache::get(Memcache::CACHE_CATEGORY_ID.$id) : array();

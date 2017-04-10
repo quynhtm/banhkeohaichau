@@ -12,6 +12,7 @@ class NewsController extends BaseAdminController
     private $permission_create = 'news_create';
     private $permission_edit = 'news_edit';
     private $arrStatus = array(-1 => 'Chọn trạng thái', CGlobal::status_hide => 'Ẩn', CGlobal::status_show => 'Hiện');
+    private $arrHot = array(-1 => 'Chọn nổi bật', CGlobal::status_hide => 'Không', CGlobal::status_show => 'Có');
     private $error = array();
     private $arrCategoryNew = array();
     private $arrTypeNew = array();
@@ -51,6 +52,7 @@ class NewsController extends BaseAdminController
 
         $search['news_title'] = addslashes(Request::get('news_title',''));
         $search['news_status'] = (int)Request::get('news_status',-1);
+        $search['news_hot'] = (int)Request::get('news_hot',-1);
         //$search['field_get'] = 'category_id,news_title,news_status';//cac truong can lay
 
         $dataSearch = News::searchByCondition($search, $limit, $offset,$total);
@@ -58,6 +60,7 @@ class NewsController extends BaseAdminController
 
         //FunctionLib::debug($dataSearch);
         $optionStatus = FunctionLib::getOption($this->arrStatus, $search['news_status']);
+        $optionHot = FunctionLib::getOption($this->arrHot, $search['news_hot']);
         $this->layout->content = View::make('admin.News.view')
             ->with('paging', $paging)
             ->with('stt', ($pageNo-1)*$limit)
@@ -67,6 +70,8 @@ class NewsController extends BaseAdminController
             ->with('search', $search)
             ->with('optionStatus', $optionStatus)
             ->with('arrStatus', $this->arrStatus)
+            ->with('optionHot', $optionHot)
+            ->with('arrHot', $this->arrHot)
             ->with('arrCategoryNew', $this->arrCategoryNew)
 
             ->with('is_root', $this->is_root)//dùng common
@@ -104,6 +109,7 @@ class NewsController extends BaseAdminController
         $optionStatus = FunctionLib::getOption($this->arrStatus, isset($data['news_status'])? $data['news_status'] : CGlobal::status_show);
         $optionCategory = FunctionLib::getOption($this->arrCategoryNew, isset($data['news_category'])? $data['news_category'] : 0);
         $optionType = FunctionLib::getOption($this->arrTypeNew, isset($data['news_type'])? $data['news_type'] : CGlobal::NEW_TYPE_TIN_TUC);
+        $optionHot = FunctionLib::getOption($this->arrHot, isset($data['news_hot'])? $data['news_hot'] : CGlobal::status_hide);
 
         $this->layout->content = View::make('admin.News.add')
             ->with('id', $id)
@@ -114,6 +120,7 @@ class NewsController extends BaseAdminController
             ->with('optionStatus', $optionStatus)
             ->with('optionCategory', $optionCategory)
             ->with('optionType', $optionType)
+            ->with('optionHot', $optionHot)
             ->with('arrStatus', $this->arrStatus);
     }
     public function postNews($id=0) {
@@ -129,6 +136,8 @@ class NewsController extends BaseAdminController
         $dataSave['news_type'] = addslashes(Request::get('news_type',CGlobal::NEW_TYPE_TIN_TUC));
         $dataSave['news_category'] = (int)(Request::get('news_category',0));
         $dataSave['news_status'] = (int)Request::get('news_status', 0);
+        $dataSave['news_hot'] = (int)Request::get('news_hot', 0);
+
         $id_hiden = (int)Request::get('id_hiden', 0);
 
         //ảnh chính
@@ -173,11 +182,13 @@ class NewsController extends BaseAdminController
             }
         }
 
-        $optionStatus = FunctionLib::getOption($this->arrStatus, isset($dataSave['category_status'])? $dataSave['category_status'] : -1);
+        $optionStatus = FunctionLib::getOption($this->arrStatus, isset($dataSave['news_status'])? $dataSave['news_status'] : -1);
+        $optionHot = FunctionLib::getOption($this->arrHot, isset($dataSave['news_hot'])? $dataSave['news_hot'] : -1);
         $this->layout->content =  View::make('admin.News.add')
             ->with('id', $id)
             ->with('data', $dataSave)
             ->with('optionStatus', $optionStatus)
+            ->with('optionHot', $optionHot)
             ->with('error', $this->error)
             ->with('arrStatus', $this->arrStatus);
     }

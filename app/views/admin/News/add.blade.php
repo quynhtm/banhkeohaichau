@@ -45,12 +45,23 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-12">
+                    <div class="clearfix"></div>
+                    <div class="col-sm-6">
                         <div class="form-group">
                             <label for="name" class="control-label">Kiểu tin</label>
                             <div class="form-group">
                                 <select class="form-control input-sm" name="news_type">
                                     {{$optionType}}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="name" class="control-label">Nổi bật</label>
+                            <div class="form-group">
+                                <select class="form-control input-sm" name="news_hot">
+                                    {{$optionHot}}
                                 </select>
                             </div>
                         </div>
