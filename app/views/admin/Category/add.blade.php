@@ -87,8 +87,14 @@
                             </select>
                         </div>
                     </div>
-
-
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <label for="name" class="control-label">Menu Tin bên phải</label>
+                            <select name="category_menu_right" id="category_menu_right" class="form-control input-sm">
+                                {{$optionMenuRight}}
+                            </select>
+                        </div>
+                    </div>
                     <div class="clearfix"></div>
                     <div class="form-group col-sm-12 text-left">
                         <a class="btn btn-warning" href="{{URL::route('admin.categoryView')}}"><i class="fa fa-reply"></i> Trở lại</a>

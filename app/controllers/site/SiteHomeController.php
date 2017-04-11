@@ -69,15 +69,65 @@ class SiteHomeController extends BaseSiteController{
         }
         FunctionLib::SEO($meta_img, $meta_title, $meta_keywords, $meta_description);
 
+        //Get Menu category News Right
+        $searchCateRight['category_menu_right'] = CGlobal::status_show;
+        $searchCateRight['category_type'] = CGlobal::category_new;
+        $arrCatRight = Category::searchCategoryRightByCondition($searchCateRight, CGlobal::number_show_5);
+
+        //Get news Hot
+        $dataNewsSearch['news_hot'] = CGlobal::status_show;
+        $arrNewsHot = News::getPostHot($dataNewsSearch, 10);
+
         $this->header($caid);
         $this->layout->content = View::make('site.SiteLayouts.pageNews')
                                 ->with('arrItem', $arrItem)
                                 ->with('arrCat', $arrCat)
-                                ->with('paging', $paging);
+                                ->with('paging', $paging)
+                                ->with('arrNewsHot', $arrNewsHot)
+                                ->with('arrCatRight', $arrCatRight);
         $this->footer();
 	}
     public function pageDetailNew($catname='', $title='', $id=0){
-	    echo "testing...";die;
+        $item = array();
+        $arrCat = array();
+        $meta_title = $meta_keywords = $meta_description = '';
+        $meta_img = '';
+        $newsSame = array();
+        $catid = 0;
+
+        if($id > 0){
+            $item = News::getNewByID($id);
+            if(sizeof($item) > 0){
+                $arrCat = Category::getByID($item->news_category);
+                if(sizeof($arrCat) > 0){
+                    $catid = $arrCat->category_id;
+                }
+                $meta_title = stripslashes($item->news_title);
+                $meta_keywords = stripslashes($item->news_title);
+                $meta_description = stripslashes($item->news_desc_sort);
+                $newsSame = News::getSameNews($dataField='', $item->news_category, $item->news_id, CGlobal::number_show_15, 0);
+            }
+        }
+        FunctionLib::SEO($meta_img, $meta_title, $meta_keywords, $meta_description);
+
+
+        //Get Menu category News Right
+        $searchCateRight['category_menu_right'] = CGlobal::status_show;
+        $searchCateRight['category_type'] = CGlobal::category_new;
+        $arrCatRight = Category::searchCategoryRightByCondition($searchCateRight, CGlobal::number_show_5);
+
+        //Get news Hot
+        $dataNewsSearch['news_hot'] = CGlobal::status_show;
+        $arrNewsHot = News::getPostHot($dataNewsSearch, 10);
+
+        $this->header($catid);
+        $this->layout->content = View::make('site.SiteLayouts.pageNewsDetail')
+            ->with('data', $item)
+            ->with('arrCat', $arrCat)
+            ->with('newsSame', $newsSame)
+            ->with('arrNewsHot', $arrNewsHot)
+            ->with('arrCatRight', $arrCatRight);
+        $this->footer();
     }
     public function pageContact(){
         //Meta title

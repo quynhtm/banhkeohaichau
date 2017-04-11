@@ -216,4 +216,37 @@ class News extends Eloquent
             throw new PDOException();
         }
     }
+
+    public static function getPostHot($dataSearch = array(), $limit =0){
+        try{
+            $query = News::where('news_id','>',0);
+            $query->where('news_status', CGlobal::status_show);
+            if (isset($dataSearch['news_hot']) && $dataSearch['news_hot'] != -1) {
+                $query->where('news_hot', $dataSearch['news_hot']);
+            }
+            $query->orderBy('news_id', 'desc');
+            //get field can lay du lieu
+            $fields = (isset($dataSearch['field_get']) && trim($dataSearch['field_get']) != '') ? explode(',',trim($dataSearch['field_get'])): array();
+            if(!empty($fields)){
+                $result = $query->take($limit)->get($fields);
+            }else{
+                $result = $query->take($limit)->get();
+            }
+            return $result;
+
+        }catch (PDOException $e){
+            throw new PDOException();
+        }
+    }
+    public static function getPostInCategoryParent($arrCat=array(), $limit=0){
+        $result = array();
+        if(sizeof($arrCat)>0 && $limit > 0){
+            $query = News::where('news_id','>',0);
+            $query->whereIn('news_category', $arrCat);
+            $query->where('news_status', CGlobal::status_show);
+            $query->orderBy('news_id', 'desc');
+            $result = $query->take($limit)->get();
+        }
+        return $result;
+    }
 }

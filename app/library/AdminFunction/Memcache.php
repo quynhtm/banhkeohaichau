@@ -23,6 +23,7 @@ class Memcache{
     const CACHE_CATEGORY_ID    = 'cache_category_id_';
 
     const CACHE_ALL_CATEGORY_BY_TYPE = 'cache_all_category_by_type_';
+    const CACHE_ALL_CATEGORY_RIGHT = 'cache_all_category_right';
 
     //depart
     const CACHE_DEPARTMENT_ID    = 'cache_department_id_';

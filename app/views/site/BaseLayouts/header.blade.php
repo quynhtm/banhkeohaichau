@@ -63,8 +63,9 @@
                                 </ul>
                             </li>
                             @endif
-                            @endforeach
+                        @endforeach
                     @endif
+					<li><a href="{{URL::route('site.home')}}" title="Video">Video</a></li>
                 </ul>
             </div>
         </div>

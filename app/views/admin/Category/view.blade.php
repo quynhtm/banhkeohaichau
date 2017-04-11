@@ -21,12 +21,17 @@
                             <input type="text" class="form-control input-sm" id="category_name" name="category_name" placeholder="Tên danh mục" @if(isset($search['category_name']) && $search['category_name'] != '')value="{{$search['category_name']}}"@endif>
                         </div>
                         <div class="form-group col-lg-3">
+                            <label for="category_status">Menu phải tin tức</label>
+                            <select name="category_menu_right" id="category_menu_right" class="form-control input-sm">
+                                {{$optionMenuRight}}
+                            </select>
+                        </div>
+                        <div class="form-group col-lg-3">
                             <label for="category_status">Trạng thái</label>
                             <select name="category_status" id="category_status" class="form-control input-sm">
                                 {{$optionStatus}}
                             </select>
                         </div>
-                        
                     </div>
                     <div class="panel-footer text-right">
                         @if($is_root || $permission_full ==1 || $permission_create == 1)
@@ -55,7 +60,8 @@
                             <th width="35%" class="td_list">Tên danh mục</th>
                             <th width="20%" class="td_list">Danh mục cha</th>
                             <!---<th width="15%" class="td_list">Khoa - trung tâm</th>-->
-                            <th width="5%" class="text-center">Menu</th>
+                            <th width="5%" class="text-center">Menu ngang-doc</th>
+                            <th width="15%" class="text-center">Menu bên phải tin</th>
                             <th width="5%" class="text-center">Thứ tự</th>
                             <th width="15%" class="text-center">Action</th>
                         </tr>
@@ -78,6 +84,13 @@
                                 </td>
                                 <td class="text-center">
                                     @if($item['category_menu_status'] == 1)
+                                        <a href="javascript:void(0);" title="Hiện"><i class="fa fa-check fa-2x"></i></a>
+                                    @else
+                                        <a href="javascript:void(0);" style="color: red" title="Ẩn"><i class="fa fa-close fa-2x"></i></a>
+                                    @endif
+                                </td>
+                                <td class="text-center">
+                                    @if($item['category_menu_right'] == 1)
                                         <a href="javascript:void(0);" title="Hiện"><i class="fa fa-check fa-2x"></i></a>
                                     @else
                                         <a href="javascript:void(0);" style="color: red" title="Ẩn"><i class="fa fa-close fa-2x"></i></a>

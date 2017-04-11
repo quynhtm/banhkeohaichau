@@ -46,4 +46,18 @@ class BaseSiteController extends BaseController{
         }
 		$this->layout->footer = View::make("site.BaseLayouts.footer")->with('footer', $footer);
 	}
+
+    public static function getPostInCategoryId($cat_id=0, $limit_post=0){
+        $result = array();
+        if($cat_id > 0 && $limit_post > 0){
+            $arrCats = array();
+            Category::makeListCatId($cat_id, 0, $arrCats);
+            $arrCats[] = $cat_id;
+            if(sizeof($arrCats) > 0){
+                $arrPost = News::getPostInCategoryParent($arrCats, $limit_post);
+                $result = $arrPost;
+            }
+        }
+        return $result;
+    }
 }

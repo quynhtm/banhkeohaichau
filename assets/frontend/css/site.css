@@ -316,13 +316,14 @@ h1, h2, h3, h4, h5, h6{
     margin-bottom: 0px;
     float: right;
 }
-.box-catid ul li{
+.box-catid ul li {
     display: inline-block;
     height: 50px;
     line-height: 55px;
-    padding-left: 30px;
+    padding-left: 20px;
     position: relative;
     float: left;
+    padding-right: 20px;
 }
 .box-catid li a {
     color: #fff;
@@ -354,8 +355,7 @@ h1, h2, h3, h4, h5, h6{
     float: none;
     height: auto;
     line-height: 22px;
-    padding-right: 30px;
-    padding: 10px 30px;
+    padding: 10px 22px;
     float: left;
 }
 .box-catid .menu-sub li a{
@@ -800,7 +800,7 @@ h1, h2, h3, h4, h5, h6{
     top: -45px;
 }
 .ul-post {
-    padding: 12px;
+    padding: 12px 2px;
 }
 .ul-post li {
     margin-bottom: 10px;
@@ -812,18 +812,6 @@ h1, h2, h3, h4, h5, h6{
 }
 .ul-post li:last-child {
     border-bottom: none;
-}
-.img-thumb-right {
-    display: block;
-    overflow: hidden;
-    width: 35%;
-    float: left;
-    margin-right: 15px;
-    border-radius: 5px;
-}
-.img-thumb-right img {
-    width: 100%;
-    border: 1px solid #9f9f9f;
 }
 .intro-right {
     display: block;
@@ -1102,11 +1090,11 @@ h1, h2, h3, h4, h5, h6{
     height:10px;
 }
 .title-head{
-    color: black;
     font-size: 1.286em;
     text-transform: uppercase;
     margin-top: 0 !important;
     color:#222;
+    border-bottom: 1px solid #ddd;
 }
 .title-head.cat::after {
     display: block;
@@ -1139,20 +1127,20 @@ h1, h2, h3, h4, h5, h6{
     color: #f47021;
     font-weight: 300;
 }
-
 .title-view {
     font-size: 1.286em;
     font-weight: bold;
     text-transform: uppercase;
     margin-top: 0;
+    line-height: 25px;
 }
 .intro-view {
     clear: both;
     display: inline-block;
-    font-weight: bold;
     margin-top: 5px;
     width: 100%;
     text-align: justify;
+    font-size: 16px;
 }
 .content-view {
     clear: both;
@@ -1160,7 +1148,19 @@ h1, h2, h3, h4, h5, h6{
     margin-top: 10px;
     width: 100%;
     text-align: justify;
+    font-size: 16px;
 }
+.title-path{
+    border-bottom: 1px solid #eeebec;
+    padding-bottom: 7px;
+    margin-left: 0;
+    margin-right: 0;
+    text-transform: none;
+    font-size: 15px;
+    font-weight: 300;
+    position: relative;
+}
+
 .view-item-post{
     display: inline-block;
     margin-top: 10px;
@@ -1176,9 +1176,21 @@ h1, h2, h3, h4, h5, h6{
     width:20%;
     vertical-align: top;
 }
+.date-post {
+    margin-left: 10px;
+    margin-right: 8px;
+    font-size: 13px;
+}
+.title-cate {
+    margin-right: 8px;
+    font-style: italic;
+    font-size: 18px !important;
+}
 .social-share-view {
     display: inline-block;
-    margin: 10px 0;
+    margin: 5px 0;
+    position: relative;
+    top: 8px;
 }
 .div-share {
     display: inline-block;
@@ -1271,8 +1283,8 @@ h1, h2, h3, h4, h5, h6{
     color: #333;
     font-size: 1.286em;
     overflow: hidden;
-    padding: 5px;
     text-transform: uppercase;
+    border-bottom: 1px solid #ddd;
 }
 .title-box-right a {
     color: #333;
@@ -1293,7 +1305,9 @@ h1, h2, h3, h4, h5, h6{
     width: 100%;
     color: #555;
     border-bottom: 1px solid #f7f7f7;
-    padding:8px 2px
+    padding:8px 10px;
+    background: url("../img/icon-sq.jpg") no-repeat 0 17px;
+
 }
 .post-in-cat li a{
     padding: 5px 0;
@@ -1307,9 +1321,6 @@ h1, h2, h3, h4, h5, h6{
 
 .post-in-cat li a:hover{
     text-decoration: underline;
-}
-.ul-post {
-    margin-top: 15px;
 }
 .ul-post li{
     margin-bottom: 5px;
@@ -1382,16 +1393,6 @@ h1, h2, h3, h4, h5, h6{
 }
 .item-box-right.extbg .item-support:last-child{
     border-bottom: none;
-}
-.name-support,
-.phone-support {
-    display: inline-block;
-    overflow: hidden;
-    float: left;
-    font-size: 15px;
-    padding: 2px 8px;
-    width: 100%;
-    color: #555;
 }
 .content-view img {
     width: 80%;

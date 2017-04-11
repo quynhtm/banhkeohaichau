@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50625
 File Encoding         : 65001
 
-Date: 2017-04-10 21:54:30
+Date: 2017-04-11 14:34:23
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -230,7 +230,7 @@ CREATE TABLE `web_category` (
 INSERT INTO `web_category` VALUES ('1', 'Kẹo chew', '0', '2', '5', '1', null, null, '1', '0', null, '1');
 INSERT INTO `web_category` VALUES ('2', 'Lương khô', '0', '3', '5', '1', null, null, '1', '0', null, '2');
 INSERT INTO `web_category` VALUES ('4', 'Lương khô 65g', '2', '3', '5', '1', null, null, '1', '0', null, '0');
-INSERT INTO `web_category` VALUES ('5', 'Giới thiệu', '0', '0', '6', '1', null, null, '1', '1', null, '1');
+INSERT INTO `web_category` VALUES ('5', 'Giới thiệu', '0', '0', '6', '1', null, null, '1', '1', '1', '1');
 INSERT INTO `web_category` VALUES ('6', 'Bánh lương khô Omega 420g', '2', '3', '5', '1', null, null, '1', '0', null, '0');
 INSERT INTO `web_category` VALUES ('7', 'Lương khô rong biển 70gr', '2', '3', '5', '1', null, null, '1', '0', null, '0');
 INSERT INTO `web_category` VALUES ('8', 'Lương khô 5+', '2', '3', '5', '1', null, null, '1', '0', null, '0');
@@ -258,7 +258,7 @@ INSERT INTO `web_category` VALUES ('29', 'Mứt Tết thập cẩm ĐB 420gr', '
 INSERT INTO `web_category` VALUES ('30', 'Bánh trứng nướng PiSô', '23', '6', '5', '1', null, null, '1', '0', null, '0');
 INSERT INTO `web_category` VALUES ('31', 'Bánh trứng nướng piso ( 10 g)', '23', '6', '5', '1', null, null, '1', '0', null, '0');
 INSERT INTO `web_category` VALUES ('32', 'Bánh trứng Nướng Phomai', '23', '6', '5', '1', null, null, '1', '0', null, '0');
-INSERT INTO `web_category` VALUES ('33', 'Tin tức', '0', '0', '6', '1', null, null, '1', '1', null, '2');
+INSERT INTO `web_category` VALUES ('33', 'Tin tức', '0', '0', '6', '1', null, null, '1', '1', '0', '2');
 INSERT INTO `web_category` VALUES ('34', 'Đại lý', '0', '0', '6', '1', null, null, '1', '1', null, '3');
 INSERT INTO `web_category` VALUES ('35', 'Khuyến mại', '0', '0', '6', '1', null, null, '1', '1', null, '4');
 INSERT INTO `web_category` VALUES ('36', 'Bảng giá', '0', '0', '6', '1', null, null, '1', '1', null, '5');
@@ -387,7 +387,7 @@ CREATE TABLE `web_department` (
   PRIMARY KEY (`department_id`),
   KEY `status` (`department_status`) USING BTREE,
   KEY `id_parrent` (`department_status`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=COMPACT;
 
 -- ----------------------------
 -- Records of web_department
