@@ -455,6 +455,8 @@ h1, h2, h3, h4, h5, h6{
     width: 26.5%;
     display: inline-block;
     float: right;
+    height: 409px;
+    overflow: hidden;
 }
 .item-sub-banner {
     margin-bottom: 5px;
@@ -1453,4 +1455,21 @@ h1, h2, h3, h4, h5, h6{
     margin-top: 10px;
     display: inline-block;
     width: 100%;
+}
+._sliders img{
+    max-width: none;
+}
+.line-middle .skitter .info_slide_dots{
+    background: none;
+    box-shadow: none;
+    border-radius: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+.line-middle .skitter .info_slide_dots .image_number{
+    background: #89122b;
+}
+.line-middle .skitter .info_slide_dots .image_number.image_number_select{
+    background: #333333;
 }

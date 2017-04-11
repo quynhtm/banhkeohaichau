@@ -29,7 +29,7 @@ class Banner extends Eloquent
                 ->where('banner_type',$banner_type)
                 ->whereIn('banner_page',array(0,$banner_page))
                 ->whereIn('banner_category_id',array(0,$banner_category_id))
-                ->whereIn('banner_province_id',array(0,$banner_province_id))
+                //->whereIn('banner_province_id',array(0, $banner_province_id))
                 ->orderBy('banner_position','asc')->orderBy('banner_order','asc')->get();
             if($banner){
                 foreach($banner as $itm) {
