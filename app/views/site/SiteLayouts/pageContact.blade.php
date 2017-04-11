@@ -41,9 +41,13 @@
 				<div class="title-box-right">Địa chỉ và sơ đồ đường đi</div>
 				<div class="address-contact">{{$info}}</div>
 				<div class="address-contact">
+					@if($arrInfo->info_img != '')
+						<img src="{{ThumbImg::thumbBaseNormal(CGlobal::FOLDER_INFO, $arrInfo->info_id, $arrInfo->info_img, 550, 0, '', true, true);}}" alt="">
+					@else
 					<script type="text/javascript" src="http://maps.google.com/maps/api/js?v=3.exp&sensor=false&libraries=geometry&key=AIzaSyA-WIHdfuGBuWUCglOx2-yUB9oU_0498PU&language=vi"></script>
 					{{FunctionLib::site_js('lib/map/maps.js', CGlobal::$POS_END);}}
 					<div id="mapCanvas" style="width:500px; height:320px; overflow: hidden; border-radius:3px;"></div>
+					@endif
 				</div>
 			</div>
 		</div>
