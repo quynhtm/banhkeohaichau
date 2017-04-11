@@ -46,18 +46,20 @@
 				</div>
 				@else
 					@foreach($arrItem as $item)
-						<h1 class="title-view">{{$item->news_title}}</h1>
+						<h1 class="title-view" style="margin-top:10px;">{{$item->news_title}}</h1>
 						<div class="date"><i class="icon-other icon-date"></i>{{date('h:i', $item['news_create'])}} ngày {{date('d/m/Y', $item['news_create'])}}</div>
-						@if($item->news_desc_sort != '')
-							<div class="library-intro">
-								<b>{{stripslashes($item['news_desc_sort'])}}</b>
-							</div>
-						@endif
-						@if($item->news_content != '')
-							<div class="library-intro">
-								{{stripslashes($item['news_content'])}}
-							</div>
-						@endif
+						<div class="view-item-post">
+							@if($item->news_desc_sort != '')
+								<div class="intro-view">
+									<b>{{stripslashes($item['news_desc_sort'])}}</b>
+								</div>
+							@endif
+							@if($item->news_content != '')
+								<div class="content-view">
+									{{stripslashes($item['news_content'])}}
+								</div>
+							@endif
+						</div>
 					@endforeach
 				@endif
 			@endif

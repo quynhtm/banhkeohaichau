@@ -160,7 +160,6 @@ class SiteHomeController extends BaseSiteController{
                 $contact_name = addslashes(Request::get('txtName', ''));
                 $contact_phone = addslashes(Request::get('txtMobile', ''));
                 $contact_email = addslashes(Request::get('txtEmail', ''));
-                $contact_title = addslashes(Request::get('txtTitle', ''));
                 $contact_content = addslashes(Request::get('txtMessage', ''));
                 $get_code = addslashes(Request::get('captcha', ''));
                 $contact_created = time();
@@ -168,12 +167,12 @@ class SiteHomeController extends BaseSiteController{
                 if(Session::has('security_code')){
                     $code = Session::get('security_code');
                 }
-                if($contact_title != '' && $contact_name != '' && $contact_phone !=''  && $contact_content !='' && $get_code != '' && $code == $get_code){
+                if($contact_name != '' && $contact_phone !=''  && $contact_content !='' && $get_code != '' && $code == $get_code){
                     $dataInput = array(
                         'contact_user_name_send'=>$contact_name,
                         'contact_phone_send'=>$contact_phone,
                         'contact_email_send'=>$contact_email,
-                        'contact_title'=>$contact_title,
+                        'contact_title'=>$contact_name,
                         'contact_content'=>$contact_content,
                         'contact_time_creater'=>$contact_created,
                         'contact_status'=>0,
@@ -215,4 +214,38 @@ class SiteHomeController extends BaseSiteController{
 		}
 		exit();
 	}
+	public function pageCareCustomer(){
+
+        $meta_title = $meta_keywords = $meta_description = 'Chăm sóc khách hàng';
+        $meta_img = '';
+
+        $arrCareCustomer = Info::getItemByKeyword('SITE_CARE_CUSTOMER');
+        if(sizeof($arrCareCustomer) > 0){
+            $meta_title = stripslashes($arrCareCustomer->meta_title);
+            $meta_keywords = stripslashes($arrCareCustomer->meta_keywords);
+            $meta_description = stripslashes($arrCareCustomer->meta_description);
+            $meta_img = $arrCareCustomer->info_img;
+            if($meta_img != ''){
+                $meta_img = ThumbImg::thumbBaseNormal(CGlobal::FOLDER_INFO, $arrCareCustomer->info_id, $arrCareCustomer->info_img, 550, 0, '', true, true);
+            }
+        }
+
+        FunctionLib::SEO($meta_img, $meta_title, $meta_keywords, $meta_description);
+
+        //Get Menu category News Right
+        $searchCateRight['category_menu_right'] = CGlobal::status_show;
+        $searchCateRight['category_type'] = CGlobal::category_new;
+        $arrCatRight = Category::searchCategoryRightByCondition($searchCateRight, CGlobal::number_show_5);
+
+        //Get news Hot
+        $dataNewsSearch['news_hot'] = CGlobal::status_show;
+        $arrNewsHot = News::getPostHot($dataNewsSearch, 10);
+
+        $this->header();
+        $this->layout->content = View::make('site.SiteLayouts.pageCareCustomer')
+            ->with('data', $arrCareCustomer)
+            ->with('arrNewsHot', $arrNewsHot)
+            ->with('arrCatRight', $arrCatRight);
+        $this->footer();
+    }
 }

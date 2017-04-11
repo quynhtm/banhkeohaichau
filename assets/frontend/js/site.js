@@ -40,12 +40,6 @@ SITE={
 					jQuery('#txtMobile').addClass('error');	
 				}
 			}
-			if(jQuery('#txtTitle').val() == ''){
-				jQuery('#txtTitle').addClass('error');
-				valid = false;
-			}else{
-				jQuery('#txtTitle').removeClass('error');
-			}
 			if(jQuery('#txtMessage').val() == ''){
 				jQuery('#txtMessage').addClass('error');
 				valid = false;
@@ -56,9 +50,6 @@ SITE={
 			if(jQuery('#securityCode').val() == ''){
 				jQuery('#securityCode').addClass('error');
 				valid = false;
-			}else{
-                var img = document.images['imageCaptchar'];
-                img.src = img.src.substring(0,img.src.lastIndexOf("?"))+"?rand="+Math.round(1000*Math.random());
 			}
 			
 			var error = jQuery('#formSendContact .error').length;
@@ -89,4 +80,10 @@ SITE={
 			});
 		}
 	},
+    refreshCaptcha:function(){
+		$('.iconRefreh').click(function(){
+            var img = document.images['imageCaptchar'];
+            img.src = img.src.substring(0,img.src.lastIndexOf("?"))+"?rand="+Math.round(1000*Math.random());
+		});
+	}
 }

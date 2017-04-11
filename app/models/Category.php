@@ -403,10 +403,10 @@ class Category extends Eloquent
         return true;
     }
     public static function searchCategoryRightByCondition($dataSearch = array(), $limit =0){
-        $data = (Memcache::CACHE_ON)? Cache::get(Memcache::CACHE_ALL_CATEGORY_RIGHT) : array();
+        $result = (Memcache::CACHE_ON)? Cache::get(Memcache::CACHE_ALL_CATEGORY_RIGHT) : array();
 
         try{
-            if (sizeof($data) == 0) {
+            if (sizeof($result) == 0) {
                 $query = Category::where('category_id', '>', 0);
 
                 if (isset($dataSearch['category_menu_right']) && $dataSearch['category_menu_right'] != -1) {

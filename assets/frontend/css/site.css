@@ -320,10 +320,10 @@ h1, h2, h3, h4, h5, h6{
     display: inline-block;
     height: 50px;
     line-height: 55px;
-    padding-left: 20px;
+    padding-left: 15px;
     position: relative;
     float: left;
-    padding-right: 20px;
+    padding-right: 15px;
 }
 .box-catid li a {
     color: #fff;
@@ -1396,4 +1396,61 @@ h1, h2, h3, h4, h5, h6{
 }
 .content-view img {
     width: 80%;
+}
+.iconRefreh {
+    background: rgba(0, 0, 0, 0) url("../img/refreh.png") no-repeat scroll 0 0;
+    display: inline-block;
+    float: left;
+    height: 35px;
+    margin-left: 10px;
+    width: 35px;
+}
+.formSendContact .form-control {
+    border-radius: 0;
+}
+.formSendContact label{
+    font-weight: normal;
+    font-size: 17px;
+}
+.formSendContact label span {
+    color: #ff0000;
+}
+.error {
+    border: 1px solid #ff0000 !important;
+}
+.labelInputCaptchar {
+    clear: both;
+    width: 100%;
+}
+.txtInputCaptchar {
+    float: left;
+    display: inline-block;
+    padding-left: 5px;
+}
+.formSendContact .txtInputCaptchar{
+    border: 1px solid #ccc;
+    font-size: 14px;
+    height: 30px;
+    border-radius: 0;
+    box-shadow: none;
+    padding-left: 5px;
+}
+.imageCaptchar {
+    display: inline-block;
+    float: left;
+    height: 30px;
+    margin-left: 10px;
+    width: 50px;
+}
+.formSendContact .form-group {
+    clear: both;
+}
+.address-contact,
+.address-contact * {
+    font-size: 16px;
+}
+.address-contact{
+    margin-top: 10px;
+    display: inline-block;
+    width: 100%;
 }
