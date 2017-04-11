@@ -21,7 +21,13 @@ class NewsController extends BaseAdminController
     {
         parent::__construct();
 
-        $this->arrCategoryNew = Category::getAllParentCateWithType(CGlobal::category_new);
+        //$this->arrCategoryNew = Category::getAllParentCateWithType(CGlobal::category_new);
+        $arrCategoryAll = Category::buildTreeCategory(CGlobal::category_new);
+        foreach($arrCategoryAll as $k =>$cat){
+            $this->arrCategoryNew[$cat['category_id']] = $cat['padding_left'].$cat['category_name'];
+        }
+
+
         $this->arrTypeNew = CGlobal::$arrTypeNew;
 
         //Include style.
