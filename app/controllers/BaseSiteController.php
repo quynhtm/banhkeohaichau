@@ -49,7 +49,24 @@ class BaseSiteController extends BaseController{
                                 ->with('arrBannerSubRight', $arrBannerSubRight);
     }
     public function consult(){
-        $this->layout->consult = View::make("site.BaseLayouts.consult");
+
+        //y Kien Khach Hang
+        $data_yKien_khachHang = $this->getCategoryAndPostByKeyword('SITE_NUM_ID_CATEGORY_YKIEN_KHACHHANG', 3, 1);
+
+        $hotline = '';
+        $arrHotline = Info::getItemByKeyword('SITE_NUM_NICK_SUPPORT_ONLINE');
+        if(sizeof($arrHotline) > 0){
+            $hotline = strip_tags(stripslashes($arrHotline->info_content));
+        }
+
+        //Get news Hot
+        $dataNewsSearch['news_hot'] = CGlobal::status_show;
+        $arrNewsHot = News::getPostHot($dataNewsSearch, 5);
+
+        $this->layout->consult = View::make("site.BaseLayouts.consult")
+                                ->with('data_yKien_khachHang', $data_yKien_khachHang)
+                                ->with('arrNewsHot', $arrNewsHot)
+                                ->with('hotline', $hotline);
     }
 	public function footer(){
         $footer = '';
@@ -98,5 +115,33 @@ class BaseSiteController extends BaseController{
             }
         }
         return $arrBannerShow;
+    }
+
+    public function getCategoryAndPostByKeyword($cat_keyword='', $limit_post=0, $get_a_cat=0){
+        $result = array();
+        $catid = 0;
+        if($cat_keyword != '' && $limit_post>0){
+            $result_cat = Info::getItemByKeyword($cat_keyword);
+            if(sizeof($result_cat) > 0){
+                $catid = strip_tags(stripslashes($result_cat->info_content));
+                if($catid != '') {
+                    if ($get_a_cat == 1){
+                        $dataCat = Category::getByID((int)$catid);
+                        if(sizeof($dataCat) > 0) {
+                            //Data Category
+                            $result['cat'] = array(
+                                'category_id' => $dataCat->category_id,
+                                'category_name' => $dataCat->category_name,
+                            );
+                        }
+                    }
+                    //Data Post In Category
+                    $arrCat = array((int)$catid);
+                    $arrPost = News::getPostInCategoryParent($arrCat, $limit_post);
+                    $result['post'] = $arrPost;
+                }
+            }
+        }
+        return $result;
     }
 }

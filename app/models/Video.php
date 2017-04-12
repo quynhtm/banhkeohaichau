@@ -141,7 +141,7 @@ class Video extends Eloquent
         }
     }
     
-    public static function getSameVideo($dataField='', $id=0, $limit=10, $lang){
+    public static function getSameVideo($dataField='', $id=0, $limit=10, $lang=0){
     	try{
     		$result = array();
     
@@ -190,5 +190,25 @@ class Video extends Eloquent
     	}catch (PDOException $e){
     		throw new PDOException();
     	}
+    }
+
+    public static function searchByConditionSite($dataSearch = array(), $limit =0, $offset=0, &$total){
+        try{
+            $query = Video::where('video_id','>',0);
+            $query->where('video_status', CGlobal::status_show);
+            $total = $query->count();
+            $query->orderBy('video_id', 'desc');
+            //get field can lay du lieu
+            $fields = (isset($dataSearch['field_get']) && trim($dataSearch['field_get']) != '') ? explode(',',trim($dataSearch['field_get'])): array();
+            if(!empty($fields)){
+                $result = $query->take($limit)->skip($offset)->get($fields);
+            }else{
+                $result = $query->take($limit)->skip($offset)->get();
+            }
+            return $result;
+
+        }catch (PDOException $e){
+            throw new PDOException();
+        }
     }
 }

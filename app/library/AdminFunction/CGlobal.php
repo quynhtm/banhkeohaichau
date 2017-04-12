@@ -147,7 +147,7 @@ class CGlobal{
     const TYPE_LANGUAGE_ENG = 3;
     public static $arrLanguage= array(
         self::TYPE_LANGUAGE_VIET => 'Viet Nam',
-        self::TYPE_LANGUAGE_LAO => 'Lao',
+        //self::TYPE_LANGUAGE_LAO => 'Lao',
         self::TYPE_LANGUAGE_ENG => 'English',
     );
 

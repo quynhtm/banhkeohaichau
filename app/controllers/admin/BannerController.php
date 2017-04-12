@@ -183,6 +183,7 @@ class BannerController extends BaseAdminController
         $data['banner_start_time'] = Request::get('banner_start_time');
         $data['banner_end_time'] = Request::get('banner_end_time');
         $data['banner_status'] = (int)Request::get('banner_status', 0);
+        $data['banner_province_id'] = (int)Request::get('banner_province_id', 0);
         $id_hiden = (int)Request::get('id_hiden', 0);
 
         $action = $this->getControllerAction();

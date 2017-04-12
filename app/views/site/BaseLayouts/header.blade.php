@@ -65,7 +65,7 @@
                             @endif
                         @endforeach
                     @endif
-					<li><a href="{{URL::route('site.home')}}" title="Video">Video</a></li>
+					<li><a href="{{URL::route('site.pageVideo')}}" title="Video">Video</a></li>
                     <li><a href="{{URL::route('site.pageContact')}}" title="contact">Liên hệ</a></li>
                 </ul>
             </div>
