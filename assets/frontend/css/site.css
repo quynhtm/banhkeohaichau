@@ -1131,7 +1131,6 @@ h1, h2, h3, h4, h5, h6{
 }
 .title-view {
     font-size: 1.286em;
-    font-weight: bold;
     text-transform: uppercase;
     margin-top: 0;
     line-height: 25px;
@@ -1151,6 +1150,9 @@ h1, h2, h3, h4, h5, h6{
     width: 100%;
     text-align: justify;
     font-size: 16px;
+}
+.video-view{
+    margin-top: 10px;
 }
 .title-path{
     border-bottom: 1px solid #eeebec;
@@ -1472,4 +1474,16 @@ h1, h2, h3, h4, h5, h6{
 }
 .line-middle .skitter .info_slide_dots .image_number.image_number_select{
     background: #333333;
+}
+.item-video {
+    height: 312px;
+    margin-bottom: 5px;
+    overflow: hidden;
+}
+.item-video .titleL {
+    margin-top: 10px;
+    color: #555;
+    height: 45px;
+    overflow: hidden;
+    font-size: 16px;
 }

@@ -193,7 +193,6 @@ class SiteHomeController extends BaseSiteController{
                                 ->with('messages', $messages);
         $this->footer();
     }
-
 	public function linkCaptcha(){
 		$captchaImages = new captchaImages(60,30,4);
 	}
@@ -244,5 +243,89 @@ class SiteHomeController extends BaseSiteController{
             ->with('arrNewsHot', $arrNewsHot)
             ->with('arrCatRight', $arrCatRight);
         $this->footer();
+    }
+    public function pageVideo(){
+
+        //Meta title
+        $meta_title='';
+        $meta_keywords='';
+        $meta_description='';
+        $meta_img='';
+        $arrMeta = Info::getItemByKeyword('SITE_SEO_VIDEO');
+        if(!empty($arrMeta)){
+            $meta_title = $arrMeta->meta_title;
+            $meta_keywords = $arrMeta->meta_keywords;
+            $meta_description = $arrMeta->meta_description;
+            $meta_img = $arrMeta->info_img;
+            if($meta_img != ''){
+                $meta_img = ThumbImg::thumbBaseNormal(CGlobal::FOLDER_INFO, $arrMeta->info_id, $arrMeta->info_img, 550, 0, '', true, true);
+            }
+        }
+        FunctionLib::SEO($meta_img, $meta_title, $meta_keywords, $meta_description);
+
+        $pageNo = (int) Request::get('page_no',1);
+        $limit = CGlobal::number_show_20;
+        $offset = ($pageNo - 1) * $limit;
+        $search = $data = array();
+        $total = 0;
+
+        $arrItem = Video::searchByConditionSite($search, $limit, $offset,$total);
+        $paging = $total > 0 ? Pagging::getNewPager(3, $pageNo, $total, $limit, $search) : '';
+
+        //Get Menu category News Right
+        $searchCateRight['category_menu_right'] = CGlobal::status_show;
+        $searchCateRight['category_type'] = CGlobal::category_new;
+        $arrCatRight = Category::searchCategoryRightByCondition($searchCateRight, CGlobal::number_show_5);
+
+        //Get news Hot
+        $dataNewsSearch['news_hot'] = CGlobal::status_show;
+        $arrNewsHot = News::getPostHot($dataNewsSearch, 10);
+
+        $this->header();
+        $this->layout->content = View::make('site.SiteLayouts.pageVideo')
+            ->with('arrItem', $arrItem)
+            ->with('paging', $paging)
+            ->with('arrNewsHot', $arrNewsHot)
+            ->with('arrCatRight', $arrCatRight);
+        $this->footer();
+    }
+    public function pageVideoDetail($title='', $id=0){
+        $data = $dataSame = array();
+        if($id > 0){
+            $data = Video::getById($id);
+            if(sizeof($data) != 0){
+                $dataField['field_get'] = '';
+                $dataSame = Video::getSameVideo($dataField, $data->video_id, CGlobal::number_show_8, 0);
+            }else{
+                return Redirect::route('site.page404');
+            }
+        }
+
+        //Meta title
+        if(sizeof($data) != 0){
+            $meta_title = $data->video_name;
+            $meta_keywords = $data->video_name;
+            $meta_description = FunctionLib::substring($data->video_content, 200, '...');
+            $meta_img = '';
+            FunctionLib::SEO($meta_img, $meta_title, $meta_keywords, $meta_description);
+        }
+
+        //Get Menu category News Right
+        $searchCateRight['category_menu_right'] = CGlobal::status_show;
+        $searchCateRight['category_type'] = CGlobal::category_new;
+        $arrCatRight = Category::searchCategoryRightByCondition($searchCateRight, CGlobal::number_show_5);
+
+        //Get news Hot
+        $dataNewsSearch['news_hot'] = CGlobal::status_show;
+        $arrNewsHot = News::getPostHot($dataNewsSearch, 10);
+
+        $this->header();
+        $this->layout->content = View::make('site.SiteLayouts.pageVideoDetail')
+            ->with('item',$data)
+            ->with('dataSame',$dataSame)
+            ->with('arrNewsHot', $arrNewsHot)
+            ->with('arrCatRight', $arrCatRight);
+        $this->footer();
+
     }
 }

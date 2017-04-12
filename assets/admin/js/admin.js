@@ -26,6 +26,10 @@ var Admin = {
             	url_ajax = 'deleteContract';
             }else if(type == 13){
             	url_ajax = 'deleteTypeSetting';
+            }else if(type == 14){
+                url_ajax = 'deleteVideo';
+            }else if(type == 15){
+                url_ajax = 'deleteLibraryImage';
             }
             if(url_ajax != ''){
                 $.ajax({

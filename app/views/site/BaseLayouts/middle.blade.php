@@ -38,7 +38,7 @@
                                             <?php $rand_item = $rands[array_rand($rands, 1)]; ?>
                                             <li>
                                                 <a href="#{{$rand_item}}" @if($item->banner_is_rel == CGlobal::LINK_NOFOLLOW) rel="nofollow" @endif title="{{$item->banner_name}}">
-                                                    <img class="{{$rand_item}}" src="{{ThumbImg::thumbImageBannerNormal($item->banner_id,$item->banner_parent_id, $item->banner_image, CGlobal::sizeImage_1000,CGlobal::sizeImage_200, $item->banner_name,true,true)}}" alt="{{$item->banner_name}}" />
+                                                    <img class="{{$rand_item}}" src="{{ThumbImg::thumbImageBannerNormal($item->banner_id,$item->banner_parent_id, $item->banner_image, CGlobal::sizeImage_750,CGlobal::sizeImage_750, $item->banner_name,true,true)}}" alt="{{$item->banner_name}}" />
                                                 </a>
                                             </li>
                                         @endif

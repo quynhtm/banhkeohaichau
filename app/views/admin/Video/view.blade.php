@@ -18,7 +18,7 @@
                     <div class="panel-body">
                         <div class="form-group col-lg-3">
                             <label for="video_name">Name Video</label>
-                            <input type="text" class="form-control input-sm" id="video_name" name="video_name" placeholder="Name banner" @if(isset($search['video_name']) && $search['video_name'] != '')value="{{$search['video_name']}}"@endif>
+                            <input type="text" class="form-control input-sm" id="video_name" name="video_name" placeholder="Name Video" @if(isset($search['video_name']) && $search['video_name'] != '')value="{{$search['video_name']}}"@endif>
                         </div>
                         <div class="form-group col-lg-3">
                             <label for="banner_page">Language</label>
@@ -83,7 +83,7 @@
                                        &nbsp;&nbsp;&nbsp;<a href="{{URL::route('admin.videoEdit',array('id' => $item->video_id))}}" title="Sửa item"><i class="fa fa-edit fa-2x"></i></a>
                                     @endif
                                     @if($is_root || $permission_full ==1 || $permission_delete == 1)
-                                        &nbsp;&nbsp;&nbsp; <a href="javascript:void(0);" onclick="Admin.deleteItem({{$item->video_id}},2)" title="Xóa Item"><i class="fa fa-trash fa-2x"></i></a>
+                                        &nbsp;&nbsp;&nbsp; <a href="javascript:void(0);" onclick="Admin.deleteItem({{$item->video_id}},14)" title="Xóa Item"><i class="fa fa-trash fa-2x"></i></a>
                                     @endif
                                     <span class="img_loading" id="img_loading_{{$item->video_id}}"></span>
                                 </td>
