@@ -718,6 +718,9 @@ h1, h2, h3, h4, h5, h6{
     margin-top: 30px;
     color: #ef1c25;
 }
+.item-customer .cdesc .cname a{
+    color: #ef1c25;
+}
 .item-customer .cthumb {
     width: 160px;
     height: 160px;
@@ -755,6 +758,8 @@ h1, h2, h3, h4, h5, h6{
 }
 .line-line-support{
     text-align: center;
+    width: 100%;
+    display: inline-block;
 }
 .txt-line-support {
     border-top: 2px solid #fe4133;
@@ -770,6 +775,9 @@ h1, h2, h3, h4, h5, h6{
     text-transform: uppercase;
     text-align: center;
     font-size: 25px;
+    clear: both;
+    width: 100%;
+    display: inline-block;
 }
 .text-phone-support {
     text-align: center;
@@ -1326,6 +1334,10 @@ h1, h2, h3, h4, h5, h6{
 .post-in-cat li a:hover{
     text-decoration: underline;
 }
+.ul-post.index li{
+    padding-left: 8px;
+    padding-right: 8px;
+}
 .ul-post li{
     margin-bottom: 5px;
     padding-bottom: 12px;
@@ -1337,16 +1349,17 @@ h1, h2, h3, h4, h5, h6{
 .ul-post li:last-child{
     border-bottom: none;
 }
-.img-thumb-right{
+.img-thumb-right {
     display: block;
     overflow: hidden;
     width: 30%;
     float: left;
     margin-right: 15px;
+    height: 58px;
+    overflow: hidden;
 }
 .img-thumb-right img{
     width: 100%;
-    border: 1px solid #ccc;
 }
 .intro-right {
     display: block;
@@ -1361,6 +1374,8 @@ h1, h2, h3, h4, h5, h6{
     text-decoration: none;
     margin-top: -2px;
     font-size: 15px;
+    max-height: 88px;
+    overflow: hidden;
 }
 .intro-right .title-right a{
     color: #333333;

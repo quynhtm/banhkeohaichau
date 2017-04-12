@@ -31,6 +31,15 @@
                         </div>
                     </div>
                 </div>
+                <div class="clearfix"></div>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="name" class="control-label">Thông tin khác</label>
+                        <div class="form-group">
+                            <input type="text" placeholder="Thông tin khác" id="new_infor_other" name="new_infor_other" class="form-control input-sm" value="@if(isset($data['new_infor_other'])){{$data['new_infor_other']}}@endif">
+                        </div>
+                    </div>
+                </div>
 
                 <div style="float: left;width: 30%">
 
