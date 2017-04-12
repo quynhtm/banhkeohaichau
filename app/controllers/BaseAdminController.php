@@ -83,9 +83,10 @@ class BaseAdminController extends BaseController
             'name'=>'Thông kê bán hàng',
             'link'=>'javascript:void(0)',
             'icon'=>'fa fa-bar-chart',
-            'arr_link_sub'=>array('admin.managerOrderView'),
+            'arr_link_sub'=>array('admin.managerOrderView','admin.reportView'),
             'sub'=>array(
-                array('name'=>'Thông kê bán hàng', 'RouteName'=>'admin.managerOrderView', 'icon'=>'fa fa-bar-chart icon-4x', 'showcontent'=>1,'showMenu'=>1, 'permission'=>'managerOrder_full'),
+                array('name'=>'Danh sách đơn hàng', 'RouteName'=>'admin.managerOrderView', 'icon'=>'fa fa-bar-chart icon-4x', 'showcontent'=>1,'showMenu'=>1, 'permission'=>'managerOrder_full'),
+                array('name'=>'Báo cáo bán hàng', 'RouteName'=>'admin.reportView', 'icon'=>'fa fa-bar-chart icon-4x', 'showcontent'=>0,'showMenu'=>0, 'permission'=>'Report_view'),
             ),
         );
 
