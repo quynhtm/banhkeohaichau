@@ -366,14 +366,17 @@ class Category extends Eloquent
     }
 
     //SITE
-    public static function getAllCategoryByType($type=0, $limit=5) {
+    public static function getAllCategoryByType($type=0, $limit=0){
         $data = (Memcache::CACHE_ON)? Cache::get(Memcache::CACHE_ALL_CATEGORY_BY_TYPE.$type) : array();
         if (sizeof($data) == 0) {
-            $data = Category::where('category_id', '>', 0)
+            $query = Category::where('category_id', '>', 0)
                 ->where('category_status', CGlobal::status_show)
                 ->where('category_type', $type)
-                ->take($limit)
-                ->orderBy('category_order','asc')->get();
+                ->orderBy('category_order','asc');
+            if($limit > 0){
+                $query->take($limit);
+            }
+            $data = $query->get();
             if($data && Memcache::CACHE_ON){
                 Cache::put(Memcache::CACHE_ALL_CATEGORY_BY_TYPE.$type, $data, Memcache::CACHE_TIME_TO_LIVE_ONE_MONTH);
             }

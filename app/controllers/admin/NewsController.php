@@ -99,8 +99,8 @@ class NewsController extends BaseAdminController
             if(sizeof($data) > 0){
                 //lay ảnh khác của san phẩm
                 $arrViewImgOther = array();
-                if(!empty($data->news_image_other)){
-                    $arrImagOther = unserialize($data->news_image_other);
+                if($data->news_image_other != ''){
+                    $arrImagOther = (trim($data->news_image_other) != '') ? unserialize($data->news_image_other) : array();
                     if(sizeof($arrImagOther) > 0){
                         foreach($arrImagOther as $k=>$val){
                             $url_thumb = ThumbImg::getImageThumb(CGlobal::FOLDER_NEWS, $id, $val, CGlobal::sizeImage_100,  '', true, CGlobal::type_thumb_image_banner, false);

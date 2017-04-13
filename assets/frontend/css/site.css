@@ -716,10 +716,10 @@ h1, h2, h3, h4, h5, h6{
 .item-customer{
     text-align: center;
     margin-top: 30px;
-    color: #ef1c25;
+    color: #222;
 }
 .item-customer .cdesc .cname a{
-    color: #ef1c25;
+    color: #222;
 }
 .item-customer .cthumb {
     width: 160px;
@@ -1501,4 +1501,13 @@ h1, h2, h3, h4, h5, h6{
     height: 45px;
     overflow: hidden;
     font-size: 16px;
+}
+.btn-more-title li a {
+    background: #44a2ec;
+    color: #fff !important;
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+.box-item-line .line img{
+    width: 100%;
 }

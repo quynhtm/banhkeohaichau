@@ -60,7 +60,7 @@
                     <div class="clearfix"></div>
                     <div class="col-sm-5">
                         <div class="form-group">
-                            <label for="name" class="control-label">Hiển thị trang chủ</label>
+                            <label for="name" class="control-label">Hiện trang chủ</label>
                             <select name="department_status_home" id="department_status_home" class="form-control input-sm">
                                 {{$optionStatusHome}}
                             </select>

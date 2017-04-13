@@ -24,11 +24,16 @@ class SiteHomeController extends BaseSiteController{
     		}
     	}
     	FunctionLib::SEO($meta_img, $meta_title, $meta_keywords, $meta_description);
+        //Get Chuyen mục: banh, kẹo, luong kho...
+        $arrType = Department::siteGetAllDepart();
+        $arrAllCategoryProduct = Category::getAllCategoryByType(CGlobal::category_product);
 
     	$this->header();
     	$this->middle();
     	$this->consult();
-        $this->layout->content = View::make('site.SiteLayouts.Home');
+        $this->layout->content = View::make('site.SiteLayouts.Home')
+                                ->with('arrType', $arrType)
+                                ->with('arrAllCategoryProduct', $arrAllCategoryProduct);
         $this->footer();
     }
 	public function pageCategory($catname='', $caid=0){

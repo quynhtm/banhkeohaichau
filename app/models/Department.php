@@ -173,5 +173,19 @@ class Department extends Eloquent
             Cache::forget(Memcache::CACHE_DEPARTMENT_ID.$id);
         }
         Cache::forget(Memcache::CACHE_ALL_DEPARTMENT);
+        Cache::forget(Memcache::CACHE_SITE_ALL_DEPARTMENT);
+    }
+    //Site
+    public static function siteGetAllDepart(){
+        $data = (Memcache::CACHE_ON)? Cache::get(Memcache::CACHE_SITE_ALL_DEPARTMENT) : array();
+        if (sizeof($data) == 0) {
+            $data = Department::where('department_id', '>', 0)
+                ->where('department_status',CGlobal::status_show)
+                ->orderBy('department_order','asc')->get();
+            if($data && Memcache::CACHE_ON){
+                Cache::put(Memcache::CACHE_SITE_ALL_DEPARTMENT, $data, Memcache::CACHE_TIME_TO_LIVE_ONE_MONTH);
+            }
+        }
+        return $data;
     }
 }
