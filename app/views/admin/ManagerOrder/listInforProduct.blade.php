@@ -26,6 +26,7 @@
 
                 <input type="hidden" id="sys_product_price_sell_{{$product->product_id}}" name="product_price_sell_{{$product->product_id}}" class="form-control" value="{{$product->product_price_sell}}" >
                 <input type="hidden" id="total_product_price_sell_hiden_{{$product->product_id}}" name="total_product_price_sell_hiden[]" class="total_product_price_sell_hiden" value="{{$product->product_price_sell}}" >
+                <input type="hidden" id="total_product_hiden_{{$product->product_id}}" name="total_product_hiden[]" class="total_product_hiden" value="{{$product->number_buy}}" >
                 <?php
                 $total_product = $total_product + 1;
                 $total_money = $total_money + ($product->product_price_sell);
@@ -34,7 +35,7 @@
         @endforeach
         <tr>
             <td colspan="5" class="text-right"><b>Tổng số lượng hàng:</b></td>
-            <td colspan="2" class="text-right"><b>{{FunctionLib::numberFormat($total_product)}}</b></td>
+            <td colspan="2" class="text-right"><b id="sys_total_product">{{FunctionLib::numberFormat($total_product)}}</b></td>
         </tr>
         <tr>
             <td colspan="5" class="text-right"><b>Tổng tiền:</b></td>

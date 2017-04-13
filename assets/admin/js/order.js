@@ -10,6 +10,7 @@ var Order = {
             var total_product_price_sell = number_buy*product_price_sell;
             $('#sys_total_product_price_sell_'+productId).html(Order.numberFormat(total_product_price_sell) + 'đ');
             $('#total_product_price_sell_hiden_'+productId).val(total_product_price_sell);
+            $('#total_product_hiden_'+productId).val(number_buy);
 
             //hiển thị lại tổng tiền
             var tong_money = 0;
@@ -17,6 +18,13 @@ var Order = {
                 tong_money = parseInt(tong_money) + parseInt($(this).val());
             });
             $('#sys_total_money').html(Order.numberFormat(tong_money) + 'đ');
+
+            //hiển thị tổng số lượng sản phẩm
+            var tong_sp = 0;
+            $('input.total_product_hiden').each(function() {
+                tong_sp = parseInt(tong_sp) + parseInt($(this).val());
+            });
+            $('#sys_total_product').html(Order.numberFormat(tong_sp));
         }
     },
     getInforProduct:function(){
