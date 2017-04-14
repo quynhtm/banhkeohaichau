@@ -348,6 +348,9 @@ class Product extends Eloquent
                     $query->where('category_id', $dataSearch['category_id']);
                 }
             }
+            if (isset($dataSearch['str_category_id']) && trim($dataSearch['str_category_id']) != '') {
+                $query->whereIn('category_id', explode(',',$dataSearch['str_category_id']));
+            }
             $total = $query->count();
             $query->orderBy('product_id', 'desc');
 
