@@ -6,7 +6,7 @@
                 <div class="line-title-menu-post">
                     <div class="box-line-title-menu-post @if($k==1) blue @elseif($k==2) green @elseif($k==3) blue @elseif($k==4) brown @endif">{{$type->department_name}}</div>
                     <ul class="btn-more-title">
-                        <li><a href=""><i class="fa fa-angle-double-right icon-more-font"></i> Xem tất cả</a></li>
+                        <li><a href="{{FunctionLib::buildLinkTypeProduct($type->department_id, $type->department_name)}}" title="{{stripslashes($type->department_name)}}"><i class="fa fa-angle-double-right icon-more-font"></i> Xem tất cả</a></li>
                     </ul>
                     @if(sizeof($arrAllCategoryProduct) > 0)
                     <ul>
@@ -14,7 +14,7 @@
                         @foreach($arrAllCategoryProduct as $cat)
                             @if($cat->category_menu_right == 1 && $cat->category_depart_id == $type->department_id && $i <= CGlobal::number_show_5)
                                 <?php $i++; ?>
-                            <li><a href="">{{$cat->category_name}}</a></li>
+                                <li><a href="{{FunctionLib::buildLinkCategory($cat->category_id, $cat->category_name)}}">{{$cat->category_name}}</a></li>
                             @endif
                         @endforeach
                     </ul>
@@ -24,6 +24,11 @@
                     $arrBannerTopLeft = Banner::getBannerAdvanced(CGlobal::BANNER_TYPE_LEFT_TOP, $type->department_id, 0, 0);
                     $arrBannerBottomLeft = Banner::getBannerAdvanced(CGlobal::BANNER_TYPE_LEFT_BOTTOM, $type->department_id, 0, 0);
                     $arrBannerCenter = Banner::getBannerAdvanced(CGlobal::BANNER_TYPE_CENTER, $type->department_id, 0, 0);
+                    if(sizeof($arrBannerTopLeft) > 0 && sizeof($arrBannerBottomLeft) > 0){
+                        $arrItem  = Product::getProductForSiteIndex($type->department_id, $limit =4);
+                    }else{
+                        $arrItem  = Product::getProductForSiteIndex($type->department_id, $limit =5);
+                    }
                 ?>
                 @if(sizeof($arrBannerTopLeft) == 0 && sizeof($arrBannerBottomLeft) == 0)
                     @if(sizeof($arrBannerCenter) > 0)
@@ -36,66 +41,34 @@
                     </div>
                     @endif
                     <div class="box-list-item">
-                        <div class="one-item">
-                            <a href="#" title="">
-                                <div class="ithumb">
-                                    <img src="{{URL::route('site.home')}}/assets/frontend/img/1p.png" alt="">
-                                </div>
-                                <div class="idesc">
-                                    <div class="ititle">Hộp bánh kem xốp phủ sôcôla Caste</div>
-                                    <div class="iprice">132.000 vnđ</div>
-                                    <div class="ibuy"><i></i>Mua hàng</div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="one-item">
-                            <a href="#" title="">
-                                <div class="ithumb">
-                                    <img src="{{URL::route('site.home')}}/assets/frontend/img/1p.png" alt="">
-                                </div>
-                                <div class="idesc">
-                                    <div class="ititle">Hộp bánh kem xốp phủ sôcôla Caste</div>
-                                    <div class="iprice">132.000 vnđ</div>
-                                    <div class="ibuy"><i></i>Mua hàng</div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="one-item">
-                            <a href="#" title="">
-                                <div class="ithumb">
-                                    <img src="{{URL::route('site.home')}}/assets/frontend/img/1p.png" alt="">
-                                </div>
-                                <div class="idesc">
-                                    <div class="ititle">Hộp bánh kem xốp phủ sôcôla Caste</div>
-                                    <div class="iprice">132.000 vnđ</div>
-                                    <div class="ibuy"><i></i>Mua hàng</div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="one-item">
-                            <a href="#" title="">
-                                <div class="ithumb">
-                                    <img src="{{URL::route('site.home')}}/assets/frontend/img/1p.png" alt="">
-                                </div>
-                                <div class="idesc">
-                                    <div class="ititle">Hộp bánh kem xốp phủ sôcôla Caste</div>
-                                    <div class="iprice">132.000 vnđ</div>
-                                    <div class="ibuy"><i></i>Mua hàng</div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="one-item">
-                            <a href="#" title="">
-                                <div class="ithumb">
-                                    <img src="{{URL::route('site.home')}}/assets/frontend/img/1p.png" alt="">
-                                </div>
-                                <div class="idesc">
-                                    <div class="ititle">Hộp bánh kem xốp phủ sôcôla Caste</div>
-                                    <div class="iprice">132.000 vnđ</div>
-                                    <div class="ibuy"><i></i>Mua hàng</div>
-                                </div>
-                            </a>
-                        </div>
+                        @if(sizeof($arrItem) > 0)
+                            @foreach($arrItem as $item)
+                            <div class="one-item">
+                                <a href="{{FunctionLib::buildLinkDetailProduct($item->product_id, $item->product_name)}}" title="{{stripslashes($item->product_name)}}">
+                                    <div class="ithumb">
+                                        @if($item->product_image != '')
+                                            <img src="{{ThumbImg::getImageThumb(CGlobal::FOLDER_PRODUCT, $item->product_id, $item->product_image, CGlobal::sizeImage_600, '', true, 1, false)}}" alt="{{stripslashes($item->product_name)}}" />
+                                        @endif
+                                    </div>
+                                    <div class="idesc">
+                                        <div class="ititle">{{stripslashes($item->product_name)}}</div>
+                                        <div class="iprice">
+                                            @if($item->product_type_price == CGlobal::TYPE_PRICE_NUMBER)
+                                                @if((int)$item->product_price_sell > 0)
+                                                    {{FunctionLib::numberFormat((int)$item->product_price_sell)}} vnđ
+                                                @else
+                                                    Liên hệ
+                                                @endif
+                                            @else
+                                                Liên hệ
+                                            @endif
+                                        </div>
+                                    </div>
+                                </a>
+                                <div class="ibuy" dataid="{{$item->product_id}}"><i></i>Mua hàng</div>
+                            </div>
+                            @endforeach
+                        @endif
                     </div>
                 @elseif(sizeof($arrBannerTopLeft) > 0 || sizeof($arrBannerBottomLeft) > 0)
                 <div class="box-list-item">
@@ -126,54 +99,34 @@
                             </div>
                             @endif
                             <div class="line">
-                                <div class="one-item">
-                                    <a href="#" title="">
-                                        <div class="ithumb">
-                                            <img src="{{URL::route('site.home')}}/assets/frontend/img/1p.png" alt="">
+                                @if(sizeof($arrItem) > 0)
+                                    @foreach($arrItem as $item)
+                                        <div class="one-item">
+                                            <a href="{{FunctionLib::buildLinkDetailProduct($item->product_id, $item->product_name)}}" title="{{stripslashes($item->product_name)}}">
+                                                <div class="ithumb">
+                                                    @if($item->product_image != '')
+                                                        <img src="{{ThumbImg::getImageThumb(CGlobal::FOLDER_PRODUCT, $item->product_id, $item->product_image, CGlobal::sizeImage_600, '', true, 1, false)}}" alt="{{$item->product_name}}" />
+                                                    @endif
+                                                </div>
+                                                <div class="idesc">
+                                                    <div class="ititle">{{stripslashes($item->product_name)}}</div>
+                                                    <div class="iprice">
+                                                        @if($item->product_type_price == CGlobal::TYPE_PRICE_NUMBER)
+                                                            @if((int)$item->product_price_sell > 0)
+                                                                {{FunctionLib::numberFormat((int)$item->product_price_sell)}} vnđ
+                                                            @else
+                                                                Liên hệ
+                                                            @endif
+                                                        @else
+                                                            Liên hệ
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <div class="ibuy" dataid="{{$item->product_id}}"><i></i>Mua hàng</div>
                                         </div>
-                                        <div class="idesc">
-                                            <div class="ititle">Hộp bánh kem xốp phủ sôcôla Caste</div>
-                                            <div class="iprice">132.000 vnđ</div>
-                                            <div class="ibuy"><i></i>Mua hàng</div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="one-item">
-                                    <a href="#" title="">
-                                        <div class="ithumb">
-                                            <img src="{{URL::route('site.home')}}/assets/frontend/img/1p.png" alt="">
-                                        </div>
-                                        <div class="idesc">
-                                            <div class="ititle">Hộp bánh kem xốp phủ sôcôla Caste</div>
-                                            <div class="iprice">132.000 vnđ</div>
-                                            <div class="ibuy"><i></i>Mua hàng</div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="one-item">
-                                    <a href="#" title="">
-                                        <div class="ithumb">
-                                            <img src="{{URL::route('site.home')}}/assets/frontend/img/1p.png" alt="">
-                                        </div>
-                                        <div class="idesc">
-                                            <div class="ititle">Hộp bánh kem xốp phủ sôcôla Caste</div>
-                                            <div class="iprice">132.000 vnđ</div>
-                                            <div class="ibuy"><i></i>Mua hàng</div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="one-item">
-                                    <a href="#" title="">
-                                        <div class="ithumb">
-                                            <img src="{{URL::route('site.home')}}/assets/frontend/img/1p.png" alt="">
-                                        </div>
-                                        <div class="idesc">
-                                            <div class="ititle">Hộp bánh kem xốp phủ sôcôla Caste</div>
-                                            <div class="iprice">132.000 vnđ</div>
-                                            <div class="ibuy"><i></i>Mua hàng</div>
-                                        </div>
-                                    </a>
-                                </div>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                     </div>
