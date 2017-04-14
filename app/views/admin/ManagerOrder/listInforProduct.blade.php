@@ -19,7 +19,7 @@
                 <td class="text-right text-middle"><b>{{FunctionLib::numberFormat($product->product_price_sell)}} đ</b></td>
                 <td class="text-center text-middle">
                     <div>
-                        <input type="text" class="form-control input-sm number_buy_product" id="sys_number_buy_{{$product->product_id}}" name="number_buy_{{$product->product_id}}" placeholder="Mã sản phẩm: 1,2,3" value="{{$product->number_buy}}" onblur="Order.changeNumberBuy({{$product->product_id}})">
+                        <input type="text" class="form-control input-sm text-center number_buy_product" id="sys_number_buy_{{$product->product_id}}" name="number_buy_{{$product->product_id}}" placeholder="Mã sản phẩm: 1,2,3" value="{{$product->number_buy}}" onblur="Order.changeNumberBuy({{$product->product_id}})">
                     </div>
                 </td>
                 <td class="text-right text-middle"><b class="red" id="sys_total_product_price_sell_{{$product->product_id}}">{{FunctionLib::numberFormat($product->product_price_sell)}} đ</b></td>

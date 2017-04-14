@@ -37,6 +37,7 @@ class OrderItem extends Eloquent
         return $data;
     }
 
+
     public static function searchByCondition($dataSearch = array(), $limit =0, $offset=0, &$total){
 
         try{
@@ -113,25 +114,42 @@ class OrderItem extends Eloquent
 
     /**
      * @desc: Update du lieu
-     * @param $id
+     * @param $orderId: id ??n hàng
      * @param $data
      * @return bool
      * @throws PDOException
      */
-    public static  function updateData($id, $dataInput)
+    public static  function updateData($orderId = 0, $productId = 0, $dataOrderItem = array())
     {
+        $order_item_id = 0;
+        if($orderId > 0 && $productId > 0){
+            $order_item_id = OrderItem::getIdByOrderIdAndProductId($orderId,$productId);
+        }
         try {
-            DB::connection()->getPdo()->beginTransaction();
-            $dataSave = OrderItem::find($id);
-            if (!empty($dataInput)){
-                $dataSave->update($dataInput);
+            if($order_item_id > 0){
+                DB::connection()->getPdo()->beginTransaction();
+                $dataSave = OrderItem::find($order_item_id);
+                if (!empty($dataOrderItem)){
+                    $dataSave->update($dataOrderItem);
+                }
+                DB::connection()->getPdo()->commit();
+                return $dataSave->order_item_id;
             }
-            DB::connection()->getPdo()->commit();
-            return $dataSave->order_item_id;
+            return $order_item_id;
         } catch (PDOException $e) {
             DB::connection()->getPdo()->rollBack();
             throw new PDOException();
         }
+    }
+    public static function getIdByOrderIdAndProductId($order_id,$productId) {
+        $order_item_id = 0;
+        if($order_id > 0 && $productId > 0){
+            $OrderItem = OrderItem::where('order_id', $order_id)->where('product_id', $productId)->first();
+            if($OrderItem){
+                $order_item_id = isset($OrderItem->order_item_id) ? $OrderItem->order_item_id : 0;
+            }
+        }
+        return $order_item_id;
     }
 
     /**
