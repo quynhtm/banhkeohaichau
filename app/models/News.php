@@ -194,16 +194,12 @@ class News extends Eloquent
         try{
             $query = News::where('news_id','>',0);
             $query->where('news_status', CGlobal::status_show);
+
             if (isset($dataSearch['news_category_id']) && $dataSearch['news_category_id'] > 0) {
-                if(is_array($dataSearch['news_category_id']) && !empty($dataSearch['news_category_id'])){
-                    $query->whereIn('news_category', $dataSearch['news_category_id']);
-                }else{
-                    $query->where('news_category', $dataSearch['news_category_id']);
-                }
+                $query->where('news_category', $dataSearch['news_category_id']);
+                $query->orWhere('news_category_parent', $dataSearch['news_category_id']);
             }
-            if (isset($dataSearch['str_category_id']) && trim($dataSearch['str_category_id']) != '') {
-                $query->whereIn('news_category', explode(',',$dataSearch['str_category_id']));
-            }
+
             $total = $query->count();
             $query->orderBy('news_id', 'desc');
             //get field can lay du lieu

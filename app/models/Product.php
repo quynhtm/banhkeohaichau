@@ -341,16 +341,15 @@ class Product extends Eloquent
         try{
             $query = Product::where('product_id','>',0);
             $query->where('product_status', CGlobal::status_show);
+
             if (isset($dataSearch['category_id']) && $dataSearch['category_id'] > 0) {
-                if(is_array($dataSearch['category_id']) && !empty($dataSearch['category_id'])){
-                    $query->whereIn('category_id', $dataSearch['category_id']);
-                }else{
-                    $query->where('category_id', $dataSearch['category_id']);
-                }
+                $query->where('category_id', $dataSearch['category_id']);
+                $query->orWhere('category_parent_id', $dataSearch['category_id']);
             }
-            if (isset($dataSearch['str_category_id']) && trim($dataSearch['str_category_id']) != '') {
-                $query->whereIn('category_id', explode(',',$dataSearch['str_category_id']));
+            if (isset($dataSearch['depart_id']) && $dataSearch['depart_id'] > 0) {
+                $query->where('depart_id', $dataSearch['depart_id']);
             }
+
             $total = $query->count();
             $query->orderBy('product_id', 'desc');
 

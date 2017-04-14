@@ -70,21 +70,16 @@ class SiteHomeController extends BaseSiteController{
                 $meta_description = stripslashes($type->department_name);
             }
 
-            //Get All Category In Type
-            $arrCates = Category::getAllCategoryInDepartId($type_id);
-            if(sizeof($arrCates) > 0) {
-                $listKeyCate = array_keys($arrCates);
+            $pageNo = (int) Request::get('page_no',1);
+            $limit = CGlobal::number_show_20;
+            $offset = ($pageNo - 1) * $limit;
+            $search = $data = array();
+            $total = 0;
 
-                $pageNo = (int) Request::get('page_no',1);
-                $limit = CGlobal::number_show_20;
-                $offset = ($pageNo - 1) * $limit;
-                $search = $data = array();
-                $total = 0;
-
-                $search['str_category_id'] = join(',',$listKeyCate);
-                $arrItem = Product::searchByConditionSite($search, $limit, $offset,$total);
-                $paging = $total > 0 ? Pagging::getNewPager(3, $pageNo, $total, $limit, $search) : '';
-            }
+            $search['category_name'] = strtolower(FunctionLib::safe_title($type->department_name));
+            $search['depart_id'] = (int)$type_id;
+            $arrItem = Product::searchByConditionSite($search, $limit, $offset,$total);
+            $paging = $total > 0 ? Pagging::getNewPager(3, $pageNo, $total, $limit, $search) : '';
         }
         FunctionLib::SEO($meta_img, $meta_title, $meta_keywords, $meta_description);
 
@@ -121,16 +116,9 @@ class SiteHomeController extends BaseSiteController{
             $search = $data = array();
             $total = 0;
 
-            $search['category_id'] = $catname;
-            if($caid > 0){
-                $arrCats[0] = $caid;
-                Category::makeListCatId($caid, 0, $arrCats);
-                if(!empty($arrCats)){
-                    $search['str_category_id'] = join(',',$arrCats);
-                }
-            }else{
-                $search['category_id'] = (int)$caid;
-            }
+            $search['category_name'] = $catname;
+            $search['category_id'] = (int)$caid;
+
             $arrItem = Product::searchByConditionSite($search, $limit, $offset,$total);
             $paging = $total > 0 ? Pagging::getNewPager(3, $pageNo, $total, $limit, $search) : '';
 
@@ -172,15 +160,7 @@ class SiteHomeController extends BaseSiteController{
             $search = $data = array();
             $total = 0;
             $search['news_category_name'] = $catname;
-            if($caid > 0){
-                $arrCats[0] = $caid;
-                Category::makeListCatId($caid, 0, $arrCats);
-                if(!empty($arrCats)){
-                    $search['str_category_id'] = join(',',$arrCats);
-                }
-            }else{
-                $search['news_category_id'] = (int)$caid;
-            }
+            $search['news_category_id'] = (int)$caid;
             $arrItem = News::searchByConditionSite($search, $limit, $offset,$total);
             $paging = $total > 0 ? Pagging::getNewPager(3, $pageNo, $total, $limit, $search) : '';
         }
