@@ -115,11 +115,13 @@
                     <div class="form-group marginTop20 marginBottom20">
                         <label class="col-lg-3 text-right">Danh sách ID sản phẩm</label>
                         <div class="col-lg-5"><input type="text" class="form-control input-sm" id="sys_order_product_id" name="order_product_id" placeholder="Mã sản phẩm: 1,2,3" @if(isset($data->order_product_id))value="{{$data->order_product_id}}"@endif></div>
-                        <div class="col-lg-4">
-                            <a class="btn btn-success btn-sm" href="javascript:void(0);" onclick="Order.getInforProduct();">
-                                <i class="fa fa-search"></i> Tìm kiếm
-                            </a>
-                        </div>
+                        @if($id == 0)
+                            <div class="col-lg-4">
+                                <a class="btn btn-success btn-sm" href="javascript:void(0);" onclick="Order.getInforProduct();">
+                                    <i class="fa fa-search"></i> Tìm kiếm
+                                </a>
+                            </div>
+                        @endif
                     </div>
                     <div class="clear"></div>
                     <div class="panel-body">
