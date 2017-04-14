@@ -433,10 +433,17 @@ class FunctionLib {
     }
 
     //Buid Link Category
+    static function buildLinkTypeProduct($type_id = 0, $type_title = 'loai-banh-keo'){
+        $link_view = '#';
+        if($type_id > 0){
+            $link_view = URL::route('site.actionTypeProduct', array('id'=>$type_id, 'name'=>strtolower(FunctionLib::safe_title($type_title))));
+        }
+        return $link_view;
+    }
     static function buildLinkCategory($cat_id = 0, $cat_title = 'Danh-mục', $province_id=0, $province_name=''){
         $link_view = '#';
     	if($cat_id > 0){
-            $link_view = URL::route('site.pageCategory', array('id'=>$cat_id, 'name'=>strtolower(FunctionLib::safe_title($cat_title))));
+            $link_view = URL::route('site.actionRouter', array('id'=>$cat_id, 'name'=>strtolower(FunctionLib::safe_title($cat_title))));
             if($province_id > 0 && $province_name != ''){
                 $link_view .= '?city_id='.$province_id.'&tinh='.$province_name;
             }
@@ -462,7 +469,6 @@ class FunctionLib {
         }
         return '#';
     }
-
     /**
      * @param int $new_id
      * @param string $new_name
@@ -893,10 +899,9 @@ class FunctionLib {
      * @param string $cat_name
      * @return string
      */
-    static function buildLinkDetailProduct($pro_id = 0,$pro_name = 'sản phẩm',$cat_name = 'danh mục'){
-        return '#';
-        if($pro_id > 0){
-            return URL::route('site.detailProduct', array('cat'=>strtolower(FunctionLib::safe_title($cat_name)),'name'=>strtolower(FunctionLib::safe_title($pro_name)),'id'=>$pro_id));
+    static function buildLinkDetailProduct($id = 0, $news_title = 'chi-tiet'){
+        if($id > 0){
+            return URL::route('site.pageDetailProduct', array('id'=>$id, 'name'=>strtolower(FunctionLib::safe_title($news_title))));
         }
         return '#';
     }

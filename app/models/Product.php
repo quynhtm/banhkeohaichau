@@ -321,4 +321,46 @@ class Product extends Eloquent
             Cache::forget(Memcache::CACHE_PRODUCT_ID.$id);
         }
     }
+
+    public static function getProductForSiteIndex($departId = 0, $limit =0){
+        try{
+            $query = Product::where('product_id','>',0);
+            $query->where('product_status','=', CGlobal::status_show);
+            $query->where('is_block','=', CGlobal::PRODUCT_NOT_BLOCK);
+            $query->where('product_is_hot','=', CGlobal::PRODUCT_HOT);
+            $query->where('depart_id','=', $departId);
+            $query->orderBy('time_update', 'desc');
+            $result = $query->take($limit)->get();
+
+            return $result;
+        }catch (PDOException $e){
+            throw new PDOException();
+        }
+    }
+    public static function searchByConditionSite($dataSearch = array(), $limit =0, $offset=0, &$total){
+        try{
+            $query = Product::where('product_id','>',0);
+            $query->where('product_status', CGlobal::status_show);
+            if (isset($dataSearch['category_id']) && $dataSearch['category_id'] > 0) {
+                if(is_array($dataSearch['category_id']) && !empty($dataSearch['category_id'])){
+                    $query->whereIn('category_id', $dataSearch['category_id']);
+                }else{
+                    $query->where('category_id', $dataSearch['category_id']);
+                }
+            }
+            $total = $query->count();
+            $query->orderBy('product_id', 'desc');
+
+            $fields = (isset($dataSearch['field_get']) && trim($dataSearch['field_get']) != '') ? explode(',',trim($dataSearch['field_get'])): array();
+            if(!empty($fields)){
+                $result = $query->take($limit)->skip($offset)->get($fields);
+            }else{
+                $result = $query->take($limit)->skip($offset)->get();
+            }
+            return $result;
+
+        }catch (PDOException $e){
+            throw new PDOException();
+        }
+    }
 }

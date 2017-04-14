@@ -568,6 +568,7 @@ h1, h2, h3, h4, h5, h6{
     width: 18.5%;
     display: inline-block;
     margin-right: 1.55%;
+    text-align: center;
 }
 .box-list-item .one-item:last-child{
     margin-right: 0;
@@ -580,7 +581,7 @@ h1, h2, h3, h4, h5, h6{
     box-shadow: 1px -2px 10px #cbcfcf;
 }
 .box-list-item .one-item .ithumb img{
-    width: 100%;
+    width: auto;
     height: 100%;
 }
 .box-list-item .one-item .idesc{
@@ -597,7 +598,7 @@ h1, h2, h3, h4, h5, h6{
     font-weight: bold;
     font-size: 16px;
 }
-.box-list-item .one-item .idesc .ibuy {
+.box-list-item .one-item .ibuy {
     background: #89122b;
     border-radius: 10px;
     padding: 2px 15px 2px 2px;
@@ -606,7 +607,7 @@ h1, h2, h3, h4, h5, h6{
     margin-top: 10px;
     line-height: 30px;
 }
-.box-list-item .one-item .idesc .ibuy i {
+.box-list-item .one-item .ibuy i {
     border-radius: 100%;
     width: 30px;
     height: 30px;
@@ -1510,4 +1511,7 @@ h1, h2, h3, h4, h5, h6{
 }
 .box-item-line .line img{
     width: 100%;
+}
+.content-post-line-product {
+    min-height: 500px;
 }

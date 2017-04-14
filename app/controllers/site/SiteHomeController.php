@@ -36,7 +36,102 @@ class SiteHomeController extends BaseSiteController{
                                 ->with('arrAllCategoryProduct', $arrAllCategoryProduct);
         $this->footer();
     }
-	public function pageCategory($catname='', $caid=0){
+    public function actionRouter($catname, $catid){
+        if($catid > 0 && $catname != ''){
+            $arrCat = Category::getById($catid);
+            if(sizeof($arrCat) > 0){
+                $typeId = $arrCat->category_type;
+
+                if($typeId == CGlobal::category_product){
+                    return self::pageCategoryProduct($catname, $catid);
+                }elseif($typeId == CGlobal::category_new){
+                    return self::pageCategoryNews($catname, $catid);
+                }
+            }else{
+                return Redirect::route('site.page404');
+            }
+        }else{
+            return Redirect::route('site.page404');
+        }
+    }
+    public function actionTypeProduct($type_name='', $type_id=0){
+        $arrCat = array(
+            'category_id'=>0,
+            'category_name'=>'',
+        );
+        $type = $arrItem = array();
+        $paging = '';
+        $meta_title = $meta_keywords = $meta_description = CGlobal::web_name;
+        $meta_img = '';
+        if($type_id > 0){
+            $type = Department::getByID($type_id);
+            if(sizeof($type) > 0){
+                $meta_title = stripslashes($type->department_name);
+                $meta_keywords = stripslashes($type->department_name);
+                $meta_description = stripslashes($type->department_name);
+            }
+        }
+        FunctionLib::SEO($meta_img, $meta_title, $meta_keywords, $meta_description);
+
+        $this->header(0);
+        $this->layout->content = View::make('site.SiteLayouts.pageTypeProduct')
+                                ->with('type', $type)
+                                ->with('arrItem', $arrItem)
+                                ->with('arrCat', $arrCat)
+                                ->with('paging', $paging);
+        $this->footer();
+    }
+    public function pageCategoryProduct($catname='', $caid=0){
+        $arrCat = array(
+            'category_id'=>0,
+            'category_name'=>'',
+        );
+        $arrItem = array();
+        $paging = '';
+        $meta_title = $meta_keywords = $meta_description = CGlobal::web_name;
+        $meta_img = '';
+
+        if($caid > 0){
+            $arrCat = Category::getByID($caid);
+            if(sizeof($arrCat) > 0){
+                $meta_title = stripslashes($arrCat->category_name);
+                $meta_keywords = stripslashes($arrCat->category_meta_keywords);
+                $meta_description = stripslashes($arrCat->category_meta_description);
+            }
+
+            $pageNo = (int) Request::get('page_no',1);
+            $limit = CGlobal::number_show_20;
+            $offset = ($pageNo - 1) * $limit;
+            $search = $data = array();
+            $total = 0;
+
+            $search['category_id'] = $catname;
+            if($caid > 0){
+                $arrCats[0] = $caid;
+                Category::makeListCatId($caid, 0, $arrCats);
+                if(!empty($arrCats)){
+                    $search['category_id'] = $arrCats;
+                }
+            }else{
+                $search['category_id'] = (int)$caid;
+            }
+            $arrItem = Product::searchByConditionSite($search, $limit, $offset,$total);
+            $paging = $total > 0 ? Pagging::getNewPager(3, $pageNo, $total, $limit, $search) : '';
+
+        }
+        FunctionLib::SEO($meta_img, $meta_title, $meta_keywords, $meta_description);
+
+        $this->header($caid);
+        $this->layout->content = View::make('site.SiteLayouts.pageCategoryProduct')
+            ->with('arrItem', $arrItem)
+            ->with('arrCat', $arrCat)
+            ->with('paging', $paging);
+        $this->footer();
+    }
+    public function pageDetailProduct(){
+        echo 'Product detail';die;
+    }
+	public function pageCategoryNews($catname='', $caid=0){
         $arrCat = array(
             'category_id'=>0,
             'category_name'=>'',
@@ -92,7 +187,7 @@ class SiteHomeController extends BaseSiteController{
                                 ->with('arrCatRight', $arrCatRight);
         $this->footer();
 	}
-    public function pageDetailNew($catname='', $title='', $id=0){
+    public function pageDetailNews($catname='', $title='', $id=0){
         $item = array();
         $arrCat = array();
         $meta_title = $meta_keywords = $meta_description = '';

@@ -6,7 +6,7 @@
 * @Version   : 1.0
 */
 
-//Home
+//Index
 Route::any('/', array('as' => 'site.home','uses' => 'SiteHomeController@index'));
 Route::get('404.html',array('as' => 'site.page404','uses' =>'SiteHomeController@page404'));
 Route::get('tim-kiem.html',array('as' => 'site.searchItems','uses' =>'SiteHomeController@searchItems'));
@@ -16,9 +16,17 @@ Route::match(['GET','POST'],'lien-he.html',array('as' => 'site.pageContact','use
 Route::get('video.html',array('as' => 'site.pageVideo','uses' =>'SiteHomeController@pageVideo'));
 Route::match(['GET','POST'],'thu-vien-video/{video_title}-{video_id}.html',array('as' => 'site.pageVideoDetail','uses' =>'SiteHomeController@pageVideoDetail'))->where('video_title', '[A-Z0-9a-z_\-]+')->where('video_id', '[0-9]+');
 
-//Category News
-Route::get('{name}-{id}.html',array('as' => 'site.pageCategory','uses' =>'SiteHomeController@pageCategory'))->where('name', '[A-Z0-9a-z_\-]+')->where('id', '[0-9]+');
-Route::get('{catname}/{news_title}-{new_id}.html',array('as' => 'site.pageDetailNew','uses' =>'SiteHomeController@pageDetailNew'))->where('catname', '[A-Z0-9a-z_\-]+')->where('news_title', '[A-Z0-9a-z_\-]+')->where('new_id', '[0-9]+');
+//Type Product
+Route::get('phan-loai/{name}-{id}.html',array('as' => 'site.actionTypeProduct','uses' =>'SiteHomeController@actionTypeProduct'))->where('name', '[A-Z0-9a-z_\-]+')->where('id', '[0-9]+');
+
+//Category
+Route::get('{name}-{id}.html',array('as' => 'site.actionRouter','uses' =>'SiteHomeController@actionRouter'))->where('name', '[A-Z0-9a-z_\-]+')->where('id', '[0-9]+');
+
+//Product Detail
+Route::get('san-pham/{name}-{id}.html',array('as' => 'site.pageDetailProduct','uses' =>'SiteHomeController@pageDetailProduct'))->where('name', '[A-Z0-9a-z_\-]+')->where('id', '[0-9]+');
+
+//News Detail
+Route::get('{catname}/{news_title}-{new_id}.html',array('as' => 'site.pageDetailNew','uses' =>'SiteHomeController@pageDetailNews'))->where('catname', '[A-Z0-9a-z_\-]+')->where('news_title', '[A-Z0-9a-z_\-]+')->where('new_id', '[0-9]+');
 
 //Care Customer
 Route::get('cham-soc-khach-hang.html',array('as' => 'site.pageCareCustomer','uses' =>'SiteHomeController@pageCareCustomer'));
