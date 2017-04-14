@@ -10,7 +10,7 @@ class Product extends Eloquent
     public $timestamps = false;
 
     //cac truong trong DB
-    protected $fillable = array('product_id','product_code', 'product_name', 'category_name', 'depart_id','category_id','provider_id',
+    protected $fillable = array('product_id','product_code', 'product_name', 'category_name', 'depart_id','category_id','category_parent_id','provider_id',
         'product_price_sell', 'product_price_market', 'product_price_input', 'product_price_provider_sell','product_type_price','product_selloff',
         'product_is_hot', 'product_sort_desc', 'product_content','product_image','product_image_hover','product_image_other',
         'product_order', 'quality_input','quality_out','product_status','is_block','is_sale',

@@ -233,6 +233,7 @@ class ProductController extends BaseAdminController
         //FunctionLib::debug($dataSave);
         if($this->validInforProduct($dataSave) && empty($this->error)) {
             $dataSave['category_name'] = Category::getCategoryNameByID($dataSave['category_id']);
+            $dataSave['category_parent_id'] = Category::getParentIdByCategoryId($dataSave['category_id']);
             if($product_id > 0) {
                 //cap nhat
                 $dataSave['time_update'] = time();
