@@ -17,7 +17,40 @@ var Order = {
                 tong_money = parseInt(tong_money) + parseInt($(this).val());
             });
             $('#sys_total_money').html(Order.numberFormat(tong_money) + 'đ');
+
+
+            //hiển thị tổng số lượng sản phẩm
+            var tong_sp = 0;
+            $('input.number_buy_product').each(function() {
+                tong_sp = parseInt(tong_sp) + parseInt($(this).val());
+            });
+            $('#sys_total_number_buy_product').html(Order.numberFormat(tong_sp));
+
+            //tổng tiền + ship
+            var order_money_ship = $('#sys_order_money_ship').val();
+            order_money_ship = parseInt(order_money_ship.replace(/[., đ]/g, ''));
+            var total_order_money = parseInt(tong_money);
+            if(parseInt(order_money_ship) > 0){
+                var total_order_money = parseInt(tong_money)+ parseInt(order_money_ship);
+            }
+            $('#sys_total_order_money').html(Order.numberFormat(total_order_money) + 'đ');
         }
+    },
+    changeNumberMoneyShip:function(){
+        //hiển thị lại tổng tiền
+        var tong_money = 0;
+        $('input.total_product_price_sell_hiden').each(function() {
+            tong_money = parseInt(tong_money) + parseInt($(this).val());
+        });
+
+        //tổng tiền + ship
+        var order_money_ship = $('#sys_order_money_ship').val();
+        order_money_ship = parseInt(order_money_ship.replace(/[., đ]/g, ''));
+        var total_order_money = parseInt(tong_money);
+        if(parseInt(order_money_ship) > 0){
+            var total_order_money = parseInt(tong_money)+ parseInt(order_money_ship);
+        }
+        $('#sys_total_order_money').html(Order.numberFormat(total_order_money) + 'đ');
     },
     getInforProduct:function(){
         var order_product_id = $('#sys_order_product_id').val();

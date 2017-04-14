@@ -106,9 +106,18 @@ class ManagerOrderController extends BaseAdminController
                 return Redirect::route('admin.managerOrderView');
             }
         }
+
+        $optionCodOder = FunctionLib::getOption($this->arrCodOder, (isset($data->order_is_cod))?$data->order_is_cod :CGlobal::order_cod_chuagiao);
+        $optionStatusOder = FunctionLib::getOption($this->arrStatusOder, (isset($data->order_status))?$data->order_status :CGlobal::order_status_new);
+        $optionTypeOder = FunctionLib::getOption($this->arrTypeOder, (isset($data->order_type))?$data->order_type :CGlobal::order_type_shop);
+
         $this->layout->content = View::make('admin.ManagerOrder.detailOrder')
             ->with('id', $order_id)
             ->with('data', $data)
+            ->with('optionCodOder', $optionCodOder)
+            ->with('optionStatusOder', $optionStatusOder)
+            ->with('optionTypeOder', $optionTypeOder)
+
             ->with('arrCodOder', $this->arrCodOder)
             ->with('arrStatusOder', $this->arrStatusOder)
             ->with('arrTypeOder', $this->arrTypeOder)
@@ -123,9 +132,10 @@ class ManagerOrderController extends BaseAdminController
         if($order_id > 0) {
             $data = Order::getOrderById($order_id);
         }
-        $optionCodOder = FunctionLib::getOption($this->arrCodOder, CGlobal::order_cod_chuagiao);
-        $optionStatusOder = FunctionLib::getOption($this->arrStatusOder, CGlobal::order_status_new);
-        $optionTypeOder = FunctionLib::getOption($this->arrTypeOder, CGlobal::order_type_shop);
+        //FunctionLib::debug($data);
+        $optionCodOder = FunctionLib::getOption($this->arrCodOder, (isset($data->order_is_cod))?$data->order_is_cod :CGlobal::order_cod_chuagiao);
+        $optionStatusOder = FunctionLib::getOption($this->arrStatusOder, (isset($data->order_status))?$data->order_status :CGlobal::order_status_new);
+        $optionTypeOder = FunctionLib::getOption($this->arrTypeOder, (isset($data->order_type))?$data->order_type :CGlobal::order_type_shop);
 
         $this->layout->content = View::make('admin.ManagerOrder.addOrder')
             ->with('id', $order_id)
@@ -146,6 +156,10 @@ class ManagerOrderController extends BaseAdminController
         $productOrder = array();
         $total_product = 0;
         $total_money = 0;
+        /*********************************************************************************************
+         * thêm đơn hàng mới
+         * *******************************************************************************************
+         */
 
         $dataOrder['order_customer_name'] = Request::get('order_customer_name','');
         $dataOrder['order_customer_phone'] = Request::get('order_customer_phone','');
@@ -190,22 +204,38 @@ class ManagerOrderController extends BaseAdminController
                     }
                 }
             }
-            $dataOrder['order_total_money'] = $total_money;
+            $order_money_ship = (int)str_replace('.','',Request::get('order_money_ship'));
+            $dataOrder['order_total_money'] = (int)($total_money+$order_money_ship);
             $dataOrder['order_total_buy'] = $total_product;
             $dataOrder['order_product_id'] = (!empty($productOrder))? join(',',array_keys($productOrder)):'';
             $dataOrder['order_money_ship'] = (int)str_replace('.','',Request::get('order_money_ship'));
         }
         //FunctionLib::debug($dataOrder);
         if(!empty($productOrder)){
-            //thêm đơn hàng
-            $dataOrder['order_time_creater'] = time();
-            $orderId = Order::addData($dataOrder);
-            if($orderId){
-                foreach($productOrder as $proId => $arrOrderItem){
-                    $arrOrderItem['order_id'] = $orderId;
-                    OrderItem::addData($arrOrderItem);
+            //sửa thông tin đơn hàng
+            if((int)$order_id > 0){
+                //cap nhat đơn hàng
+                $OrderIdUpdate = Order::updateData($order_id,$dataOrder);
+                if($OrderIdUpdate){
+                    //cập nhât Order Item sản phẩm
+                    foreach($productOrder as $proId => $arrOrderItem){
+                        OrderItem::updateData($order_id,$proId,$arrOrderItem);
+                    }
+                    return Redirect::route('admin.managerOrderView');
                 }
             }
+            //thêm đơn hàng
+            elseif((int)$order_id == 0){
+                $dataOrder['order_time_creater'] = time();
+                $orderId = Order::addData($dataOrder);
+                if($orderId){
+                    foreach($productOrder as $proId => $arrOrderItem){
+                        $arrOrderItem['order_id'] = $orderId;
+                        OrderItem::addData($arrOrderItem);
+                    }
+                }
+            }
+
             return Redirect::route('admin.managerOrderView');
         }else{
             return Redirect::route('admin.managerOrderView');

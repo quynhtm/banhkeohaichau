@@ -181,8 +181,11 @@
                                     @if($is_root || $permission_full || $permission_view_detail)
                                         <a href="{{URL::route('admin.detailOrder',array('order_id' => $item->order_id))}}" title="Chi tiết đơn hàng"><i class="fa fa-file-text-o fa-2x"></i></a>
                                     @endif
+                                    @if($is_root || $permission_full || $permission_edit ==1  )
+                                        &nbsp;&nbsp;<a href="{{URL::route('admin.addOrder',array('order_id' => $item->order_id))}}" title="Sửa item"><i class="fa fa-edit fa-2x"></i></a>
+                                    @endif
                                     @if($is_root || $permission_full || $permission_delete)
-                                        &nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" onclick="Admin.deleteItem({{$item->order_id}},8)" title="Xóa Item"><i class="fa fa-trash fa-2x"></i></a>
+                                        &nbsp;&nbsp;<a href="javascript:void(0);" onclick="Admin.deleteItem({{$item->order_id}},8)" title="Xóa Item"><i class="fa fa-trash fa-2x"></i></a>
                                      @endif
                                     <span class="img_loading" id="img_loading_{{$item->order_id}}"></span>
 
