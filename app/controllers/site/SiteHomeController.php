@@ -41,7 +41,6 @@ class SiteHomeController extends BaseSiteController{
             $arrCat = Category::getById($catid);
             if(sizeof($arrCat) > 0){
                 $typeId = $arrCat->category_type;
-
                 if($typeId == CGlobal::category_product){
                     return self::pageCategoryProduct($catname, $catid);
                 }elseif($typeId == CGlobal::category_new){
@@ -70,6 +69,22 @@ class SiteHomeController extends BaseSiteController{
                 $meta_keywords = stripslashes($type->department_name);
                 $meta_description = stripslashes($type->department_name);
             }
+
+            //Get All Category In Type
+            $arrCates = Category::getAllCategoryInDepartId($type_id);
+            if(sizeof($arrCates) > 0) {
+                $listKeyCate = array_keys($arrCates);
+
+                $pageNo = (int) Request::get('page_no',1);
+                $limit = CGlobal::number_show_20;
+                $offset = ($pageNo - 1) * $limit;
+                $search = $data = array();
+                $total = 0;
+
+                $search['category_id'] = $listKeyCate;
+                $arrItem = Product::searchByConditionSite($search, $limit, $offset,$total);
+                $paging = $total > 0 ? Pagging::getNewPager(3, $pageNo, $total, $limit, $search) : '';
+            }
         }
         FunctionLib::SEO($meta_img, $meta_title, $meta_keywords, $meta_description);
 
@@ -79,6 +94,7 @@ class SiteHomeController extends BaseSiteController{
                                 ->with('arrItem', $arrItem)
                                 ->with('arrCat', $arrCat)
                                 ->with('paging', $paging);
+        $this->consult();
         $this->footer();
     }
     public function pageCategoryProduct($catname='', $caid=0){
@@ -126,6 +142,7 @@ class SiteHomeController extends BaseSiteController{
             ->with('arrItem', $arrItem)
             ->with('arrCat', $arrCat)
             ->with('paging', $paging);
+        $this->consult();
         $this->footer();
     }
     public function pageDetailProduct(){

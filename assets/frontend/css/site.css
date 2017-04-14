@@ -590,8 +590,10 @@ h1, h2, h3, h4, h5, h6{
     margin-top: 10px;
     text-align: center;
 }
-.box-list-item .one-item .idesc .ititle{
+.box-list-item .one-item .idesc .ititle {
     font-size: 15px;
+    height: 42px;
+    overflow: hidden;
 }
 .box-list-item .one-item .idesc .iprice{
     color: #fe4133;
@@ -1514,4 +1516,10 @@ h1, h2, h3, h4, h5, h6{
 }
 .content-post-line-product {
     min-height: 500px;
+}
+.content-post-line-product .one-item{
+    width: 18.5%;
+    margin-right: 1.5%;
+    float: left;
+    margin-bottom: 20px;
 }

@@ -265,6 +265,7 @@ class Category extends Eloquent
         Cache::forget(Memcache::CACHE_ALL_SHOW_CATEGORY_FRONT);
         Cache::forget(Memcache::CACHE_ALL_CATEGORY_BY_TYPE.$data->category_type);
         Cache::forget(Memcache::CACHE_ALL_CATEGORY_RIGHT);
+        Cache::forget(Memcache::CACHE_ARRAY_CATEGORY_ID_BY_TYPE.$data->category_depart_id);
     }
 
     public static function getCategoriessAll(){
@@ -439,5 +440,21 @@ class Category extends Eloquent
             return $e->getMessage();
             throw new PDOException();
         }
+    }
+    public static function getAllCategoryInDepartId($depart_id = 0){
+        $data = (Memcache::CACHE_ON)? Cache::get(Memcache::CACHE_ARRAY_CATEGORY_ID_BY_TYPE.$depart_id) : array();
+        if(sizeof($data) == 0){
+            $result = Category::where('category_depart_id',$depart_id)->orderBy('category_id','asc')->get();
+            foreach($result as $itm) {
+                $data[$itm['category_id']] = $itm['category_name'];
+            }
+
+            if($data && Memcache::CACHE_ON){
+                Cache::put(Memcache::CACHE_ARRAY_CATEGORY_ID_BY_TYPE.$depart_id, $data, Memcache::CACHE_TIME_TO_LIVE_ONE_MONTH);
+            }
+
+            return $data;
+        }
+        return $data;
     }
 }

@@ -21,6 +21,7 @@ class Memcache{
     const CACHE_ALL_SHOW_CATEGORY_FRONT    = 'cache_all_show_category_front';
     const CACHE_ALL_CHILD_CATEGORY_BY_PARENT_ID    = 'cache_all_child_by_parent_id_';
     const CACHE_CATEGORY_ID    = 'cache_category_id_';
+    const CACHE_ARRAY_CATEGORY_ID_BY_TYPE    = 'cache_all_category_id_by_type_';
 
     const CACHE_ALL_CATEGORY_BY_TYPE = 'cache_all_category_by_type_';
     const CACHE_ALL_CATEGORY_RIGHT = 'cache_all_category_right';

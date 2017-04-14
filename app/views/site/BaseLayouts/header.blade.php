@@ -21,7 +21,9 @@
             </h1>
         @else
             <div id="logo">
-                <img src="{{URL::route('site.home')}}/assets/frontend/img/logo.png" alt="{{CGlobal::web_name}}">
+                <a href="{{URL::route('site.home')}}">
+                    <img src="{{URL::route('site.home')}}/assets/frontend/img/logo.png" alt="{{CGlobal::web_name}}">
+                </a>
             </div>
         @endif
         <div class="box-search">
