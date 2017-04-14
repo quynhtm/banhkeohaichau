@@ -365,4 +365,28 @@ class Product extends Eloquent
             throw new PDOException();
         }
     }
+    //get news same
+    public static function getSameProduct($dataField=array(), $catid=0, $id=0, $limit=10){
+        try{
+            $result = array();
+
+            if($catid>0 && $id>0 && $limit>0){
+                $query = Product::where('product_id','<>', $id);
+                $query->where('category_id', $catid);
+                $query->where('product_status', CGlobal::status_show);
+                $query->orderBy('product_id', 'desc');
+
+                $fields = (isset($dataField['field_get']) && trim($dataField['field_get']) != '') ? explode(',',trim($dataField['field_get'])): array();
+                if(!empty($fields)){
+                    $result = $query->take($limit)->get($fields);
+                }else{
+                    $result = $query->take($limit)->get();
+                }
+            }
+            return $result;
+
+        }catch (PDOException $e){
+            throw new PDOException();
+        }
+    }
 }

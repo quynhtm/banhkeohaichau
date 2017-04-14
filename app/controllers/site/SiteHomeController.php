@@ -133,8 +133,35 @@ class SiteHomeController extends BaseSiteController{
         $this->consult();
         $this->footer();
     }
-    public function pageDetailProduct(){
-        echo 'Product detail';die;
+    public function pageDetailProduct($title='', $id=0){
+        $item = array();
+        $arrCat = array();
+        $meta_title = $meta_keywords = $meta_description = '';
+        $meta_img = '';
+        $newsSame = array();
+        $catid = 0;
+
+        if($id > 0){
+            $item = Product::getProductByID($id);
+            if(sizeof($item) > 0){
+                $arrCat = Category::getByID($item->category_id);
+                if(sizeof($arrCat) > 0){
+                    $catid = $arrCat->category_id;
+                }
+                $meta_title = stripslashes($item->product_name);
+                $meta_keywords = stripslashes($item->product_name);
+                $meta_description = stripslashes($item->product_sort_desc);
+                $productSame = Product::getSameProduct(array(), $item->category_id, $item->product_id, CGlobal::number_show_20, 0);
+            }
+        }
+        FunctionLib::SEO($meta_img, $meta_title, $meta_keywords, $meta_description);
+
+        $this->header($catid);
+        $this->layout->content = View::make('site.SiteLayouts.pageProductDetail')
+            ->with('data', $item)
+            ->with('arrCat', $arrCat)
+            ->with('productSame', $productSame);
+        $this->footer();
     }
 	public function pageCategoryNews($catname='', $caid=0){
         $arrCat = array(
