@@ -82,48 +82,40 @@
 .slick-vertical .slick-slide{
     display: block;
     height: auto;
-    border: 1px solid #ddd;
-	margin:5px 0;
+    border: 1px solid transparent;
 }
 .slick-arrow.slick-hidden{
     display: none;
 }
-/*Config list other image in item detail*/
-.list-thumb-img .slick-arrow{
+/*Config*/
+.slick-arrow{
     background-color: rgba(0, 0, 0, 0.51);
     border: medium none;
-    border-radius: 100%;
     color: #fff;
-    height: 20px;
-    opacity: 0;
+    height: 30px;
     outline: medium none !important;
     padding: 0;
     position: absolute;
     text-align: center;
-    top: 32%;
     transition: all 0.2s ease-in-out 0s;
-    width: 20px;
+    width: 15px;
+    z-index: 100;
+	opacity: 0;
+	top: 32%;
     z-index: 2;
 }
-.list-thumb-img #slick:hover .slick-arrow{
+#slick:hover .slick-arrow{
 	opacity: 1;
 }
-.list-thumb-img .slick-prev{
-    bottom: auto;
-    left: 35%;
-    top: -5px;
+.slick-prev{
+    left: -5px;
 }
-.list-thumb-img .slick-next{
-	bottom: -5px;
-    left: 35%;
-    top: auto;
+.slick-next{
+	right: -5px;
 }
-.list-thumb-img #slick:hover .slick-prev{
-    top: 0;
+#slick:hover .slick-prev{
+	left:0px;
 }
-.list-thumb-img #slick:hover .slick-next{
-	bottom: 0px;
-}
-.list-thumb-img .slick-vertical .slick-slide.act {
-    border: 1px solid #ff0000;
+#slick:hover .slick-next{
+	right:0px;
 }

@@ -2,7 +2,6 @@
 class SiteHomeController extends BaseSiteController{
     public function __construct(){
         parent::__construct();
-        FunctionLib::site_js('lib/swfObject/swfObject.js', CGlobal::$POS_HEAD);
     }
 
 	//Trang chu
@@ -134,6 +133,10 @@ class SiteHomeController extends BaseSiteController{
         $this->footer();
     }
     public function pageDetailProduct($title='', $id=0){
+
+        FunctionLib::site_css('lib/slickslider/slick.css', CGlobal::$POS_HEAD);
+        FunctionLib::site_js('lib/slickslider/slick.min.js', CGlobal::$POS_END);
+
         $item = array();
         $arrCat = array();
         $meta_title = $meta_keywords = $meta_description = '';

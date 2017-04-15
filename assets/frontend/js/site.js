@@ -1,6 +1,7 @@
 jQuery(document).ready(function($){
 	SITE.backTop();
 	SITE.contact();
+	SITE.tab_detail_product();
 });
 
 SITE={
@@ -85,5 +86,14 @@ SITE={
             var img = document.images['imageCaptchar'];
             img.src = img.src.substring(0,img.src.lastIndexOf("?"))+"?rand="+Math.round(1000*Math.random());
 		});
-	}
+	},
+    tab_detail_product:function(){
+        jQuery('.conditions-tab li').click(function(){
+            var tab_select = jQuery(this).attr('data');
+            jQuery('.conditions-tab li').removeClass('selected');
+            jQuery(this).addClass('selected');
+            jQuery('.content-tab .item-tab').removeClass('act');
+            jQuery('.content-tab .item-tab.'+tab_select).addClass('act');
+        });
+    },
 }
