@@ -137,6 +137,9 @@ class SiteHomeController extends BaseSiteController{
         FunctionLib::site_css('lib/slickslider/slick.css', CGlobal::$POS_HEAD);
         FunctionLib::site_js('lib/slickslider/slick.min.js', CGlobal::$POS_END);
 
+        FunctionLib::site_css('lib/slidermagnific/magnific-popup.css', CGlobal::$POS_HEAD);
+        FunctionLib::site_js('lib/slidermagnific/magnific-popup.min.js', CGlobal::$POS_END);
+
         $item = array();
         $arrCat = array();
         $meta_title = $meta_keywords = $meta_description = '';
@@ -159,11 +162,19 @@ class SiteHomeController extends BaseSiteController{
         }
         FunctionLib::SEO($meta_img, $meta_title, $meta_keywords, $meta_description);
 
+        $guide = '';
+        $arrGuide = Info::getItemByKeyword('SITE_GUIDE_BUY');
+        if(sizeof($arrGuide) > 0){
+            $guide = stripslashes($arrGuide->info_content);
+        }
+
+
         $this->header($catid);
         $this->layout->content = View::make('site.SiteLayouts.pageProductDetail')
             ->with('data', $item)
             ->with('arrCat', $arrCat)
-            ->with('productSame', $productSame);
+            ->with('productSame', $productSame)
+            ->with('guide', $guide);
         $this->footer();
     }
 	public function pageCategoryNews($catname='', $caid=0){

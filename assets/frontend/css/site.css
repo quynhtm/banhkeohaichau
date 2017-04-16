@@ -600,7 +600,7 @@ h1, h2, h3, h4, h5, h6{
     font-weight: bold;
     font-size: 16px;
 }
-.box-list-item .one-item .ibuy {
+.ibuy {
     background: #89122b;
     border-radius: 10px;
     padding: 2px 15px 2px 2px;
@@ -609,7 +609,7 @@ h1, h2, h3, h4, h5, h6{
     margin-top: 10px;
     line-height: 30px;
 }
-.box-list-item .one-item .ibuy i {
+.ibuy i {
     border-radius: 100%;
     width: 30px;
     height: 30px;
@@ -1599,21 +1599,9 @@ h1, h2, h3, h4, h5, h6{
     text-decoration: line-through;
 }
 .list-button-view {
-    background: #fcfcf3 url("../img/texture.png") repeat scroll left top;
-    border: 1px solid #f1d3ac;
     display: inline-block;
-    padding: 8px;
-}
-.btn-add-cart.btn-primary {
-    background: #fff;
-    border: 1px dashed #ea4647;
-    color: #cc0000;
-    cursor: pointer;
-    display: inline-block;
-    font-size: 15px;
-    font-style: italic;
-    font-weight: bold;
-    padding: 10px 15px;
+    width: 100%;
+    clear: both;
 }
 .show-intro {
     border-top: 1px solid #f4f4f4;
@@ -1694,4 +1682,8 @@ h1, h2, h3, h4, h5, h6{
     width: 22.5%;
     margin-right: 1.55%;
     margin-bottom: 15px;
+}
+.title-post-same {
+    font-size: 20px;
+    font-weight: 700;
 }
