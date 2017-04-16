@@ -389,4 +389,24 @@ class Product extends Eloquent
             throw new PDOException();
         }
     }
+
+    public static function getProductHotRandom($id=0, $limit=10){
+        $result = array();
+        try{
+            if($limit > 0){
+                $query = Product::where('product_id','>', 0);
+                $query->where('product_status', CGlobal::status_show);
+                $query->where('product_is_hot', CGlobal::PRODUCT_HOT);
+                if($id > 0){
+                    $query->where('product_id', '<>', $id);
+                }
+                $query->orderBy(DB::raw('RAND()'));
+                $result = $query->take($limit)->get();
+            }
+
+        }catch (PDOException $e){
+            throw new PDOException();
+        }
+        return $result;
+    }
 }

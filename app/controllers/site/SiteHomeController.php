@@ -168,13 +168,15 @@ class SiteHomeController extends BaseSiteController{
             $guide = stripslashes($arrGuide->info_content);
         }
 
+        $dataProductHot = Product::getProductHotRandom($id, CGlobal::number_show_5);
 
         $this->header($catid);
         $this->layout->content = View::make('site.SiteLayouts.pageProductDetail')
             ->with('data', $item)
             ->with('arrCat', $arrCat)
             ->with('productSame', $productSame)
-            ->with('guide', $guide);
+            ->with('guide', $guide)
+            ->with('dataProductHot', $dataProductHot);
         $this->footer();
     }
 	public function pageCategoryNews($catname='', $caid=0){

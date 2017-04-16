@@ -1644,7 +1644,7 @@ h1, h2, h3, h4, h5, h6{
     padding: 0 30px;
 }
 .conditions-tab ul li.selected {
-    background: #666;
+    background: #00589d;
     color: #ffffff;
 }
 .title-hot-other{
@@ -1686,4 +1686,50 @@ h1, h2, h3, h4, h5, h6{
 .title-post-same {
     font-size: 20px;
     font-weight: 700;
+}
+.item-product {
+    border: 2px solid #f5f5f5;
+    border-radius: 2px;
+    clear: both;
+    display: inline-block;
+    margin-bottom: 15px;
+    padding: 5px;
+    width: 100%;
+    position: relative;
+    text-align: center;
+    padding-bottom:10px;
+}
+.item-product .product-img {
+    height: 255px;
+    overflow: hidden;
+}
+.item-product .product-img img {
+    background-color: #f7f7f7;
+    position: relative;
+    width: 100%;
+    z-index: 1;
+    min-height: auto;
+    height: auto;
+}
+.item-product .product-name {
+    clear: both;
+    display: inline-block;
+    height: 30px;
+    overflow: hidden;
+    padding: 10px 0 0;
+    width: 100%;
+    color: #333;
+    font-size: 13px;
+    font-weight: bold;
+    text-decoration: none !important;
+    transition: all 0.3s ease-in-out 0s;
+}
+.item-product .product-price {
+    color: #c00;
+    font-size: 18px;
+    font-weight: 400;
+}
+.item-product:hover {
+    border: 2px solid #bc0000;
+    transition: border-color 0.2s ease-in 0s;
 }
