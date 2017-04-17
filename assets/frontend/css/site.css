@@ -1741,6 +1741,7 @@ h1, h2, h3, h4, h5, h6{
     padding: 5px 15px;
     border:1px solid transparent;
 }
+.box-list-category li:hover a,
 .box-list-category li a:hover{
     border-top:1px solid #b0616c;
     border-bottom:1px solid #b0616c;
@@ -1750,6 +1751,7 @@ h1, h2, h3, h4, h5, h6{
     z-index: 1001;
     background: #89122b;
 }
+.box-list-category li:hover a i,
 .box-list-category li a:hover i{
     display: none;
 }
@@ -1784,11 +1786,14 @@ h1, h2, h3, h4, h5, h6{
 }
 .list-subcat ul {
     float: left;
-    width: 45% !important;
+    width: 100%;
     padding-top: 5px;
 }
 .box-list-category .list-subcat li {
-    white-space: nowrap;
+    width: 30%;
+    display: inline-block;
+    margin-right: 10px;
+    vertical-align: top;
 }
 .box-list-category .list-subcat li a{
     border: none;

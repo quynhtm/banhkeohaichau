@@ -27,10 +27,13 @@ class BaseSiteController extends BaseController{
             $numCategoryHorizontal = (int)strip_tags(stripslashes($numCategoryShowHorizontal->info_content));
         }
         $menuCateHorizontal = Category::getAllCategoryByType(CGlobal::category_new, $numCategoryHorizontal);
+        $menuCateVertical = Category::getAllCategoryByType(CGlobal::category_product, 0);
+
     	$this->layout->header = View::make("site.BaseLayouts.header")
                                 ->with('catid', $catid)
                                 ->with('hotline', $hotline)
-                                ->with('menuCateHorizontal', $menuCateHorizontal);
+                                ->with('menuCateHorizontal', $menuCateHorizontal)
+                                ->with('menuCateVertical', $menuCateVertical);
     }
     public function middle(){
 
@@ -44,9 +47,12 @@ class BaseSiteController extends BaseController{
         $arrBannerSub = Banner::getBannerAdvanced(CGlobal::BANNER_TYPE_SLIDE_SUB);
         $arrBannerSubRight = $this->getBannerWithPosition($arrBannerSub);
 
+        $menuCateVertical = Category::getAllCategoryByType(CGlobal::category_product, 0);
+
         $this->layout->middle = View::make("site.BaseLayouts.middle")
                                 ->with('arrBannerSlider', $arrBannerSlider)
-                                ->with('arrBannerSubRight', $arrBannerSubRight);
+                                ->with('arrBannerSubRight', $arrBannerSubRight)
+                                ->with('menuCateVertical', $menuCateVertical);
     }
     public function consult(){
 

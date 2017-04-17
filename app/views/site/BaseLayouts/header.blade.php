@@ -51,33 +51,42 @@
                 <span class="txt-title-category">Danh mục sản phẩm</span>
                 @if(Route::currentRouteName() != 'site.home')
                 <div class="box-list-category dropdown">
-                    <ul>
-                        <li><a href="">Bánh hộp tết <i class="fa fa-angle-right"></i></a>
-                            <div class="list-subcat" style="background: #89122b">
-                                <ul>
-                                    <li><a href="" title="Mứt tết">Mứt tết</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li><a href="">Bánh trung thu <i class="fa fa-angle-right"></i></a>
-                            <div class="list-subcat" style="background: #89122b">
-                                <ul>
-                                    <li><a href="" title="Hộp bánh kem xốp phủ sô cô la Classic">Hộp bánh kem xốp phủ sô cô la Classic</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li><a href="">Bánh Kem xốp</a></li>
-                        <li><a href="">Bánh Quy và cookies</a></li>
-                        <li><a href="">Bột canh và Hạt nêm</a></li>
-                        <li><a href="">Lương Khô</a></li>
-                        <li><a href="">Kẹo hộp</a></li>
-                        <li><a href="">Kẹo cứng</a></li>
-                        <li><a href="">Kẹo mềm</a></li>
-                        <li><a href="">Kẹo dẻo</a></li>
-                        <li><a href="">Đường - sữa</a></li>
-                        <li><a href="">Sản phẩm khác</a></li>
-                    </ul>
-                    <div class="link-last"><a href="">Xem tất cả</a></div>
+                    @if(sizeof($menuCateVertical) > 0)
+                        <ul>
+                            <?php $i=1; ?>
+                            @foreach($menuCateVertical as $cat)
+                                @if($cat->category_menu_status == CGlobal::status_show && $cat->category_parent_id == 0 && $i <= 14)
+                                    <?php $s=1; ?>
+                                    <?php
+                                    $i++;
+                                    foreach($menuCateVertical as $sub){
+                                        if($sub->category_parent_id == $cat->category_id && $sub->category_menu_status == CGlobal::status_show){
+                                            $s++;
+                                        }
+                                    }
+                                    ?>
+                                    <li><a href="{{FunctionLib::buildLinkCategory($cat->category_id, $cat->category_name)}}">{{$cat->category_name}}
+                                            @if($s > 1)
+                                                <i class="fa fa-angle-right"></i>
+                                            @endif
+                                        </a>
+                                        @if($s > 1)
+                                            <div class="list-subcat" style="background: #89122b">
+                                                <ul>
+                                                    @foreach($menuCateVertical as $sub)
+                                                        @if($sub->category_menu_status == CGlobal::status_show && $sub->category_parent_id == $cat->category_id && $sub->category_parent_id > 0)
+                                                            <li><a href="{{FunctionLib::buildLinkCategory($sub->category_id, $sub->category_name)}}">{{$sub->category_name}}</a></li>
+                                                        @endif
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        @endif
+                                    </li>
+                                @endif
+                            @endforeach
+                        </ul>
+                        <div class="link-last"><a href="#">Xem tất cả</a></div>
+                    @endif
                 </div>
                 @endif
             </div>
