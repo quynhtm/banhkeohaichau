@@ -37,10 +37,22 @@
                 <li class="box-radius box-cart"><a href=""><i class="bg"></i> Giỏ hàng <span>25</span></a></li>
                 <li class="box-radius box-favorite"><a href=""><i class="bg"></i> Yêu thích <span>10</span></a></li>
             </ul>
-            <ul class="box-reg line text-right">
-                <li class="box-radius clickLogin"><a href="javascript:void(0);">Đăng nhập</a></li>
-                <li class="box-radius clickRegister"><a href="javascript:void(0);">Đăng ký</a></li>
-            </ul>
+            @if(empty($user_customer))
+                <ul class="box-reg line text-right">
+                    <li class="box-radius clickLogin"><a href="javascript:void(0);">Đăng nhập</a></li>
+                    <li class="box-radius clickRegister"><a href="javascript:void(0);">Đăng ký</a></li>
+                </ul>
+            @else
+                <div class="box-login">
+                    <div class="cpanel-page">
+                        <a href="javascript:void(0)" class="name-customer">Chào: {{isset($user_customer['customer_name']) ? $user_customer['customer_name'] : 'No Name'}}</a>
+                        <ul class="list-cpanel">
+                            <li><a href="{{URL::route('customer.pageChageInfo')}}" rel="nofollow"><i class="glyphicon glyphicon-align-left"></i> Thông tin cá nhân</a></li>
+                            <li><a href="{{URL::route('customer.logout')}}" rel="nofollow"><i class="glyphicon glyphicon-share-alt"></i> Thoát</a></li>
+                        </ul>
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
 </div>

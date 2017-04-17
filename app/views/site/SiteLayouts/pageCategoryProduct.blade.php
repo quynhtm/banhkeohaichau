@@ -1,6 +1,6 @@
 <div class="container">
 	<div class="post-page">
-		<div class="content-post-line-product">
+		<div class="content-post-line-product ext">
 			@if(sizeof($arrCat) > 0)
 			<h1 class="title-head cat">
 				<a href="{{FunctionLib::buildLinkCategory($arrCat->category_id, $arrCat->category_name)}}" title="{{$arrCat->category_name}}">{{$arrCat->category_name}}</a>

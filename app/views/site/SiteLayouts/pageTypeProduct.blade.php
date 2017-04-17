@@ -1,6 +1,6 @@
 <div class="container">
 	<div class="post-page">
-		<div class="content-post-line-product">
+		<div class="content-post-line-product ext">
 			<h1 class="title-head cat">
 				@if(sizeof($type) > 0)
 				<a href="{{FunctionLib::buildLinkTypeProduct($type->department_id, $type->department_name)}}" title="{{stripslashes($type->department_name)}}">{{stripslashes($type->department_name)}}</a>
