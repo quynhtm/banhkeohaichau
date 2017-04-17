@@ -3,27 +3,42 @@
         <div class="wrapp-line-bottom-head">
             <div class="line-bottom-head second">
             <div class="box-list-category">
+                @if(sizeof($menuCateVertical) > 0)
                 <ul>
-                    <li><a href="">Bánh hộp tết</a></li>
-                    <li><a href="">Bánh trung thu</a></li>
-                    <li><a href="">Bánh Kem xốp</a></li>
-                    <li>
-                        <a href="">Bánh Quy và cookies <i class="fa fa-angle-down"></i></a>
-                        <ul class="sub">
-                            <li><a href="">Bánh Quy</a></li>
-                            <li><a href="">Cookies</a></li>
-                        </ul>
+                    <?php $i=1; ?>
+                    @foreach($menuCateVertical as $cat)
+                    @if($cat->category_menu_status == CGlobal::status_show && $cat->category_parent_id == 0 && $i <= 14)
+                    <?php $s=1; ?>
+                    <?php
+                        $i++;
+                        foreach($menuCateVertical as $sub){
+                            if($sub->category_parent_id == $cat->category_id && $sub->category_menu_status == CGlobal::status_show){
+                                $s++;
+                            }
+                        }
+                    ?>
+                    <li><a href="{{FunctionLib::buildLinkCategory($cat->category_id, $cat->category_name)}}">{{$cat->category_name}}
+                         @if($s > 1)
+                            <i class="fa fa-angle-right"></i>
+                         @endif
+                        </a>
+                        @if($s > 1)
+                            <div class="list-subcat" style="background: #89122b">
+                                <ul>
+                                    @foreach($menuCateVertical as $sub)
+                                        @if($sub->category_menu_status == CGlobal::status_show && $sub->category_parent_id == $cat->category_id && $sub->category_parent_id > 0)
+                                        <li><a href="{{FunctionLib::buildLinkCategory($sub->category_id, $sub->category_name)}}">{{$sub->category_name}}</a></li>
+                                        @endif
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                     </li>
-                    <li><a href="">Bột canh và Hạt nêm</a></li>
-                    <li><a href="">Lương Khô</a></li>
-                    <li><a href="">Kẹo hộp</a></li>
-                    <li><a href="">Kẹo cứng</a></li>
-                    <li><a href="">Kẹo mềm</a></li>
-                    <li><a href="">Kẹo dẻo</a></li>
-                    <li><a href="">Đường - sữa</a></li>
-                    <li><a href="">Sản phẩm khác</a></li>
+                    @endif
+                    @endforeach
                 </ul>
-                <div class="link-last"><a href="">Xem tất cả</a></div>
+                <div class="link-last"><a href="#">Xem tất cả</a></div>
+                @endif
             </div>
             <div class="box-right-bottom-head">
                 <div class="line-top-head">

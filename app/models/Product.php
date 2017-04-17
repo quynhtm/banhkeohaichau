@@ -341,16 +341,15 @@ class Product extends Eloquent
         try{
             $query = Product::where('product_id','>',0);
             $query->where('product_status', CGlobal::status_show);
+
             if (isset($dataSearch['category_id']) && $dataSearch['category_id'] > 0) {
-                if(is_array($dataSearch['category_id']) && !empty($dataSearch['category_id'])){
-                    $query->whereIn('category_id', $dataSearch['category_id']);
-                }else{
-                    $query->where('category_id', $dataSearch['category_id']);
-                }
+                $query->where('category_id', $dataSearch['category_id']);
+                $query->orWhere('category_parent_id', $dataSearch['category_id']);
             }
-            if (isset($dataSearch['str_category_id']) && trim($dataSearch['str_category_id']) != '') {
-                $query->whereIn('category_id', explode(',',$dataSearch['str_category_id']));
+            if (isset($dataSearch['depart_id']) && $dataSearch['depart_id'] > 0) {
+                $query->where('depart_id', $dataSearch['depart_id']);
             }
+
             $total = $query->count();
             $query->orderBy('product_id', 'desc');
 
@@ -365,5 +364,49 @@ class Product extends Eloquent
         }catch (PDOException $e){
             throw new PDOException();
         }
+    }
+    //get news same
+    public static function getSameProduct($dataField=array(), $catid=0, $id=0, $limit=10){
+        try{
+            $result = array();
+
+            if($catid>0 && $id>0 && $limit>0){
+                $query = Product::where('product_id','<>', $id);
+                $query->where('category_id', $catid);
+                $query->where('product_status', CGlobal::status_show);
+                $query->orderBy('product_id', 'desc');
+
+                $fields = (isset($dataField['field_get']) && trim($dataField['field_get']) != '') ? explode(',',trim($dataField['field_get'])): array();
+                if(!empty($fields)){
+                    $result = $query->take($limit)->get($fields);
+                }else{
+                    $result = $query->take($limit)->get();
+                }
+            }
+            return $result;
+
+        }catch (PDOException $e){
+            throw new PDOException();
+        }
+    }
+
+    public static function getProductHotRandom($id=0, $limit=10){
+        $result = array();
+        try{
+            if($limit > 0){
+                $query = Product::where('product_id','>', 0);
+                $query->where('product_status', CGlobal::status_show);
+                $query->where('product_is_hot', CGlobal::PRODUCT_HOT);
+                if($id > 0){
+                    $query->where('product_id', '<>', $id);
+                }
+                $query->orderBy(DB::raw('RAND()'));
+                $result = $query->take($limit)->get();
+            }
+
+        }catch (PDOException $e){
+            throw new PDOException();
+        }
+        return $result;
     }
 }

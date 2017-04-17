@@ -64,6 +64,7 @@ class CGlobal{
         self::sizeImage_300 =>array('w'=>self::sizeImage_300,'h'=>self::sizeImage_300),
     	self::sizeImage_600 =>array('w'=>self::sizeImage_600,'h'=>self::sizeImage_600),//insert vao noi dung
         self::sizeImage_500 =>array('w'=>self::sizeImage_500,'h'=>self::sizeImage_300),
+        self::sizeImage_1000 =>array('w'=>self::sizeImage_1000,'h'=>self::sizeImage_1000),
     );
 
     //dinh nghĩa khung ảnh hiển thị bên ngoài

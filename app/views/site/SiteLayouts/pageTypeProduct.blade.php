@@ -1,6 +1,6 @@
 <div class="container">
 	<div class="post-page">
-		<div class="col-lg-12 col-md-2 col-sm-12 content-post-line-product">
+		<div class="content-post-line-product">
 			<h1 class="title-head cat">
 				@if(sizeof($type) > 0)
 				<a href="{{FunctionLib::buildLinkTypeProduct($type->department_id, $type->department_name)}}" title="{{stripslashes($type->department_name)}}">{{stripslashes($type->department_name)}}</a>
@@ -16,6 +16,7 @@
 										@if($item->product_image != '')
 											<img src="{{ThumbImg::getImageThumb(CGlobal::FOLDER_PRODUCT, $item->product_id, $item->product_image, CGlobal::sizeImage_600, '', true, 1, false)}}" alt="{{stripslashes($item->product_name)}}" />
 										@endif
+										<a class="fancybox" href="{{ThumbImg::getImageThumb(CGlobal::FOLDER_PRODUCT, $item->product_id, $item->product_image, CGlobal::sizeImage_1000, '', true, 1, false)}}"><i class="fa fa-search-plus"></i></a>
 									</div>
 									<div class="idesc">
 										<div class="ititle">{{stripslashes($item->product_name)}}</div>
@@ -32,7 +33,9 @@
 										</div>
 									</div>
 								</a>
-								<div class="ibuy" dataid="{{$item->product_id}}"><i></i>Mua hàng</div>
+								<a href="{{FunctionLib::buildLinkDetailProduct($item->product_id, $item->product_name)}}" title="{{stripslashes($item->product_name)}}">
+									<div class="ibuy" dataid="{{$item->product_id}}"><i></i>Mua hàng</div>
+								</a>
 							</div>
 						@endforeach
 					@endif
@@ -42,3 +45,14 @@
 		</div>
 	</div>
 </div>
+<script>
+    $(document).ready(function(){
+        $("a.fancybox").fancybox({
+            'transitionIn'	:	'elastic',
+            'transitionOut'	:	'elastic',
+            'speedIn'		:	600,
+            'speedOut'		:	200,
+            'overlayShow'	:	false
+        });
+    });
+</script>

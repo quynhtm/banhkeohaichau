@@ -2,12 +2,14 @@
 class SiteHomeController extends BaseSiteController{
     public function __construct(){
         parent::__construct();
-        FunctionLib::site_js('lib/swfObject/swfObject.js', CGlobal::$POS_HEAD);
     }
 
 	//Trang chu
     public function index(){
-		
+
+        FunctionLib::site_css('lib/fancybox/jquery.fancybox.css', CGlobal::$POS_HEAD);
+        FunctionLib::site_js('lib/fancybox/jquery.fancybox.min.js', CGlobal::$POS_END);
+
     	//Meta title
     	$meta_title='';
     	$meta_keywords='';
@@ -54,6 +56,8 @@ class SiteHomeController extends BaseSiteController{
         }
     }
     public function actionTypeProduct($type_name='', $type_id=0){
+        FunctionLib::site_css('lib/fancybox/jquery.fancybox.css', CGlobal::$POS_HEAD);
+        FunctionLib::site_js('lib/fancybox/jquery.fancybox.min.js', CGlobal::$POS_END);
         $arrCat = array(
             'category_id'=>0,
             'category_name'=>'',
@@ -70,21 +74,16 @@ class SiteHomeController extends BaseSiteController{
                 $meta_description = stripslashes($type->department_name);
             }
 
-            //Get All Category In Type
-            $arrCates = Category::getAllCategoryInDepartId($type_id);
-            if(sizeof($arrCates) > 0) {
-                $listKeyCate = array_keys($arrCates);
+            $pageNo = (int) Request::get('page_no',1);
+            $limit = CGlobal::number_show_20;
+            $offset = ($pageNo - 1) * $limit;
+            $search = $data = array();
+            $total = 0;
 
-                $pageNo = (int) Request::get('page_no',1);
-                $limit = CGlobal::number_show_20;
-                $offset = ($pageNo - 1) * $limit;
-                $search = $data = array();
-                $total = 0;
-
-                $search['str_category_id'] = join(',',$listKeyCate);
-                $arrItem = Product::searchByConditionSite($search, $limit, $offset,$total);
-                $paging = $total > 0 ? Pagging::getNewPager(3, $pageNo, $total, $limit, $search) : '';
-            }
+            $search['category_name'] = strtolower(FunctionLib::safe_title($type->department_name));
+            $search['depart_id'] = (int)$type_id;
+            $arrItem = Product::searchByConditionSite($search, $limit, $offset,$total);
+            $paging = $total > 0 ? Pagging::getNewPager(3, $pageNo, $total, $limit, $search) : '';
         }
         FunctionLib::SEO($meta_img, $meta_title, $meta_keywords, $meta_description);
 
@@ -98,6 +97,8 @@ class SiteHomeController extends BaseSiteController{
         $this->footer();
     }
     public function pageCategoryProduct($catname='', $caid=0){
+        FunctionLib::site_css('lib/fancybox/jquery.fancybox.css', CGlobal::$POS_HEAD);
+        FunctionLib::site_js('lib/fancybox/jquery.fancybox.min.js', CGlobal::$POS_END);
         $arrCat = array(
             'category_id'=>0,
             'category_name'=>'',
@@ -121,16 +122,9 @@ class SiteHomeController extends BaseSiteController{
             $search = $data = array();
             $total = 0;
 
-            $search['category_id'] = $catname;
-            if($caid > 0){
-                $arrCats[0] = $caid;
-                Category::makeListCatId($caid, 0, $arrCats);
-                if(!empty($arrCats)){
-                    $search['str_category_id'] = join(',',$arrCats);
-                }
-            }else{
-                $search['category_id'] = (int)$caid;
-            }
+            $search['category_name'] = $catname;
+            $search['category_id'] = (int)$caid;
+
             $arrItem = Product::searchByConditionSite($search, $limit, $offset,$total);
             $paging = $total > 0 ? Pagging::getNewPager(3, $pageNo, $total, $limit, $search) : '';
 
@@ -145,8 +139,52 @@ class SiteHomeController extends BaseSiteController{
         $this->consult();
         $this->footer();
     }
-    public function pageDetailProduct(){
-        echo 'Product detail';die;
+    public function pageDetailProduct($title='', $id=0){
+
+        FunctionLib::site_css('lib/slickslider/slick.css', CGlobal::$POS_HEAD);
+        FunctionLib::site_js('lib/slickslider/slick.min.js', CGlobal::$POS_END);
+
+        FunctionLib::site_css('lib/slidermagnific/magnific-popup.css', CGlobal::$POS_HEAD);
+        FunctionLib::site_js('lib/slidermagnific/magnific-popup.min.js', CGlobal::$POS_END);
+
+        $item = array();
+        $arrCat = array();
+        $meta_title = $meta_keywords = $meta_description = '';
+        $meta_img = '';
+        $newsSame = array();
+        $catid = 0;
+
+        if($id > 0){
+            $item = Product::getProductByID($id);
+            if(sizeof($item) > 0){
+                $arrCat = Category::getByID($item->category_id);
+                if(sizeof($arrCat) > 0){
+                    $catid = $arrCat->category_id;
+                }
+                $meta_title = stripslashes($item->product_name);
+                $meta_keywords = stripslashes($item->product_name);
+                $meta_description = stripslashes($item->product_sort_desc);
+                $productSame = Product::getSameProduct(array(), $item->category_id, $item->product_id, CGlobal::number_show_20, 0);
+            }
+        }
+        FunctionLib::SEO($meta_img, $meta_title, $meta_keywords, $meta_description);
+
+        $guide = '';
+        $arrGuide = Info::getItemByKeyword('SITE_GUIDE_BUY');
+        if(sizeof($arrGuide) > 0){
+            $guide = stripslashes($arrGuide->info_content);
+        }
+
+        $dataProductHot = Product::getProductHotRandom($id, CGlobal::number_show_5);
+
+        $this->header($catid);
+        $this->layout->content = View::make('site.SiteLayouts.pageProductDetail')
+            ->with('data', $item)
+            ->with('arrCat', $arrCat)
+            ->with('productSame', $productSame)
+            ->with('guide', $guide)
+            ->with('dataProductHot', $dataProductHot);
+        $this->footer();
     }
 	public function pageCategoryNews($catname='', $caid=0){
         $arrCat = array(
@@ -172,15 +210,7 @@ class SiteHomeController extends BaseSiteController{
             $search = $data = array();
             $total = 0;
             $search['news_category_name'] = $catname;
-            if($caid > 0){
-                $arrCats[0] = $caid;
-                Category::makeListCatId($caid, 0, $arrCats);
-                if(!empty($arrCats)){
-                    $search['str_category_id'] = join(',',$arrCats);
-                }
-            }else{
-                $search['news_category_id'] = (int)$caid;
-            }
+            $search['news_category_id'] = (int)$caid;
             $arrItem = News::searchByConditionSite($search, $limit, $offset,$total);
             $paging = $total > 0 ? Pagging::getNewPager(3, $pageNo, $total, $limit, $search) : '';
         }
