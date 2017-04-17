@@ -141,7 +141,7 @@
                                     @endif
                                     <br/>
                                     @if($is_root)
-                                        <a href=" {{URL::route('admin.loginToCustomer',array('id' => $item->customer_id))}}" style="color: red" title="Đăng nhập vào user" target="_blank"><i class="fa fa-sign-in fa-2x"></i></a>
+                                        <!--<a href=" {{URL::route('admin.loginToCustomer',array('id' => $item->customer_id))}}" style="color: red" title="Đăng nhập vào user" target="_blank"><i class="fa fa-sign-in fa-2x"></i></a>-->
                                     @endif
                                     <img src="{{Config::get('config.WEB_ROOT')}}assets/admin/img/ajax-loader.gif" width="20" style="display: none" id="img_loading_{{$item->customer_id}}">
                                 </td>
