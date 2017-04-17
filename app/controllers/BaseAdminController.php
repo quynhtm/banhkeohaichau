@@ -94,8 +94,9 @@ class BaseAdminController extends BaseController
             'name'=>'QL site',
             'link'=>'javascript:void(0)',
             'icon'=>'fa fa-location-arrow',
-            'arr_link_sub'=>array('admin.info','admin.trash','admin.contract'),
+            'arr_link_sub'=>array('admin.info','admin.customerView','admin.contract'),
             'sub'=>array(
+                array('name'=>'Danh sách khách hàng', 'RouteName'=>'admin.customerView', 'icon'=>'fa fa-user icon-4x', 'showcontent'=>1,'showMenu'=>1, 'permission'=>'user_customer_full'),
                 array('name'=>'Liên hệ quản trị', 'RouteName'=>'admin.contract', 'icon'=>'fa fa-envelope-o icon-4x', 'showcontent'=>1,'showMenu'=>1, 'permission'=>'contract_view'),
                 array('name'=>'Thông tin chung', 'RouteName'=>'admin.info', 'icon'=>'fa fa-cogs icon-4x', 'showcontent'=>1,'showMenu'=>1, 'permission'=>'abc'),
             ),
