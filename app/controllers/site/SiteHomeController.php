@@ -6,7 +6,10 @@ class SiteHomeController extends BaseSiteController{
 
 	//Trang chu
     public function index(){
-		
+
+        FunctionLib::site_css('lib/fancybox/jquery.fancybox.css', CGlobal::$POS_HEAD);
+        FunctionLib::site_js('lib/fancybox/jquery.fancybox.min.js', CGlobal::$POS_END);
+
     	//Meta title
     	$meta_title='';
     	$meta_keywords='';
@@ -53,6 +56,8 @@ class SiteHomeController extends BaseSiteController{
         }
     }
     public function actionTypeProduct($type_name='', $type_id=0){
+        FunctionLib::site_css('lib/fancybox/jquery.fancybox.css', CGlobal::$POS_HEAD);
+        FunctionLib::site_js('lib/fancybox/jquery.fancybox.min.js', CGlobal::$POS_END);
         $arrCat = array(
             'category_id'=>0,
             'category_name'=>'',
@@ -92,6 +97,8 @@ class SiteHomeController extends BaseSiteController{
         $this->footer();
     }
     public function pageCategoryProduct($catname='', $caid=0){
+        FunctionLib::site_css('lib/fancybox/jquery.fancybox.css', CGlobal::$POS_HEAD);
+        FunctionLib::site_js('lib/fancybox/jquery.fancybox.min.js', CGlobal::$POS_END);
         $arrCat = array(
             'category_id'=>0,
             'category_name'=>'',

@@ -47,7 +47,40 @@
 <div class="bottom-head">
     <div class="container">
         <div class="line-bottom-head first">
-            <div class="box-title-category">Danh mục sản phẩm</div>
+            <div class="box-title-category">
+                <span class="txt-title-category">Danh mục sản phẩm</span>
+                @if(Route::currentRouteName() != 'site.home')
+                <div class="box-list-category dropdown">
+                    <ul>
+                        <li><a href="">Bánh hộp tết <i class="fa fa-angle-right"></i></a>
+                            <div class="list-subcat" style="background: #89122b">
+                                <ul>
+                                    <li><a href="" title="Mứt tết">Mứt tết</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li><a href="">Bánh trung thu <i class="fa fa-angle-right"></i></a>
+                            <div class="list-subcat" style="background: #89122b">
+                                <ul>
+                                    <li><a href="" title="Hộp bánh kem xốp phủ sô cô la Classic">Hộp bánh kem xốp phủ sô cô la Classic</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li><a href="">Bánh Kem xốp</a></li>
+                        <li><a href="">Bánh Quy và cookies</a></li>
+                        <li><a href="">Bột canh và Hạt nêm</a></li>
+                        <li><a href="">Lương Khô</a></li>
+                        <li><a href="">Kẹo hộp</a></li>
+                        <li><a href="">Kẹo cứng</a></li>
+                        <li><a href="">Kẹo mềm</a></li>
+                        <li><a href="">Kẹo dẻo</a></li>
+                        <li><a href="">Đường - sữa</a></li>
+                        <li><a href="">Sản phẩm khác</a></li>
+                    </ul>
+                    <div class="link-last"><a href="">Xem tất cả</a></div>
+                </div>
+                @endif
+            </div>
             <div class="box-catid">
                 <ul class="menu">
                     <li><a href="{{URL::route('site.home')}}" title="Trang chủ">Trang chủ</a></li>

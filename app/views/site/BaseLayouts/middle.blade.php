@@ -4,16 +4,22 @@
             <div class="line-bottom-head second">
             <div class="box-list-category">
                 <ul>
-                    <li><a href="">Bánh hộp tết</a></li>
-                    <li><a href="">Bánh trung thu</a></li>
-                    <li><a href="">Bánh Kem xốp</a></li>
-                    <li>
-                        <a href="">Bánh Quy và cookies <i class="fa fa-angle-down"></i></a>
-                        <ul class="sub">
-                            <li><a href="">Bánh Quy</a></li>
-                            <li><a href="">Cookies</a></li>
-                        </ul>
+                    <li><a href="">Bánh hộp tết <i class="fa fa-angle-right"></i></a>
+                        <div class="list-subcat" style="background: #89122b">
+                            <ul>
+                                <li><a href="" title="Mứt tết">Mứt tết</a></li>
+                            </ul>
+                        </div>
                     </li>
+                    <li><a href="">Bánh trung thu <i class="fa fa-angle-right"></i></a>
+                        <div class="list-subcat" style="background: #89122b">
+                            <ul>
+                                <li><a href="" title="Hộp bánh kem xốp phủ sô cô la Classic">Hộp bánh kem xốp phủ sô cô la Classic</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><a href="">Bánh Kem xốp</a></li>
+                    <li><a href="">Bánh Quy và cookies</a></li>
                     <li><a href="">Bột canh và Hạt nêm</a></li>
                     <li><a href="">Lương Khô</a></li>
                     <li><a href="">Kẹo hộp</a></li>

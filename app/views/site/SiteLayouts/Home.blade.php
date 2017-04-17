@@ -44,28 +44,30 @@
                         @if(sizeof($arrItem) > 0)
                             @foreach($arrItem as $item)
                             <div class="one-item">
-                                <a href="{{FunctionLib::buildLinkDetailProduct($item->product_id, $item->product_name)}}" title="{{stripslashes($item->product_name)}}">
-                                    <div class="ithumb">
-                                        @if($item->product_image != '')
-                                            <img src="{{ThumbImg::getImageThumb(CGlobal::FOLDER_PRODUCT, $item->product_id, $item->product_image, CGlobal::sizeImage_600, '', true, 1, false)}}" alt="{{stripslashes($item->product_name)}}" />
-                                        @endif
-                                    </div>
-                                    <div class="idesc">
-                                        <div class="ititle">{{stripslashes($item->product_name)}}</div>
-                                        <div class="iprice">
-                                            @if($item->product_type_price == CGlobal::TYPE_PRICE_NUMBER)
-                                                @if((int)$item->product_price_sell > 0)
-                                                    {{FunctionLib::numberFormat((int)$item->product_price_sell)}} vnđ
-                                                @else
-                                                    Liên hệ
-                                                @endif
+
+                                <div class="ithumb">
+                                    @if($item->product_image != '')
+                                    <img src="{{ThumbImg::getImageThumb(CGlobal::FOLDER_PRODUCT, $item->product_id, $item->product_image, CGlobal::sizeImage_600, '', true, 1, false)}}" alt="{{stripslashes($item->product_name)}}" />
+                                    @endif
+                                    <a class="fancybox" href="{{ThumbImg::getImageThumb(CGlobal::FOLDER_PRODUCT, $item->product_id, $item->product_image, CGlobal::sizeImage_1000, '', true, 1, false)}}"><i class="fa fa-search-plus"></i></a>
+                                </div>
+                                <div class="idesc">
+                                    <div class="ititle"><a href="{{FunctionLib::buildLinkDetailProduct($item->product_id, $item->product_name)}}" title="{{stripslashes($item->product_name)}}">{{stripslashes($item->product_name)}}</a></div>
+                                    <div class="iprice">
+                                        @if($item->product_type_price == CGlobal::TYPE_PRICE_NUMBER)
+                                            @if((int)$item->product_price_sell > 0)
+                                                {{FunctionLib::numberFormat((int)$item->product_price_sell)}} vnđ
                                             @else
                                                 Liên hệ
                                             @endif
-                                        </div>
+                                        @else
+                                            Liên hệ
+                                        @endif
                                     </div>
+                                </div>
+                                <a href="{{FunctionLib::buildLinkDetailProduct($item->product_id, $item->product_name)}}" title="{{stripslashes($item->product_name)}}">
+                                    <div class="ibuy" dataid="{{$item->product_id}}"><i></i>Mua hàng</div>
                                 </a>
-                                <div class="ibuy" dataid="{{$item->product_id}}"><i></i>Mua hàng</div>
                             </div>
                             @endforeach
                         @endif
@@ -102,28 +104,29 @@
                                 @if(sizeof($arrItem) > 0)
                                     @foreach($arrItem as $item)
                                         <div class="one-item">
-                                            <a href="{{FunctionLib::buildLinkDetailProduct($item->product_id, $item->product_name)}}" title="{{stripslashes($item->product_name)}}">
-                                                <div class="ithumb">
-                                                    @if($item->product_image != '')
-                                                        <img src="{{ThumbImg::getImageThumb(CGlobal::FOLDER_PRODUCT, $item->product_id, $item->product_image, CGlobal::sizeImage_600, '', true, 1, false)}}" alt="{{$item->product_name}}" />
-                                                    @endif
-                                                </div>
-                                                <div class="idesc">
-                                                    <div class="ititle">{{stripslashes($item->product_name)}}</div>
-                                                    <div class="iprice">
-                                                        @if($item->product_type_price == CGlobal::TYPE_PRICE_NUMBER)
-                                                            @if((int)$item->product_price_sell > 0)
-                                                                {{FunctionLib::numberFormat((int)$item->product_price_sell)}} vnđ
-                                                            @else
-                                                                Liên hệ
-                                                            @endif
+                                            <div class="ithumb">
+                                                @if($item->product_image != '')
+                                                    <img src="{{ThumbImg::getImageThumb(CGlobal::FOLDER_PRODUCT, $item->product_id, $item->product_image, CGlobal::sizeImage_600, '', true, 1, false)}}" alt="{{$item->product_name}}" />
+                                                @endif
+                                                    <a class="fancybox" href="{{ThumbImg::getImageThumb(CGlobal::FOLDER_PRODUCT, $item->product_id, $item->product_image, CGlobal::sizeImage_1000, '', true, 1, false)}}"><i class="fa fa-search-plus"></i></a>
+                                            </div>
+                                            <div class="idesc">
+                                                <div class="ititle"><a href="{{FunctionLib::buildLinkDetailProduct($item->product_id, $item->product_name)}}" title="{{stripslashes($item->product_name)}}">{{stripslashes($item->product_name)}}</a></div>
+                                                <div class="iprice">
+                                                    @if($item->product_type_price == CGlobal::TYPE_PRICE_NUMBER)
+                                                        @if((int)$item->product_price_sell > 0)
+                                                            {{FunctionLib::numberFormat((int)$item->product_price_sell)}} vnđ
                                                         @else
                                                             Liên hệ
                                                         @endif
-                                                    </div>
+                                                    @else
+                                                        Liên hệ
+                                                    @endif
                                                 </div>
+                                            </div>
+                                            <a href="{{FunctionLib::buildLinkDetailProduct($item->product_id, $item->product_name)}}" title="{{stripslashes($item->product_name)}}">
+                                                <div class="ibuy" dataid="{{$item->product_id}}"><i></i>Mua hàng</div>
                                             </a>
-                                            <div class="ibuy" dataid="{{$item->product_id}}"><i></i>Mua hàng</div>
                                         </div>
                                     @endforeach
                                 @endif
@@ -136,3 +139,14 @@
         @endforeach
     @endif
 </div>
+<script>
+    $(document).ready(function(){
+        $("a.fancybox").fancybox({
+            'transitionIn'	:	'elastic',
+            'transitionOut'	:	'elastic',
+            'speedIn'		:	600,
+            'speedOut'		:	200,
+            'overlayShow'	:	false
+        });
+    });
+</script>
