@@ -38,8 +38,8 @@
                 <li class="box-radius box-favorite"><a href=""><i class="bg"></i> Yêu thích <span>10</span></a></li>
             </ul>
             <ul class="box-reg line text-right">
-                <li class="box-radius"><a href="">Đăng nhập</a></li>
-                <li class="box-radius"><a href="">Đăng ký</a></li>
+                <li class="box-radius clickLogin"><a href="javascript:void(0);">Đăng nhập</a></li>
+                <li class="box-radius clickRegister"><a href="javascript:void(0);">Đăng ký</a></li>
             </ul>
         </div>
     </div>

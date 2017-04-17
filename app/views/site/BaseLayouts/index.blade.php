@@ -56,6 +56,9 @@
 		{{$footer}}
 	</div>
 	@endif
+	@if(isset($popupHide))
+		{{$popupHide}}
+	@endif
 </div>
 {{CGlobal::$extraFooterCSS}}
 {{CGlobal::$extraFooterJS}}

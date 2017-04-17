@@ -12,9 +12,14 @@ class BaseSiteController extends BaseController{
     public function __construct(){
     	FunctionLib::site_css('font-awesome/4.2.0/css/font-awesome.min.css', CGlobal::$POS_HEAD);
     	FunctionLib::site_js('frontend/js/site.js', CGlobal::$POS_END);
+        FunctionLib::site_css('frontend/css/usercustomer.css', CGlobal::$POS_HEAD);
+        FunctionLib::site_js('frontend/js/usercustomer.js', CGlobal::$POS_END);
         $this->userAdmin = User::user_login();
     }
     public function header($catid=0){
+
+        $this->popupHide();
+
         $hotline = '';
         $arrHotline = Info::getItemByKeyword('SITE_NUM_NICK_SUPPORT_ONLINE');
         if(sizeof($arrHotline) > 0){
@@ -82,6 +87,10 @@ class BaseSiteController extends BaseController{
         }
 		$this->layout->footer = View::make("site.BaseLayouts.footer")->with('footer', $footer);
 	}
+
+    public function popupHide(){
+        $this->layout->popupHide = View::make("site.BaseLayouts.popupHide");
+    }
 
     public static function getPostInCategoryId($cat_id=0, $limit_post=0){
         $result = array();
