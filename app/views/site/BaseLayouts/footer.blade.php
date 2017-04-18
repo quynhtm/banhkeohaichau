@@ -3,7 +3,7 @@
         <div class="wrap-get-mail">
             <div class="col-lg-4 col-md-4 col-sm-12">
                 Đăng ký nhận thông tin từ Hải Châu
-                <br><span>để nắm bắt giá cả thị trường ôtô cũ Việt Nam</span>
+                <br><span>để nắm bắt giá cả thị trường bánh kẹo Việt Nam</span>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-12">
                 <div class="box-get-mail">

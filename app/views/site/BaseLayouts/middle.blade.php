@@ -1,13 +1,16 @@
 <div class="line-middle">
-    <div class="container">
+    <div class="container mb">
         <div class="wrapp-line-bottom-head">
             <div class="line-bottom-head second">
             <div class="box-list-category">
+                <div class="line-text-close">
+                    <span class="icon-close">Close Menu</span>
+                </div>
                 @if(sizeof($menuCateVertical) > 0)
                 <ul>
                     <?php $i=1; ?>
                     @foreach($menuCateVertical as $cat)
-                    @if($cat->category_menu_status == CGlobal::status_show && $cat->category_parent_id == 0 && $i <= 14)
+                    @if($cat->category_menu_status == CGlobal::status_show && $cat->category_parent_id == 0 && $i <= 13)
                     <?php $s=1; ?>
                     <?php
                         $i++;
@@ -85,26 +88,26 @@
                 </div>
 				<div class="line-sologan-content ">
 					<div class="line-sologan">
-						<div class="col-xs-12 col-md-3">
-							<div class="bg-icon icon1">
+						<div class="col-xs-6 col-md-3">
+							<div class="bg-icon iconsl icon1">
 								<span class="text1">Sản phẩm</span><br>
 								<span class="text2">Chất lượng</span>
 							</div>
 						</div>
-						<div class="col-xs-12 col-md-3">
-							<div class="bg-icon icon2">
+						<div class="col-xs-6 col-md-3">
+							<div class="bg-icon iconsl icon2">
 								<span class="text1">Phục vụ</span><br>
 								<span class="text2">chu đáo</span>
 							</div>
 						</div>
-						<div class="col-xs-12 col-md-3">
-							<div class="bg-icon icon4">
+						<div class="col-xs-6 col-md-3">
+							<div class="bg-icon iconsl icon4">
 								<span class="text1">Thủ tục</span><br>
 								<span class="text2">Nhanh gọn</span>
 							</div>
 						</div>
-						<div class="col-xs-12 col-md-3">
-							<div class="bg-icon icon3">
+						<div class="col-xs-6 col-md-3">
+							<div class="bg-icon iconsl icon3">
 								<span class="text1">Giao hàng</span><br>
 								<span class="text2">Nhanh chóng</span>
 							</div>

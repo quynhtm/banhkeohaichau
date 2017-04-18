@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container mb">
     @if(sizeof($arrType) > 0)
         @foreach($arrType as $k=>$type)
             @if($type->department_status_home == 1)
@@ -9,7 +9,7 @@
                         <li><a href="{{FunctionLib::buildLinkTypeProduct($type->department_id, $type->department_name)}}" title="{{stripslashes($type->department_name)}}"><i class="fa fa-angle-double-right icon-more-font"></i> Xem tất cả</a></li>
                     </ul>
                     @if(sizeof($arrAllCategoryProduct) > 0)
-                    <ul>
+                    <ul class="list-cate-post">
                         <?php $i=1; ?>
                         @foreach($arrAllCategoryProduct as $cat)
                             @if($cat->category_menu_right == 1 && $cat->category_depart_id == $type->department_id && $i <= CGlobal::number_show_5)
@@ -47,7 +47,9 @@
 
                                 <div class="ithumb">
                                     @if($item->product_image != '')
-                                    <img src="{{ThumbImg::getImageThumb(CGlobal::FOLDER_PRODUCT, $item->product_id, $item->product_image, CGlobal::sizeImage_600, '', true, 1, false)}}" alt="{{stripslashes($item->product_name)}}" />
+                                        <a href="{{FunctionLib::buildLinkDetailProduct($item->product_id, $item->product_name)}}" title="{{stripslashes($item->product_name)}}">
+                                            <img src="{{ThumbImg::getImageThumb(CGlobal::FOLDER_PRODUCT, $item->product_id, $item->product_image, CGlobal::sizeImage_600, '', true, 1, false)}}" alt="{{stripslashes($item->product_name)}}" />
+                                        </a>
                                     @endif
                                     <a class="fancybox" href="{{ThumbImg::getImageThumb(CGlobal::FOLDER_PRODUCT, $item->product_id, $item->product_image, CGlobal::sizeImage_1000, '', true, 1, false)}}"><i class="fa fa-search-plus"></i></a>
                                 </div>
@@ -106,9 +108,11 @@
                                         <div class="one-item">
                                             <div class="ithumb">
                                                 @if($item->product_image != '')
-                                                    <img src="{{ThumbImg::getImageThumb(CGlobal::FOLDER_PRODUCT, $item->product_id, $item->product_image, CGlobal::sizeImage_600, '', true, 1, false)}}" alt="{{$item->product_name}}" />
-                                                @endif
-                                                    <a class="fancybox" href="{{ThumbImg::getImageThumb(CGlobal::FOLDER_PRODUCT, $item->product_id, $item->product_image, CGlobal::sizeImage_1000, '', true, 1, false)}}"><i class="fa fa-search-plus"></i></a>
+                                                    <a href="{{FunctionLib::buildLinkDetailProduct($item->product_id, $item->product_name)}}" title="{{stripslashes($item->product_name)}}">
+                                                        <img src="{{ThumbImg::getImageThumb(CGlobal::FOLDER_PRODUCT, $item->product_id, $item->product_image, CGlobal::sizeImage_600, '', true, 1, false)}}" alt="{{$item->product_name}}" />
+                                                    </a>
+                                                 @endif
+                                                <a class="fancybox" href="{{ThumbImg::getImageThumb(CGlobal::FOLDER_PRODUCT, $item->product_id, $item->product_image, CGlobal::sizeImage_1000, '', true, 1, false)}}"><i class="fa fa-search-plus"></i></a>
                                             </div>
                                             <div class="idesc">
                                                 <div class="ititle"><a href="{{FunctionLib::buildLinkDetailProduct($item->product_id, $item->product_name)}}" title="{{stripslashes($item->product_name)}}">{{stripslashes($item->product_name)}}</a></div>

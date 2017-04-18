@@ -350,6 +350,10 @@ class Product extends Eloquent
                 $query->where('depart_id', $dataSearch['depart_id']);
             }
 
+            if (isset($dataSearch['product_name']) && $dataSearch['product_name'] != '') {
+                $query->where('product_name','LIKE', '%' . $dataSearch['product_name'] . '%');
+            }
+
             $total = $query->count();
             $query->orderBy('product_id', 'desc');
 

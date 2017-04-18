@@ -25,6 +25,9 @@ Route::get('{name}-{id}.html',array('as' => 'site.actionRouter','uses' =>'SiteHo
 //Product Detail
 Route::get('san-pham/{name}-{id}.html',array('as' => 'site.pageDetailProduct','uses' =>'SiteHomeController@pageDetailProduct'))->where('name', '[A-Z0-9a-z_\-]+')->where('id', '[0-9]+');
 
+Route::get('tim-kiem.html',array('as' => 'site.pageSearchProduct','uses' =>'SiteHomeController@pageSearchProduct'));
+
+
 //News Detail
 Route::get('{catname}/{news_title}-{new_id}.html',array('as' => 'site.pageDetailNew','uses' =>'SiteHomeController@pageDetailNews'))->where('catname', '[A-Z0-9a-z_\-]+')->where('news_title', '[A-Z0-9a-z_\-]+')->where('new_id', '[0-9]+');
 

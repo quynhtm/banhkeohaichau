@@ -1,5 +1,5 @@
 <div class="line-consult">
-    <div class="container">
+    <div class="container mb">
         <div class="row">
             <div class="col-lg-9 col-md-9 col-sm-12">
                 @if(sizeof($data_yKien_khachHang) > 0)

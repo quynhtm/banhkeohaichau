@@ -13,6 +13,9 @@
 </div>
 <div class="mid-head">
     <div class="container">
+        <div class="toggle-menu" id="toggle-menu">
+            <i class="fa fa-th-list"></i>
+        </div>
         @if(Route::currentRouteName() == 'site.home')
             <h1 id="logo">
                 <a href="{{URL::route('site.home')}}">
@@ -27,7 +30,7 @@
             </div>
         @endif
         <div class="box-search">
-            {{Form::open(array('method' => 'GET', 'id'=>'frmsearch', 'class'=>'frmsearch', 'name'=>'frmsearch', 'url'=>URL::route('site.home') ))}}
+            {{Form::open(array('method' => 'GET', 'id'=>'frmsearch', 'class'=>'frmsearch', 'name'=>'frmsearch', 'url'=>URL::route('site.pageSearchProduct') ))}}
             <input name="keyword" class="keyword" @if(isset($keyword) && $keyword != '')value="{{$keyword}}"@endif autocomplete="off" placeholder="Tìm kiếm nhiều: Hộp bánh kem xốp phủ Socola..." type="text">
             <button type="submit" class="btn-search"><i class="fa fa-search"></i></button>
             {{Form::close()}}
@@ -47,6 +50,7 @@
                     <div class="cpanel-page">
                         <a href="javascript:void(0)" class="name-customer">Chào: {{isset($user_customer['customer_name']) ? $user_customer['customer_name'] : 'No Name'}}</a>
                         <ul class="list-cpanel">
+                            <li><a href="" rel="nofollow"><i class="glyphicon glyphicon-shopping-cart"></i> Lịch sử mua hàng</a></li>
                             <li><a href="{{URL::route('customer.pageChageInfo')}}" rel="nofollow"><i class="glyphicon glyphicon-align-left"></i> Thông tin cá nhân</a></li>
                             <li><a href="{{URL::route('customer.logout')}}" rel="nofollow"><i class="glyphicon glyphicon-share-alt"></i> Thoát</a></li>
                         </ul>
@@ -63,11 +67,14 @@
                 <span class="txt-title-category">Danh mục sản phẩm</span>
                 @if(Route::currentRouteName() != 'site.home')
                 <div class="box-list-category dropdown">
+                    <div class="line-text-close">
+                        <span class="icon-close">Close Menu</span>
+                    </div
                     @if(sizeof($menuCateVertical) > 0)
                         <ul>
                             <?php $i=1; ?>
                             @foreach($menuCateVertical as $cat)
-                                @if($cat->category_menu_status == CGlobal::status_show && $cat->category_parent_id == 0 && $i <= 14)
+                                @if($cat->category_menu_status == CGlobal::status_show && $cat->category_parent_id == 0 && $i <= 13)
                                     <?php $s=1; ?>
                                     <?php
                                     $i++;

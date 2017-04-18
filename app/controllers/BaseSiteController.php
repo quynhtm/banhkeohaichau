@@ -16,6 +16,8 @@ class BaseSiteController extends BaseController{
     	FunctionLib::site_js('frontend/js/site.js', CGlobal::$POS_END);
         FunctionLib::site_css('frontend/css/usercustomer.css', CGlobal::$POS_HEAD);
         FunctionLib::site_js('frontend/js/usercustomer.js', CGlobal::$POS_END);
+        FunctionLib::site_css('lib/jAlert/jquery.alerts.css', CGlobal::$POS_HEAD);
+        FunctionLib::site_js('lib/jAlert/jquery.alerts.js', CGlobal::$POS_END);
         $this->userAdmin = User::user_login();
         $this->user_customer = Session::has('user_customer') ? Session::get('user_customer') : array();
     }
@@ -26,6 +28,8 @@ class BaseSiteController extends BaseController{
         if(empty($user_customer)){
             $this->popupHide();
         }
+
+        $keyword = addslashes(Request::get('keyword',''));
 
         $hotline = '';
         $arrHotline = Info::getItemByKeyword('SITE_NUM_NICK_SUPPORT_ONLINE');
@@ -47,7 +51,8 @@ class BaseSiteController extends BaseController{
                                 ->with('menuCateHorizontal', $menuCateHorizontal)
                                 ->with('menuCateVertical', $menuCateVertical)
                                 ->with('user_customer', $user_customer)
-                                ->with('messages', $messages);
+                                ->with('messages', $messages)
+                                ->with('keyword', $keyword);
     }
     public function middle(){
 

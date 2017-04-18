@@ -16,9 +16,9 @@ return array(
 	'driver' => 'smtp',
 	'host' => '27.118.30.5',
 	'port' => 25,
-	'from' => array('address' => 'no-reply@raovat30s.vn', 'name' => CGlobal::web_name),
-	'username' => 'no-reply@shopcuatui.com.vn',
-	'password' => 'fo7Ve9$5',
+    'from' => array('address' => 'no-reply@sanphamredep.com', 'name' => ucwords(CGlobal::web_name)),
+    'username' => 'no-reply@sanphamredep.com',
+    'password' => 'F2mft&37',
 	'sendmail' => '/usr/sbin/sendmail -bs',
 	'pretend' => false,
 );

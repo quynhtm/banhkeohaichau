@@ -186,6 +186,37 @@ class SiteHomeController extends BaseSiteController{
             ->with('dataProductHot', $dataProductHot);
         $this->footer();
     }
+    public function pageSearchProduct(){
+        $keyword = addslashes(Request::get('keyword',''));
+
+        $arrItem = array();
+        $paging = '';
+        $meta_title = $meta_keywords = $meta_description = 'Tìm kiếm '.CGlobal::web_name;
+        $meta_img = '';
+
+        if($keyword != ''){
+            FunctionLib::site_css('lib/fancybox/jquery.fancybox.css', CGlobal::$POS_HEAD);
+            FunctionLib::site_js('lib/fancybox/jquery.fancybox.min.js', CGlobal::$POS_END);
+
+            $pageNo = (int) Request::get('page_no',1);
+            $limit = CGlobal::number_show_20;
+            $offset = ($pageNo - 1) * $limit;
+            $search = $data = array();
+            $total = 0;
+
+            $search['product_name'] = $keyword;
+            $arrItem = Product::searchByConditionSite($search, $limit, $offset,$total);
+            $paging = $total > 0 ? Pagging::getNewPager(3, $pageNo, $total, $limit, $search) : '';
+        }
+        FunctionLib::SEO($meta_img, $meta_title, $meta_keywords, $meta_description);
+
+        $this->header(0);
+        $this->layout->content = View::make('site.SiteLayouts.pageSearchProduct')
+            ->with('arrItem', $arrItem)
+            ->with('paging', $paging);
+        $this->consult();
+        $this->footer();
+    }
 	public function pageCategoryNews($catname='', $caid=0){
         $arrCat = array(
             'category_id'=>0,
