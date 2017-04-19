@@ -16,6 +16,7 @@ class BaseSiteController extends BaseController{
     	FunctionLib::site_js('frontend/js/site.js', CGlobal::$POS_END);
         FunctionLib::site_css('frontend/css/usercustomer.css', CGlobal::$POS_HEAD);
         FunctionLib::site_js('frontend/js/usercustomer.js', CGlobal::$POS_END);
+        FunctionLib::site_js('frontend/js/cart.js', CGlobal::$POS_END);
         FunctionLib::site_css('lib/jAlert/jquery.alerts.css', CGlobal::$POS_HEAD);
         FunctionLib::site_js('lib/jAlert/jquery.alerts.js', CGlobal::$POS_END);
         $this->userAdmin = User::user_login();
@@ -45,6 +46,9 @@ class BaseSiteController extends BaseController{
         $menuCateHorizontal = Category::getAllCategoryByType(CGlobal::category_new, $numCategoryHorizontal);
         $menuCateVertical = Category::getAllCategoryByType(CGlobal::category_product, 0);
 
+        $numCart = $this->countNumCart();
+        $numFavorite = $this->countNumFavorite();
+
     	$this->layout->header = View::make("site.BaseLayouts.header")
                                 ->with('catid', $catid)
                                 ->with('hotline', $hotline)
@@ -52,7 +56,9 @@ class BaseSiteController extends BaseController{
                                 ->with('menuCateVertical', $menuCateVertical)
                                 ->with('user_customer', $user_customer)
                                 ->with('messages', $messages)
-                                ->with('keyword', $keyword);
+                                ->with('keyword', $keyword)
+                                ->with('numCart', $numCart)
+                                ->with('numFavorite', $numFavorite);
     }
     public function middle(){
 
@@ -94,12 +100,19 @@ class BaseSiteController extends BaseController{
                                 ->with('hotline', $hotline);
     }
 	public function footer(){
-        $footer = '';
-        $arrFooter = Info::getItemByKeyword('SITE_FOOTER_LEFT');
-        if(sizeof($arrFooter) > 0){
-            $footer = stripslashes($arrFooter->info_content);
+        $address = '';
+        $arrAddress = Info::getItemByKeyword('SITE_ADDRESS_FOOTER');
+        if(sizeof($arrAddress) > 0){
+            $address = strip_tags(stripslashes($arrAddress->info_content));
         }
-		$this->layout->footer = View::make("site.BaseLayouts.footer")->with('footer', $footer);
+
+        $phone = '';
+        $arrPhone = Info::getItemByKeyword('SITE_PHONE_FOOTER');
+        if(sizeof($arrPhone) > 0){
+            $phone = strip_tags(stripslashes($arrPhone->info_content));
+        }
+
+		$this->layout->footer = View::make("site.BaseLayouts.footer")->with('address', $address)->with('phone', $phone);
 	}
 
     public function popupHide(){
@@ -172,5 +185,31 @@ class BaseSiteController extends BaseController{
             }
         }
         return $result;
+    }
+
+    public function countNumCart(){
+        $cartItem = 0;
+        if(Session::has('cart')){
+            $data = Session::get('cart');
+            foreach($data as $v){
+                if($v){
+                    $cartItem += $v;
+                }
+            }
+        }
+        return $cartItem;
+    }
+
+    public function countNumFavorite(){
+        $favoriteItem = 0;
+        if(Session::has('favorite')){
+            $data = Session::get('favorite');
+            foreach($data as $v){
+                if($v){
+                    $favoriteItem += $v;
+                }
+            }
+        }
+        return $favoriteItem;
     }
 }

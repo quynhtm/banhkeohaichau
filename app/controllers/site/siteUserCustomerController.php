@@ -205,7 +205,6 @@ class SiteUserCustomerController extends BaseSiteController{
     	}
     	echo "Liên kết kích hoạt tài khoản không đúng!";die;
     }
-
 	//Change Info - Chage Pass
 	public function pageChageInfo(){
 		if(!Session::has('user_customer')){
@@ -333,7 +332,6 @@ class SiteUserCustomerController extends BaseSiteController{
 			}
 		}
 	}
-
 	public function pageForgetPass(){
 		if(Session::has('user_customer')){
     		return Redirect::route('site.home');
@@ -383,29 +381,19 @@ class SiteUserCustomerController extends BaseSiteController{
     	
     	echo $error;die;
 	}
+    public function historyBuy(){
+        if(!Session::has('user_customer')){
+            return Redirect::route('site.home');
+        }
+        $this->header();
+        $dataShow = array();
+        $messages = '';
+        $this->user_customer = Session::get('user_customer');
 
-	//ajax xóa tin đăng
-	public function removeItems(){
-		$data = array('isIntOk' => 0,'msg' => 'Không set top tin đăng này được');
-		if (!UserCustomer::isLogin()) {
-			return Response::json($data);
-		}
-		$item_id = (int)trim(Request::get('item_id', 0));
-		if(!empty($this->user_customer) && $item_id > 0){
-			$items = array();
-			if(isset($this->user_customer['customer_id']) && $this->user_customer['customer_id'] > 0 && $item_id > 0){
-				$items = Items::getItemByCustomerId($this->user_customer['customer_id'], $item_id);
-			}
-			if(!empty($items)){
-				if ($item_id > 0 && Items::deleteData($item_id)) {
-					$data['isIntOk'] = 1;
-					$data['msg'] = 'Đã xóa thành công tin đăng';
-					return Response::json($data);
-				}
-			}
-		}
-	}
-
+        $this->layout->content = View::make('site.CustomerLayouts.HistoryBuy')
+                        ->with('messages',$messages)->with('user_customer',$this->user_customer);
+        $this->footer();
+    }
 	//Login Facebook - Google
 	public function loginFacebook(){
 		

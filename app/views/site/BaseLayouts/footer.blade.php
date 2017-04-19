@@ -33,8 +33,8 @@
                     <a class="bg ic icon-p" href="">P</a>
                 </div>
                 <div class="title-connect">THÔNG TIN LIÊN HỆ</div>
-                <div class="bg address-connect">15 Mạc Thị Bưởi, Quận Hai Bà Trưng, Hà Nội</div>
-                <div class="bg phone-connect">+(84-4).38621520 - 36365592</div>
+                <div class="bg address-connect">{{$address}}</div>
+                <div class="bg phone-connect">{{$phone}}</div>
             </div>
         </div>
     </div>

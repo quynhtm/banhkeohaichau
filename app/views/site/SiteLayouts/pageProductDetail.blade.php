@@ -80,7 +80,7 @@
                                     </span>
                                 </div>
                                 <div class="list-button-view">
-                                    <div class="ibuy" dataid="{{$data->product_id}}"><i></i>Thêm vào giỏ hàng</div>
+                                    <div id="btnBuy" class="ibuy" dataid="{{$data->product_id}}"><i></i>Thêm vào giỏ hàng</div>
                                 </div>
                             </div>
                         </div>

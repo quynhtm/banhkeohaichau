@@ -2,7 +2,7 @@
 	<div class="post-page">
 		<div class="content-post-info-user">
 			<h1 class="title-head changeinfo">
-				<span href="{{URL::route('customer.pageChageInfo')}}" title="Tìm kiếm">Thay đổi thông tin thành viên</a>
+				<span href="{{URL::route('customer.pageChageInfo')}}" title="Thay đổi thông tin thành viên">Thay đổi thông tin thành viên</a>
 			</h1>
 			@if(isset($user_customer) && !empty($user_customer))
 			<div class="content-info">

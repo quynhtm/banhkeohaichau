@@ -69,6 +69,7 @@ class Product extends Eloquent
         return array();
     }
 
+
     public static function getProductForSite($dataSearch = array(), $limit =0, $offset = 0, &$total){
         try{
             $query = Product::where('product_id','>',0);
@@ -83,7 +84,7 @@ class Product extends Eloquent
             		$query->where('product_id','=', (int)$dataSearch['product_id']);
             	}
             }
-            
+
             if (isset($dataSearch['category_id'])) {
                 if (is_array($dataSearch['category_id'])) {//tim theo m?ng id danh muc
                     $query->whereIn('category_id', $dataSearch['category_id']);
@@ -109,7 +110,7 @@ class Product extends Eloquent
             if (isset($dataSearch['product_is_hot']) && $dataSearch['product_is_hot'] != -1) {
                 $query->where('product_is_hot','=', $dataSearch['product_is_hot']);
             }
-            
+
             if (isset($dataSearch['shop_province']) && $dataSearch['shop_province'] != -1) {
             	$query->where('shop_province','=', $dataSearch['shop_province']);
             }
@@ -342,6 +343,15 @@ class Product extends Eloquent
             $query = Product::where('product_id','>',0);
             $query->where('product_status', CGlobal::status_show);
 
+            if (isset($dataSearch['product_id'])) {
+                if (is_array($dataSearch['product_id'])) {
+                    $query->whereIn('product_id', $dataSearch['product_id']);
+                }
+                elseif ((int)$dataSearch['product_id'] > 0) {
+                    $query->where('product_id','=', (int)$dataSearch['product_id']);
+                }
+            }
+
             if (isset($dataSearch['category_id']) && $dataSearch['category_id'] > 0) {
                 $query->where('category_id', $dataSearch['category_id']);
                 $query->orWhere('category_parent_id', $dataSearch['category_id']);
@@ -362,6 +372,32 @@ class Product extends Eloquent
                 $result = $query->take($limit)->skip($offset)->get($fields);
             }else{
                 $result = $query->take($limit)->skip($offset)->get();
+            }
+            return $result;
+
+        }catch (PDOException $e){
+            throw new PDOException();
+        }
+    }
+    public static function getAllCartProduct($dataSearch = array()){
+        try{
+            $query = Product::where('product_id','>',0);
+            $query->where('product_status', CGlobal::status_show);
+
+            if (isset($dataSearch['product_id'])) {
+                if (is_array($dataSearch['product_id'])) {
+                    $query->whereIn('product_id', $dataSearch['product_id']);
+                }
+                elseif ((int)$dataSearch['product_id'] > 0) {
+                    $query->where('product_id','=', (int)$dataSearch['product_id']);
+                }
+            }
+            $query->orderBy('product_id', 'asc');
+            $fields = (isset($dataSearch['field_get']) && trim($dataSearch['field_get']) != '') ? explode(',',trim($dataSearch['field_get'])): array();
+            if(!empty($fields)){
+                $result = $query->get($fields);
+            }else{
+                $result = $query->get();
             }
             return $result;
 
