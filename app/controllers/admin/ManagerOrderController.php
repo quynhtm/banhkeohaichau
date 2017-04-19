@@ -156,6 +156,10 @@ class ManagerOrderController extends BaseAdminController
         $productOrder = array();
         $total_product = 0;
         $total_money = 0;
+        /*********************************************************************************************
+         * thêm đơn hàng mới
+         * *******************************************************************************************
+         */
 
         $dataOrder['order_customer_name'] = Request::get('order_customer_name','');
         $dataOrder['order_customer_phone'] = Request::get('order_customer_phone','');
@@ -208,10 +212,7 @@ class ManagerOrderController extends BaseAdminController
         }
         //FunctionLib::debug($dataOrder);
         if(!empty($productOrder)){
-            /*************************
-             * sửa thông tin đơn hàng
-             * ***********************
-             */
+            //sửa thông tin đơn hàng
             if((int)$order_id > 0){
                 //cap nhat đơn hàng
                 $OrderIdUpdate = Order::updateData($order_id,$dataOrder);
@@ -223,10 +224,7 @@ class ManagerOrderController extends BaseAdminController
                     return Redirect::route('admin.managerOrderView');
                 }
             }
-            /*************************
-             * thêm đơn hàng
-             * ***********************
-             */
+            //thêm đơn hàng
             elseif((int)$order_id == 0){
                 $dataOrder['order_time_creater'] = time();
                 $orderId = Order::addData($dataOrder);
@@ -291,7 +289,7 @@ class ManagerOrderController extends BaseAdminController
         return Response::json($arrAjax);
     }
 
-    public function deleteOrderShop(){
+    public function deleteOrder(){
         $data = array('isIntOk' => 0);
         if(!$this->is_root){
             return Response::json($data);

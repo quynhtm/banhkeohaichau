@@ -171,5 +171,19 @@ class OrderItem extends Eloquent
             throw new PDOException();
         }
     }
+    public static function deleteOrderItemByOrderId($order_id){
+        $number_delete = 0;
+        if($order_id > 0){
+            $OrderItem = OrderItem::where('order_id', $order_id)->get();
+            if($OrderItem){
+                foreach($OrderItem as $item){
+                    $dataSave = OrderItem::find($item->order_item_id);
+                    $dataSave->delete();
+                    $number_delete ++;
+                }
+            }
+        }
+        return $number_delete;
+    }
 
 }

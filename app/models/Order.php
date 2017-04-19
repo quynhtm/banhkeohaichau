@@ -191,6 +191,10 @@ class Order extends Eloquent
             DB::connection()->getPdo()->beginTransaction();
             $dataSave = Order::find($id);
             $dataSave->delete();
+            //xóa b?ng orderItem
+            if(isset($dataSave->order_id) && $dataSave->order_id > 0){
+                OrderItem::deleteOrderItemByOrderId($dataSave->order_id);
+            }
             DB::connection()->getPdo()->commit();
             return true;
         } catch (PDOException $e) {

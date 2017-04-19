@@ -184,8 +184,10 @@
                                     @if($is_root || $permission_full || $permission_edit ==1  )
                                         &nbsp;&nbsp;<a href="{{URL::route('admin.addOrder',array('order_id' => $item->order_id))}}" title="Sửa item"><i class="fa fa-edit fa-2x"></i></a>
                                     @endif
-                                    @if($is_root || $permission_full || $permission_delete)
-                                        &nbsp;&nbsp;<a href="javascript:void(0);" onclick="Admin.deleteItem({{$item->order_id}},8)" title="Xóa Item"><i class="fa fa-trash fa-2x"></i></a>
+                                    @if($item->order_status != CGlobal::order_status_succes)
+                                        @if($is_root || $permission_full || $permission_delete)
+                                            &nbsp;&nbsp;<a href="javascript:void(0);" onclick="Admin.deleteItem({{$item->order_id}},4)" title="Xóa Item"><i class="fa fa-trash fa-2x"></i></a>
+                                         @endif
                                      @endif
                                     <span class="img_loading" id="img_loading_{{$item->order_id}}"></span>
 
