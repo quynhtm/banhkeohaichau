@@ -7,7 +7,6 @@
         <ul class="support">
             <li>Hotline: {{$hotline}}</li>
             <li><a href="{{URL::route('site.pageCareCustomer')}}">Chăm sóc khách hàng</a></li>
-            <li><a href="">Kiểm tra đơn hàng</a></li>
         </ul>
     </div>
 </div>

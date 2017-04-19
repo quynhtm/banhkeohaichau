@@ -69,7 +69,7 @@
                         </li>
                         @endforeach
                     </ul>
-                    <div class="link-last-consult"><a href="">Xem tất cả</a></div>
+                    <div class="link-last-consult"><a href="{{URL::route('site.home')}}/tin-tuc-33.html">Xem tất cả</a></div>
                 </div>
                 @endif
             </div>

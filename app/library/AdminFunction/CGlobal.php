@@ -245,8 +245,8 @@ class CGlobal{
     const LINK_FOLLOW = 1;
    
     //Duy bo sung
-    const phoneSupport = '0913.922.986';
-    const emailAdmin = 'nguyenduypt86@gmail.com';
+    const phoneSupport = '0948.692.692';
+    const emailAdmin = 'anhsang050987@gmail.com';
     //Api Key Facebook
     const facebook_app_id = '877008089154072';
     const facebook_app_secret = '6445041d663007b8ffaeff1de37aad32';
