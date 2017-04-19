@@ -160,9 +160,7 @@ class CGlobal{
     const FOLDER_CATEGORY = 'category';
     const FOLDER_INFORSEO = 'inforSeo';
     const FOLDER_LIBRARY_IMAGE = 'libraryImage';
-
 	const FOLDER_INFO = 'info';
-
     //shop
     const SHOP_FREE = 1;
     const SHOP_NOMAL = 2;

@@ -12,7 +12,7 @@ class News extends Eloquent
     //cac truong trong DB
     protected $fillable = array('news_id','news_title', 'news_desc_sort',
         'news_content', 'news_image', 'news_image_other',
-        'news_create','news_user_create','news_update','news_user_update', 'news_hot', 'new_infor_other',
+        'news_create','news_user_create','news_update','news_user_update', 'news_hot', 'new_infor_other', 'news_files',
         'meta_title', 'meta_keywords', 'meta_description',
         'news_type', 'news_category_parent', 'news_category','news_category_name', 'news_status');
 
@@ -150,6 +150,15 @@ class News extends Eloquent
                         }
                     }
                 }
+
+                $arrFile = ($dataSave->news_files != '') ? unserialize($dataSave->news_files) : array();
+                if(sizeof($arrFile) > 0){
+                    foreach($arrFile as $k=>$v){
+                        unset($arrFile[$k]);
+                        FunctionLib::deleteFileUpload($v,$id,CGlobal::FOLDER_NEWS);
+                    }
+                }
+
                 self::removeCache($dataSave->news_id);
             }
             DB::connection()->getPdo()->commit();

@@ -7,6 +7,7 @@
 class AjaxCommonController extends BaseSiteController
 {
     private  $sizeImageShowUpload = CGlobal::sizeImage_100;
+
     function uploadImage() {
         $id_hiden = Request::get('id', 0);
         $type = Request::get('type', 1);
@@ -382,5 +383,192 @@ class AjaxCommonController extends BaseSiteController
     		
     	}
     	return json_encode($result);
+    }
+    //Duy add
+    function upload(){
+        $action = addslashes(Request::get('act', ''));
+        switch( $action ){
+            case 'upload_file' :
+                $this->upload_file();
+                break;
+            case 'remove_file' :
+                $this->remove_file();
+                break;
+            default:
+                $this->nothing();
+                break;
+        }
+    }
+    function upload_file() {
+        $id_hiden =  Request::get('id', 0);
+        $type = Request::get('type', 1);
+        $dataImg = $_FILES["multipleFile"];
+        $aryData = array();
+        $aryData['intIsOK'] = -1;
+        $aryData['msg'] = "Data not exists!";
+
+        switch( $type ){
+            case 10 ://File Document
+                $aryData = $this->uploadDocumentToFolder($dataImg, $id_hiden, CGlobal::FOLDER_NEWS, $type);
+                break;
+            default:
+                break;
+        }
+        echo json_encode($aryData);
+        exit();
+    }
+    function uploadDocumentToFolder($dataImg, $id_hiden, $folder, $type){
+        $aryData = array();
+        $aryData['intIsOK'] = -1;
+        $aryData['msg'] = "Upload Img!";
+        $item_id = 0;
+        $name_key = 0;
+        if (!empty($dataImg)) {
+            if($id_hiden == 0){
+
+                switch($type){
+                    case 10://File document
+                        $new_row['news_create'] = time();
+                        $new_row['news_status'] = CGlobal::IMAGE_ERROR;
+                        $item_id = News::addData($new_row);
+                        break;
+                    default:
+                        break;
+                }
+            }elseif($id_hiden > 0){
+                $item_id = $id_hiden;
+            }
+            if($item_id > 0){
+                $aryError = $tmpImg = array();
+                $file_name = Upload::uploadFile('multipleFile',
+                    $_file_ext = 'xls,xlsx,doc,docx,pdf,rar,zip,tar,mp4,flv,avi,3gp,mov',
+                    $_max_file_size = 50*1024*1024,
+                    $_folder = $folder.'/'.$item_id,
+                    $type_json=0);
+                if($file_name != '' && empty($aryError)) {
+                    $tmpImg['name_file'] = $file_name;
+                    $tmpImg['id_key'] = rand(10000, 99999);
+
+                    switch($type){
+                        case 10://File Document
+                            $result = News::getNewByID($item_id);
+                            if($result != null){
+                                $arr_file = ($result->news_files != '') ? unserialize($result->news_files) : array();
+                                $arr_file[] = $file_name;
+                                $new_row['news_files'] = serialize($arr_file);
+                                News::updateData($item_id, $new_row);
+                                $url_file = Config::get('config.WEB_ROOT').'uploads/'.$folder.'/'.$item_id.'/'.$file_name;
+                                $tmpImg['src'] = $url_file;
+                                foreach($arr_file as $_k=>$_v){
+                                    if($_v == $file_name){
+                                        $tmpImg['name_key'] = $_k;;
+                                    }
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+
+                    $aryData['intIsOK'] = 1;
+                    $aryData['id_item'] = $item_id;
+                    $aryData['info'] = $tmpImg;
+                }
+            }
+        }
+        return $aryData;
+    }
+    function remove_file(){
+
+        $id = (int)Request::get('id', 0);
+        $key = (int)Request::get('key', 0);
+        $nameImage = Request::get('nameImage', '');
+        $type = (int)Request::get('type', 1);
+
+        $aryData = array();
+        $aryData['intIsOK'] = -1;
+        $aryData['msg'] = "Remove Img!";
+        $aryData['nameImage'] = $nameImage;
+
+        switch( $type ){
+            case 10://File Document
+                $folder_image = 'uploads/'.CGlobal::FOLDER_NEWS;
+                if($id > 0 && $nameImage != '' && $folder_image != ''){
+                    $delete_action = $this->delete_image_item($id, $key, $nameImage, $folder_image, $type);
+                    if($delete_action == 1){
+                        $aryData['intIsOK'] = 1;
+                        $aryData['msg'] = "Remove Img!";
+                    }
+                }
+                break;
+            default:
+                $folder_image = '';
+                break;
+        }
+        echo json_encode($aryData);
+        exit();
+    }
+    function delete_image_item($id, $key, $nameImage, $folder_image, $type){
+        $delete_action = 0;
+        $aryImages  = array();
+        //get img in DB and remove it
+        switch( $type ){
+            case 10://File Document
+                $result = News::getNewByID($id);
+                if($result != ''){
+                    $aryImages = ($result->news_files != '') ? unserialize($result->news_files) : array();
+                }
+                break;
+            default:
+                $folder_image = '';
+                break;
+        }
+
+        if(is_array($aryImages) && count($aryImages) > 0) {
+            $this->unlinkFileAndFolder($nameImage, $id, $folder_image, true);
+            unset($aryImages[$key]);
+            if(!empty($aryImages)){
+                $aryImages = serialize($aryImages);
+            }else{
+                $aryImages = '';
+            }
+            switch( $type ){
+                case 10://File Document
+                    $new_row['news_files'] = $aryImages;
+                    News::updateData($id, $new_row);
+                    break;
+                default:
+                    $folder_image = '';
+                    break;
+            }
+            $delete_action = 1;
+        }
+        return $delete_action;
+    }
+    function unlinkFileAndFolder($file_name = '', $id = 0, $folder = '', $is_delDir = 0){
+
+        if($file_name != '') {
+            //Remove Img In Database
+            $paths = '';
+            if($folder != '' && $id >0){
+                $path = Config::get('config.DIR_ROOT').'/'.$folder.'/'.$id;
+            }
+
+            if($file_name != ''){
+                if($path != ''){
+                    if(is_file($path.'/'.$file_name)){
+                        @unlink($path.'/'.$file_name);
+                    }
+                }
+            }
+            //Remove Folder Empty
+            if($is_delDir) {
+                if($path != ''){
+                    if(is_dir($path)) {
+                        @rmdir($path);
+                    }
+                }
+            }
+        }
     }
 }

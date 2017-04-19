@@ -2174,3 +2174,6 @@ form#txtFormPaymentCart .form-group label {
     color: #ff0000;
     font-size: 18px;
 }
+.content-view a {
+    color: #ff0000;
+}
