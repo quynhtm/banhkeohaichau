@@ -2164,3 +2164,8 @@ form#txtFormPaymentCart .form-group label {
     margin-top: 10px;
     text-align: center;
 }
+.list-shop-cart-item.ext,
+.list-shop-cart-item.ext *{
+    font-size: 15px;
+    font-weight: 400;
+}

@@ -381,19 +381,6 @@ class SiteUserCustomerController extends BaseSiteController{
     	
     	echo $error;die;
 	}
-    public function historyBuy(){
-        if(!Session::has('user_customer')){
-            return Redirect::route('site.home');
-        }
-        $this->header();
-        $dataShow = array();
-        $messages = '';
-        $this->user_customer = Session::get('user_customer');
-
-        $this->layout->content = View::make('site.CustomerLayouts.HistoryBuy')
-                        ->with('messages',$messages)->with('user_customer',$this->user_customer);
-        $this->footer();
-    }
 	//Login Facebook - Google
 	public function loginFacebook(){
 		
