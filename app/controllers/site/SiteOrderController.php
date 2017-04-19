@@ -307,6 +307,43 @@ class SiteOrderController extends BaseSiteController
     	$this->layout->content = View::make('site.SiteOrder.thanksBuy');
     	$this->footer();
     }
+    public function historyBuy(){
+        if(!Session::has('user_customer')){
+            return Redirect::route('site.home');
+        }
+
+        $meta_title = $meta_keywords = $meta_description = 'Lịch sử mua hàng';
+        $meta_img = '';
+        FunctionLib::SEO($meta_img, $meta_title, $meta_keywords, $meta_description);
+
+        $messages = '';
+        $this->user_customer = Session::get('user_customer');
+        $data = array();
+
+        $pageNo = (int) Request::get('page_no',1);
+        $limit = CGlobal::number_limit_show;
+        $offset = ($pageNo - 1) * $limit;
+        $search = $data = array();
+        $total = 0;
+
+        $search['order_customer_phone'] = isset($this->user_customer['customer_phone'])? $this->user_customer['customer_phone'] : '';
+        $search['order_customer_email'] = isset($this->user_customer['customer_email'])? $this->user_customer['customer_email'] : '';
+
+        if($search['order_customer_phone'] != '' && $search['order_customer_email'] != '') {
+            $data = Order::searchByCondition($search, $limit, $offset, $total);
+            $paging = $total > 0 ? Pagging::getNewPager(3, $pageNo, $total, $limit, $search) : '';
+        }
+
+        $this->header();
+        $this->layout->content = View::make('site.CustomerLayouts.HistoryBuy')
+                                ->with('messages',$messages)
+                                ->with('user_customer',$this->user_customer)
+                                ->with('data',$data)
+                                ->with('total', $total)
+                                ->with('stt', ($pageNo-1)*$limit)
+                                ->with('paging', $paging);
+        $this->footer();
+    }
     public function favoriteProduct(){
         echo "Updating...";die;
     }

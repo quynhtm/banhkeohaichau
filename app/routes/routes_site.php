@@ -48,7 +48,7 @@ Route::match(['GET','POST'], 'xoa-gio-hang.html', array('as' => 'site.deleteAllI
 Route::match(['GET','POST'], 'gui-don-hang.html',array('as' => 'site.sendCartOrder','uses' =>'SiteOrderController@sendCartOrder'));
 Route::get('cam-on-da-mua-hang.html',array('as' => 'site.thanksBuy','uses' =>'SiteOrderController@thanksBuy'));
 Route::get('san-pham-yeu-thich.html',array('as' => 'site.favoriteProduct','uses' =>'SiteOrderController@favoriteProduct'));
-Route::get('lich-su-mua-hang.html',array('as' => 'customer.historyBuy','uses' =>'SiteUserCustomerController@historyBuy'));
+Route::get('lich-su-mua-hang.html',array('as' => 'customer.historyBuy','uses' =>'SiteOrderController@historyBuy'));
 
 
 
