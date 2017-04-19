@@ -9,12 +9,29 @@
 class BaseSiteController extends BaseController{
     protected $layout = 'site.BaseLayouts.index';
     protected $userAdmin = array();
+    protected $user_customer = array();
+
     public function __construct(){
     	FunctionLib::site_css('font-awesome/4.2.0/css/font-awesome.min.css', CGlobal::$POS_HEAD);
     	FunctionLib::site_js('frontend/js/site.js', CGlobal::$POS_END);
+        FunctionLib::site_css('frontend/css/usercustomer.css', CGlobal::$POS_HEAD);
+        FunctionLib::site_js('frontend/js/usercustomer.js', CGlobal::$POS_END);
+        FunctionLib::site_js('frontend/js/cart.js', CGlobal::$POS_END);
+        FunctionLib::site_css('lib/jAlert/jquery.alerts.css', CGlobal::$POS_HEAD);
+        FunctionLib::site_js('lib/jAlert/jquery.alerts.js', CGlobal::$POS_END);
         $this->userAdmin = User::user_login();
+        $this->user_customer = Session::has('user_customer') ? Session::get('user_customer') : array();
     }
     public function header($catid=0){
+
+        $messages = FunctionLib::messages('messages');
+        $user_customer = $this->user_customer;
+        if(empty($user_customer)){
+            $this->popupHide();
+        }
+
+        $keyword = addslashes(Request::get('keyword',''));
+
         $hotline = '';
         $arrHotline = Info::getItemByKeyword('SITE_NUM_NICK_SUPPORT_ONLINE');
         if(sizeof($arrHotline) > 0){
@@ -29,11 +46,19 @@ class BaseSiteController extends BaseController{
         $menuCateHorizontal = Category::getAllCategoryByType(CGlobal::category_new, $numCategoryHorizontal);
         $menuCateVertical = Category::getAllCategoryByType(CGlobal::category_product, 0);
 
+        $numCart = $this->countNumCart();
+        $numFavorite = $this->countNumFavorite();
+
     	$this->layout->header = View::make("site.BaseLayouts.header")
                                 ->with('catid', $catid)
                                 ->with('hotline', $hotline)
                                 ->with('menuCateHorizontal', $menuCateHorizontal)
-                                ->with('menuCateVertical', $menuCateVertical);
+                                ->with('menuCateVertical', $menuCateVertical)
+                                ->with('user_customer', $user_customer)
+                                ->with('messages', $messages)
+                                ->with('keyword', $keyword)
+                                ->with('numCart', $numCart)
+                                ->with('numFavorite', $numFavorite);
     }
     public function middle(){
 
@@ -75,13 +100,24 @@ class BaseSiteController extends BaseController{
                                 ->with('hotline', $hotline);
     }
 	public function footer(){
-        $footer = '';
-        $arrFooter = Info::getItemByKeyword('SITE_FOOTER_LEFT');
-        if(sizeof($arrFooter) > 0){
-            $footer = stripslashes($arrFooter->info_content);
+        $address = '';
+        $arrAddress = Info::getItemByKeyword('SITE_ADDRESS_FOOTER');
+        if(sizeof($arrAddress) > 0){
+            $address = strip_tags(stripslashes($arrAddress->info_content));
         }
-		$this->layout->footer = View::make("site.BaseLayouts.footer")->with('footer', $footer);
+
+        $phone = '';
+        $arrPhone = Info::getItemByKeyword('SITE_PHONE_FOOTER');
+        if(sizeof($arrPhone) > 0){
+            $phone = strip_tags(stripslashes($arrPhone->info_content));
+        }
+
+		$this->layout->footer = View::make("site.BaseLayouts.footer")->with('address', $address)->with('phone', $phone);
 	}
+
+    public function popupHide(){
+        $this->layout->popupHide = View::make("site.BaseLayouts.popupHide");
+    }
 
     public static function getPostInCategoryId($cat_id=0, $limit_post=0){
         $result = array();
@@ -149,5 +185,31 @@ class BaseSiteController extends BaseController{
             }
         }
         return $result;
+    }
+
+    public function countNumCart(){
+        $cartItem = 0;
+        if(Session::has('cart')){
+            $data = Session::get('cart');
+            foreach($data as $v){
+                if($v){
+                    $cartItem += $v;
+                }
+            }
+        }
+        return $cartItem;
+    }
+
+    public function countNumFavorite(){
+        $favoriteItem = 0;
+        if(Session::has('favorite')){
+            $data = Session::get('favorite');
+            foreach($data as $v){
+                if($v){
+                    $favoriteItem += $v;
+                }
+            }
+        }
+        return $favoriteItem;
     }
 }

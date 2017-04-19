@@ -1,10 +1,10 @@
 <div class="line-consult">
-    <div class="container">
+    <div class="container mb">
         <div class="row">
             <div class="col-lg-9 col-md-9 col-sm-12">
                 @if(sizeof($data_yKien_khachHang) > 0)
                     @if(isset($data_yKien_khachHang['cat']))
-                    <div class="title-customer-post"><a @if(isset($data_yKien_khachHang['cat']['category_id']) && $data_yKien_khachHang['cat']['category_id'] > 0) href="{{FunctionLib::buildLinkCategory($data_yKien_khachHang['cat']['category_id'], $data_yKien_khachHang['cat']['category_name'])}}" @endif title="{{$data_yKien_khachHang['cat']['category_name']}}">{{$data_yKien_khachHang['cat']['category_name']}}</a> <i class="bg"></i></div>
+                    <div class="title-customer-post"><a @if(isset($data_yKien_khachHang['cat']['category_id']) && $data_yKien_khachHang['cat']['category_id'] > 0) href="{{FunctionLib::buildLinkCategory($data_yKien_khachHang['cat']['category_id'], $data_yKien_khachHang['cat']['category_name'])}}" @endif title="{{$data_yKien_khachHang['cat']['category_name']}}">{{$data_yKien_khachHang['cat']['category_name']}}</a></div>
                     @endif
                     <div class="box-customer-post">
                         @if(isset($data_yKien_khachHang['post']))

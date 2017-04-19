@@ -2,9 +2,7 @@
 	<div class="post-page">
 		<div class="content-post-line-product ext">
 			<h1 class="title-head cat">
-				@if(sizeof($type) > 0)
-				<a href="{{FunctionLib::buildLinkTypeProduct($type->department_id, $type->department_name)}}" title="{{stripslashes($type->department_name)}}">{{stripslashes($type->department_name)}}</a>
-				@endif
+				<span href="{{URL::route('site.pageSearchProduct')}}" title="Tìm kiếm">Tìm kiếm: <span class="count-search">Có {{count($arrItem)}} kết quả phù hợp với từ khóa</span></a>
 			</h1>
 			@if(sizeof($arrItem) > 0)
 				<div class="box-list-item">
@@ -41,6 +39,8 @@
 					@endif
 				</div>
 				<div class="show-box-paging">{{$paging}}</div>
+			@else
+				<div class="update">Không có kết quả phù hợp với từ khóa.</div>
 			@endif
 		</div>
 	</div>

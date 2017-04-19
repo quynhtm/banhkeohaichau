@@ -1,7 +1,8 @@
 jQuery(document).ready(function($){
 	SITE.backTop();
 	SITE.contact();
-	SITE.tab_detail_product();
+	SITE.tabDetailProduct();
+	SITE.menuMobile();
 });
 
 SITE={
@@ -87,7 +88,7 @@ SITE={
             img.src = img.src.substring(0,img.src.lastIndexOf("?"))+"?rand="+Math.round(1000*Math.random());
 		});
 	},
-    tab_detail_product:function(){
+    tabDetailProduct:function(){
         jQuery('.conditions-tab li').click(function(){
             var tab_select = jQuery(this).attr('data');
             jQuery('.conditions-tab li').removeClass('selected');
@@ -96,4 +97,12 @@ SITE={
             jQuery('.content-tab .item-tab.'+tab_select).addClass('act');
         });
     },
+	menuMobile:function(){
+        $('#toggle-menu').click(function(){
+        	$('.box-list-category').addClass('show');
+		});
+        $('.icon-close').click(function(){
+            $('.box-list-category').removeClass('show');
+        });
+	},
 }

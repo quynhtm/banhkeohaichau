@@ -3,7 +3,7 @@
         <div class="wrap-get-mail">
             <div class="col-lg-4 col-md-4 col-sm-12">
                 Đăng ký nhận thông tin từ Hải Châu
-                <br><span>để nắm bắt giá cả thị trường ôtô cũ Việt Nam</span>
+                <br><span>để nắm bắt giá cả thị trường bánh kẹo Việt Nam</span>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-12">
                 <div class="box-get-mail">
@@ -33,8 +33,8 @@
                     <a class="bg ic icon-p" href="">P</a>
                 </div>
                 <div class="title-connect">THÔNG TIN LIÊN HỆ</div>
-                <div class="bg address-connect">15 Mạc Thị Bưởi, Quận Hai Bà Trưng, Hà Nội</div>
-                <div class="bg phone-connect">+(84-4).38621520 - 36365592</div>
+                <div class="bg address-connect">{{$address}}</div>
+                <div class="bg phone-connect">{{$phone}}</div>
             </div>
         </div>
     </div>

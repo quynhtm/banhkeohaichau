@@ -245,8 +245,16 @@ class CGlobal{
     const LINK_FOLLOW = 1;
    
     //Duy bo sung
+    const phoneSupport = '0913.922.986';
     const emailAdmin = 'nguyenduypt86@gmail.com';
-    
+    //Api Key Facebook
+    const facebook_app_id = '877008089154072';
+    const facebook_app_secret = '6445041d663007b8ffaeff1de37aad32';
+    const facebook_default_graph_version = 'v2.8';
+    //Api Key Google
+    const google_client_id = '1059449030226-jguj2erddijjhu61q76pfv60810i9d04.apps.googleusercontent.com';
+    const google_client_secret = 'GylcMhdl7LlmOnIxLoNj0_np';
+
     public static $arrIconSpecals = array(
     	'\r\n', '☎', '👉', '✈', '🍬', '🏃', '🏻', '😁','🍬', '🏃🏻', '💃🏽', '✅', '😜', '🌳', '🌴', '🌲', '🌱',
     	'🌻', '🐮', '🐃', '🐎', '🐎', '🐓', '🐔', '🐗', '💥'

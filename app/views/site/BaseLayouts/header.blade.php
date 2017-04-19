@@ -13,6 +13,9 @@
 </div>
 <div class="mid-head">
     <div class="container">
+        <div class="toggle-menu" id="toggle-menu">
+            <i class="fa fa-th-list"></i>
+        </div>
         @if(Route::currentRouteName() == 'site.home')
             <h1 id="logo">
                 <a href="{{URL::route('site.home')}}">
@@ -27,20 +30,37 @@
             </div>
         @endif
         <div class="box-search">
-            {{Form::open(array('method' => 'GET', 'id'=>'frmsearch', 'class'=>'frmsearch', 'name'=>'frmsearch', 'url'=>URL::route('site.home') ))}}
+            {{Form::open(array('method' => 'GET', 'id'=>'frmsearch', 'class'=>'frmsearch', 'name'=>'frmsearch', 'url'=>URL::route('site.pageSearchProduct') ))}}
             <input name="keyword" class="keyword" @if(isset($keyword) && $keyword != '')value="{{$keyword}}"@endif autocomplete="off" placeholder="Tìm kiếm nhiều: Hộp bánh kem xốp phủ Socola..." type="text">
             <button type="submit" class="btn-search"><i class="fa fa-search"></i></button>
             {{Form::close()}}
         </div>
         <div class="box-right-mid">
             <ul class="line text-right">
-                <li class="box-radius box-cart"><a href=""><i class="bg"></i> Giỏ hàng <span>25</span></a></li>
-                <li class="box-radius box-favorite"><a href=""><i class="bg"></i> Yêu thích <span>10</span></a></li>
+                @if(isset($numCart))
+                <li class="box-radius box-cart"><a href="{{URL::route('site.listCartOrder')}}"><i class="bg"></i> Giỏ hàng <span title="{{$numCart}}">{{$numCart}}</span></a></li>
+                @endif
+                @if(isset($numFavorite))
+                <li class="box-radius box-favorite"><a href="{{URL::route('site.favoriteProduct')}}"><i class="bg"></i> Yêu thích <span title="{{$numFavorite}}">{{$numFavorite}}</span></a></li>
+                @endif
             </ul>
-            <ul class="box-reg line text-right">
-                <li class="box-radius"><a href="">Đăng nhập</a></li>
-                <li class="box-radius"><a href="">Đăng ký</a></li>
-            </ul>
+            @if(empty($user_customer))
+                <ul class="box-reg line text-right">
+                    <li class="box-radius clickLogin"><a href="javascript:void(0);">Đăng nhập</a></li>
+                    <li class="box-radius clickRegister"><a href="javascript:void(0);">Đăng ký</a></li>
+                </ul>
+            @else
+                <div class="box-login">
+                    <div class="cpanel-page">
+                        <a href="javascript:void(0)" class="name-customer">Chào: {{isset($user_customer['customer_name']) ? $user_customer['customer_name'] : 'No Name'}}</a>
+                        <ul class="list-cpanel">
+                            <li><a href="{{URL::route('customer.historyBuy')}}" rel="nofollow"><i class="glyphicon glyphicon-shopping-cart"></i> Lịch sử mua hàng</a></li>
+                            <li><a href="{{URL::route('customer.pageChageInfo')}}" rel="nofollow"><i class="glyphicon glyphicon-align-left"></i> Thông tin cá nhân</a></li>
+                            <li><a href="{{URL::route('customer.logout')}}" rel="nofollow"><i class="glyphicon glyphicon-share-alt"></i> Thoát</a></li>
+                        </ul>
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
 </div>
@@ -51,11 +71,14 @@
                 <span class="txt-title-category">Danh mục sản phẩm</span>
                 @if(Route::currentRouteName() != 'site.home')
                 <div class="box-list-category dropdown">
+                    <div class="line-text-close">
+                        <span class="icon-close">Close Menu</span>
+                    </div
                     @if(sizeof($menuCateVertical) > 0)
                         <ul>
                             <?php $i=1; ?>
                             @foreach($menuCateVertical as $cat)
-                                @if($cat->category_menu_status == CGlobal::status_show && $cat->category_parent_id == 0 && $i <= 14)
+                                @if($cat->category_menu_status == CGlobal::status_show && $cat->category_parent_id == 0 && $i <= 13)
                                     <?php $s=1; ?>
                                     <?php
                                     $i++;
