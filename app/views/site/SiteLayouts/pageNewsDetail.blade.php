@@ -27,7 +27,7 @@
                         @if($data->news_desc_sort != '')
                             <div class="intro-view">{{stripslashes($data->news_desc_sort)}}</div>
                         @endif
-                        @if($data->news_content != '')
+                        @if($data->news_desc_sort != '')
                         <div class="content-view">{{stripslashes($data->news_content)}}</div>
                         @endif
                     </div>

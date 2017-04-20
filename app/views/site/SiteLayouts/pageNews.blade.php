@@ -32,6 +32,8 @@
 									<div class="post-content">
 										@if($item['news_intro'] != '')
 											{{FunctionLib::substring(stripslashes($item['news_intro']), 300, '...') }}
+										@else
+											{{FunctionLib::substring(stripslashes($item['news_content']), 300, '...') }}
 										@endif
 									</div>
 									<div class="redmore">Xem thêm</div>

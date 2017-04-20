@@ -72,7 +72,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    [<b>{{ $item['news_id'] }}</b>]<a href="{{FunctionLib::buildLinkDetailNews($item['news_category_name'], $item['news_title'], $item['news_id'])}}" target="_blank">{{ $item['news_title'] }}</a>
+                                    [<b>{{ $item['news_id'] }}</b>]<a href="{{FunctionLib::buildLinkDetailNews($item['news_id'],$item['news_title'])}}" target="_blank">{{ $item['news_title'] }}</a>
                                 </td>
                                 <td>
                                     @if(isset($arrCategoryNew[$item->news_category]))

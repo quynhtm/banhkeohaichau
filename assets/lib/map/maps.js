@@ -2,7 +2,7 @@
 
 function initialize() {
 	 
-	var myLatlng = new google.maps.LatLng(21.00034, 105.86934);
+	var myLatlng = new google.maps.LatLng(21.03026, 105.80089);
     var myOptions = {
       zoom: 16,
       center: myLatlng,
@@ -12,7 +12,7 @@ function initialize() {
     
     var map = new google.maps.Map(document.getElementById("mapCanvas"), myOptions);
 
-    var contentString = 'Công ty cổ phần bánh kẹo Hải Châu<br/>Địa chỉ: 15 Mạc Thị Bưởi, Quận Hai Bà Trưng, Hà Nội ';
+    var contentString = 'Shop: SanPhamReDep.COM';
 
     var infowindow = new google.maps.InfoWindow({
         content: contentString
@@ -20,7 +20,7 @@ function initialize() {
     var marker = new google.maps.Marker({
         position: myLatlng,
         map: map,
-        title: 'Haichau.com.vn'
+        title: 'SanPhamReDep.COM'
     });
     google.maps.event.addListener(marker, 'click', function() {
       infowindow.open(map,marker);
