@@ -258,4 +258,8 @@ class CGlobal{
     	'🌻', '🐮', '🐃', '🐎', '🐎', '🐓', '🐔', '🐗', '💥'
     );
     const linkMail = 'http://mail.cdsptw.edu.vn';
+	const linkFanpageFacebook = 'https://www.facebook.com/banhkeohaichaus/?ref=ts&fref=ts';
+	
+	
+	
 }

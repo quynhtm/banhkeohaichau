@@ -25,7 +25,7 @@
             <div class="connect-us">
                 <div class="title-connect">Follow  US</div>
                 <div class="list-item-social">
-                    <a class="bg ic icon-fb" href="">F</a>
+                    <a class="bg ic icon-fb" href="{{CGlobal::linkFanpageFacebook}}" target="blank" rel="CGlobal">F</a>
                     <a class="bg ic icon-g" href="">G</a>
                     <a class="bg ic icon-i" href="">I</a>
                     <a class="bg ic icon-y" href="">Y</a>
