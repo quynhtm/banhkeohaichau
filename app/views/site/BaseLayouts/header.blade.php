@@ -40,7 +40,7 @@
                 <li class="box-radius box-cart"><a href="{{URL::route('site.listCartOrder')}}"><i class="bg"></i> Giỏ hàng <span title="{{$numCart}}">{{$numCart}}</span></a></li>
                 @endif
                 @if(isset($numFavorite))
-                <li class="box-radius box-favorite"><a href="{{URL::route('site.favoriteProduct')}}"><i class="bg"></i> Yêu thích <span title="{{$numFavorite}}">{{$numFavorite}}</span></a></li>
+                <li class="box-radius box-favorite"><a href="{{URL::route('site.home')}}"><i class="bg"></i> Yêu thích <span title="{{$numFavorite}}">{{$numFavorite}}</span></a></li>
                 @endif
             </ul>
             @if(empty($user_customer))
