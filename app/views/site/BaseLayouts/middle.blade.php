@@ -86,7 +86,7 @@
                     </div>
                     @endif
                 </div>
-				<div class="line-sologan-content ">
+				<div class="line-sologan-content">
 					<div class="line-sologan">
 						<div class="col-xs-6 col-md-3">
 							<div class="bg-icon iconsl icon1">
