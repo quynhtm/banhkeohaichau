@@ -26,6 +26,19 @@
     font-weight: normal;
     font-style: normal;
 }
+/*
+@font-face {
+    font-family: 'BreeSerif';
+    src: url('../fonts/BreeSerif.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/BreeSerif.otf') format('opentype'),
+    url('../fonts/BreeSerif.woff') format('woff'),
+    url('../fonts/BreeSerif.ttf') format('truetype'),
+    url('../fonts/BreeSerif.svg#BreeSerif') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+*/
+
 /*Default*/
 *{
     margin: 0;
@@ -35,7 +48,9 @@ body{
     background: #e0e1e4 url("../img/bg-body.png") repeat 0 0;
     color: #333;
     font-family: 'Lato-Regular', Helvetica,Arial,sans-serif;
-    font-size: 13px;
+	#font-family: 'BreeSerif', Arial, sans-serif!important;
+   
+	font-size: 13px;
     line-height: 1.42857;
     padding-right: 0!important;
     overflow-x: hidden!important;
