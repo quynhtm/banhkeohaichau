@@ -108,20 +108,11 @@ class Order extends Eloquent
             }
 
             $query->orderBy($tbl_Order.'.order_id', 'desc');
-            $query->groupBy($tbl_Order.'.order_id');
-            $total = $query->count();
-
-            $fields = array(
-                $tbl_Order.'.*',
-            );
-
-            //get field can lay du lieu
-            $fields = (isset($dataSearch['field_get']) && trim($dataSearch['field_get']) != '') ? explode(',',trim($dataSearch['field_get'])): $fields;
-            if(!empty($fields)){
-                $result = $query->take($limit)->skip($offset)->get($fields);
-            }else{
-                $result = $query->take($limit)->skip($offset)->get();
-            }
+            $query->groupBy($tbl_OrderItem.'.order_id');
+            $query->select(DB::raw($tbl_Order . '.*, GROUP_CONCAT(' . $tbl_OrderItem . '.order_id) as orders_list_item_id'));
+            $total = count($query->lists($tbl_Order.'.order_id'));
+            $result = $query->take($limit)->offset($offset)->get();
+            
             return $result;
         }catch (PDOException $e){
             throw new PDOException();
