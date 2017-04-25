@@ -203,7 +203,7 @@ class NewsController extends BaseAdminController
 
     public function deleteNews(){
         $data = array('isIntOk' => 0);
-        if(!$this->is_root && !in_array($this->permission_full,$this->permission) && !in_array($this->permission_delete,$this->permission)){
+        if(!$this->is_root && !in_array($this->permission_delete,$this->permission)){
             return Response::json($data);
         }
         $id = (int)Request::get('id', 0);
