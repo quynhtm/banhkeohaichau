@@ -112,7 +112,7 @@ class Order extends Eloquent
             $query->select(DB::raw($tbl_Order . '.*, GROUP_CONCAT(' . $tbl_OrderItem . '.order_id) as orders_list_item_id'));
             $total = count($query->lists($tbl_Order.'.order_id'));
             $result = $query->take($limit)->offset($offset)->get();
-            
+
             return $result;
         }catch (PDOException $e){
             throw new PDOException();
