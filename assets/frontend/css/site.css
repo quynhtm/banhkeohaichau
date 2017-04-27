@@ -26,6 +26,16 @@
     font-weight: normal;
     font-style: normal;
 }
+@font-face {
+    font-family: 'BookmanOldStyle;
+    src: url('../fonts/BookmanOldStyle.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/BookmanOldStyle.otf') format('opentype'),
+    url('../fonts/BookmanOldStyle.woff') format('woff'),
+    url('../fonts/BookmanOldStyle.ttf') format('truetype'),
+    url('../fonts/BookmanOldStyle.svg#RobotoCondensed-Bold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
 /*
 @font-face {
     font-family: 'BreeSerif';
@@ -47,8 +57,8 @@
 body{
     background: #e0e1e4 url("../img/bg-body.png") repeat 0 0;
     color: #333;
-    font-family: 'Lato-Regular', Helvetica,Arial,sans-serif;
-	#font-family: 'BreeSerif', Arial, sans-serif!important;
+    #font-family: 'Lato-Regular', Helvetica,Arial,sans-serif;
+	font-family: 'BookmanOldStyle', Arial, sans-serif!important;
    
 	font-size: 13px;
     line-height: 1.42857;
@@ -561,7 +571,7 @@ h1, h2, h3, h4, h5, h6{
     border-radius: 5px;
     width: 18.5%;
     display: inline-block;
-    margin-right: 1.55%;
+    margin-right: 1.5%;
     text-align: center;
     position: relative;
 }
