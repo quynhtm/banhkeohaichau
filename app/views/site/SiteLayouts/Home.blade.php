@@ -4,7 +4,7 @@
             @if($type->department_status_home == 1)
             <div class="box-item-line">
                 <div class="line-title-menu-post">
-                    <div class="box-line-title-menu-post @if($k==1) blue @elseif($k==2) green @elseif($k==3) blue @elseif($k==4) brown @endif">{{$type->department_name}}</div>
+                    <div class="box-line-title-menu-post">{{$type->department_name}}</div>
                     <ul class="btn-more-title">
                         <li><a href="{{FunctionLib::buildLinkTypeProduct($type->department_id, $type->department_name)}}" title="{{stripslashes($type->department_name)}}"><i class="fa fa-angle-double-right icon-more-font"></i> Xem tất cả</a></li>
                     </ul>
