@@ -68,7 +68,7 @@ return array(
         'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'banhkeohaichau',
+			'database'  => 'project_haichau',
 			'username'  => 'root',
 			'password'  => '',
 			'charset'   => 'utf8',
